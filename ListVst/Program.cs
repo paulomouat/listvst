@@ -1,38 +1,57 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ListVst
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("List VSTs");
 
-            /* byte onColor = 65;
-            byte onColorLimit = 126;
-            byte offColor = 1;
+            var sourcePath = Environment.GetEnvironmentVariable("HOME") + "/Documents/projects/music";
+            //var sourcePath = "/Volumes/projects/music";
 
-            var bytes = File.ReadAllBytes("/Users/paulomouat/Documents/Midi Fighter Twister/cc-toggle-all.mfs");
-
-            var pos = 0;
-            while(pos < bytes.Length)
+            if (args.Length == 1)
             {
-                if (bytes[pos] == 20 && bytes[pos - 2] == 19 && bytes[pos - 4] == 18)
-                {
-                    bytes[pos - 1] = onColor;
-                    bytes[pos + 1] = offColor;
-                    if (onColor < onColorLimit)
-                        onColor++;
-                    offColor++;
-                }
-                Console.WriteLine(pos);
-                pos += 1;
+                sourcePath = args[0];
             }
 
-            File.WriteAllBytes("/Users/paulomouat/Documents/Midi Fighter Twister/gradient.mfs", bytes);*/
+            var p = new Program();
+            var sovsts = await p.ProcessStudioOneProjects(sourcePath);
+            var alvsts = await p.ProcessAbletonLiveProjects(sourcePath);
+
+            p.Output(sovsts);
+            p.Output(alvsts);
 
             Console.WriteLine("Done.");
+        }
+
+        private async Task<IEnumerable<VstList>> ProcessStudioOneProjects(string sourcePath)
+        {
+            var processor = new StudioOne.Processor();
+            return await processor.Process(sourcePath);
+        }
+
+        private async Task<IEnumerable<VstList>> ProcessAbletonLiveProjects(string sourcePath)
+        {
+            var processor = new AbletonLive.Processor();
+            return await processor.Process(sourcePath);
+        }
+
+        private void Output(IEnumerable<VstList> vsts)
+        {
+            foreach(var vstList in vsts)
+            {
+                Console.WriteLine(vstList.Path);
+                foreach(var vst in vstList.Vsts)
+                {
+                    Console.WriteLine(vst);
+                }
+
+                Console.WriteLine();
+            }
         }
     }
 }
