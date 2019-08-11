@@ -16,7 +16,7 @@ namespace ListVst
         public IEnumerable<string> GetFiles(string extension)
         {
             var files = Directory.EnumerateFiles(SourcePath, $"*.{extension}", SearchOption.AllDirectories);
-            files = files.Where(f => !f.Contains("._"));
+            files = files.Where(f => !f.Contains("._")).OrderBy(f => f);
             return files;
         }
     }

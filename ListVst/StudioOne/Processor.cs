@@ -12,7 +12,8 @@ namespace ListVst.StudioOne
             var results = new List<VstList>();
 
             var fl = new FileList(sourcePath);
-            var files = fl.GetFiles("song").Where(f => !f.Contains("(Autosaved)"));
+            var files = fl.GetFiles("song").Where(f => !f.Contains("(Autosaved)") &&
+                !f.Contains("(Before Autosave)") && !f.Contains("/History/"));
             foreach (var file in files)
             {
                 var pf = new ProjectFile(file);
