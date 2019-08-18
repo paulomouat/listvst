@@ -170,21 +170,23 @@ ValhallaShimmer_x64
 VU Meter
 
 /Volumes/projects/music/projects/konzentrische/studioone/konzentrische bussed.song
+Drawmer 1973
 Enhanced EQ
 FabFilter Pro-Q 2
 FabFilter Pro-Q 2 3
+FabFilter Pro-Q 2 3 2
 FabFilter Pro-Q 2 3 2 2
+FabFilter Pro-Q 2 3 2 2 2
 Fat Channel
-iZotope Ozone 7 Imager
 Mixtool
-Neutron
-Neutron Compressor
-Neutron Equalizer
-NUGEN VisLM2
+Neutron 3
+Neutron 3 Compressor
+Neutron 3 Equalizer
+Neutron 3 Sculptor
 Passive EQ
 soothe
 Spectrum Meter
-T-RackS CS EQ 73
+Tonal Balance Control
 VU Meter
 
 /Volumes/projects/music/projects/konzentrische/studioone/konzentrische hl.song
@@ -194,59 +196,41 @@ FabFilter Pro-Q 2 2
 FabFilter Pro-Q 2 3
 FabFilter Pro-Q 2 3 2 2
 Fat Channel
-iZotope Ozone 7 Imager
 Mixtool
-Neutron Compressor
-Neutron Equalizer
-NUGEN VisLM2
+Neutron 3 Compressor
+Neutron 3 Equalizer
 Passive EQ
-T-RackS CS EQ 73
 VU Meter
 
 /Volumes/projects/music/projects/konzentrische/studioone/konzentrische.song
-FabFilter Pro-DS
 FabFilter Pro-DS 10
 FabFilter Pro-DS 11
 FabFilter Pro-DS 12
 FabFilter Pro-DS 12 2
-FabFilter Pro-DS 2
 FabFilter Pro-DS 2 2
 FabFilter Pro-DS 2 2 2
-FabFilter Pro-DS 3
 FabFilter Pro-DS 3 2
 FabFilter Pro-DS 3 2 2
-FabFilter Pro-DS 4
 FabFilter Pro-DS 4 2
 FabFilter Pro-DS 4 2 2
-FabFilter Pro-DS 5
 FabFilter Pro-DS 5 2
 FabFilter Pro-DS 5 2 2
-FabFilter Pro-DS 6
 FabFilter Pro-DS 6 2
 FabFilter Pro-DS 6 2 2
-FabFilter Pro-DS 7
 FabFilter Pro-DS 7 2
 FabFilter Pro-DS 7 2 2
-FabFilter Pro-DS 8
 FabFilter Pro-DS 8 2
 FabFilter Pro-DS 8 2 2
 FabFilter Pro-DS 9
 FabFilter Pro-DS 9 2
-FabFilter Pro-MB
-FabFilter Pro-MB 2
-FabFilter Pro-MB 2 2
-FabFilter Pro-MB 2 2 2
 FabFilter Pro-MB 2 2 2 2
 FabFilter Pro-MB 2 2 2 2 2
 FabFilter Pro-MB 2 2 3
 FabFilter Pro-MB 2 2 3 2
-FabFilter Pro-MB 2 3
 FabFilter Pro-MB 2 3 2
 FabFilter Pro-MB 2 3 2 2
-FabFilter Pro-MB 2 4
 FabFilter Pro-MB 2 4 2
 FabFilter Pro-MB 2 4 2 2
-FabFilter Pro-MB 2 5
 FabFilter Pro-MB 2 5 2
 FabFilter Pro-MB 2 5 2 2
 FabFilter Pro-MB 2 6
@@ -258,20 +242,15 @@ FabFilter Pro-Q 2 2
 FabFilter Pro-Q 2 3
 FabFilter Pro-Q 2 3 2
 FabFilter Pro-Q 2 4
-FabFilter Pro-Q 2 5
-FabFilter Pro-Q 2 5 2
-FabFilter Pro-Q 2 5 2 2
 FabFilter Pro-Q 2 5 2 2 2
 FabFilter Pro-Q 2 5 2 2 2 2
 FabFilter Pro-Q 2 5 2 3
 FabFilter Pro-Q 2 5 2 3 2
 FabFilter Pro-Q 2 5 3
 FabFilter Pro-Q 2 5 3 2
-iZotope Insight
-iZotope Ozone 7 Dynamic EQ
-iZotope Ozone 7 Imager
 Mixtool
-T-RackS CS EQ 73
+Ozone 8 Dynamic EQ
+Ozone 8 Imager
 
 /Volumes/projects/music/projects/q97/q97.song
 Black Box Analog Design HG-2
@@ -675,14 +654,13 @@ Kontakt 5
 /Volumes/projects/music/projects/_prototypes/work in progress 2/the ocean hath no painted stones or shells Project.als
 
 /Volumes/projects/music/projects/18 fragments Project/18 fragments.als
-Blackhole
+Blackhole (No MIDI)
 Crystallizer
 Default
 FF Pro-DS
-iZotope Ozone 7 Vintage Compressor
-iZotope Ozone 7 Vintage EQ
-iZotope Ozone 7 Vintage Tape
-Neutron
+Neutron 3
+Ozone 8 Vintage EQ
+Ozone 8 Vintage Tape
 
 /Volumes/projects/music/projects/a12/a12 Project/a12 glitch.als
 Convex
@@ -736,9 +714,6 @@ Ozone 8 Imager
 Proximity
 
 /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
-Default
-iZotope Insight
-Neutron
 
 /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
 
@@ -847,64 +822,40 @@ Seventh Heaven Professional
 Default
 Falcon
 FF Pro-R
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
-Neutron Equalizer
+Neutron 3 Equalizer
 
 /Volumes/projects/music/projects/k53/k53 Project/k53 2.als
 Default
 FF Pro-R
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
 ValhallaShimmer
 
 /Volumes/projects/music/projects/k53/k53 Project/k53 3.als
 Default
 FF Pro-R
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
 
 /Volumes/projects/music/projects/k53/k53 Project/k53 all.als
 Default
 FF Pro-R
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
 
 /Volumes/projects/music/projects/k53/k53 Project/k53 fx tracks separated.als
 Default
 Falcon
 FF Pro-R
-iZotope Ozone 7
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
-Neutron Equalizer
+Neutron 3 Equalizer
 ValhallaShimmer
 
 /Volumes/projects/music/projects/k53/k53 Project/k53-170827.als
 Default
 Falcon
 FF Pro-R
-iZotope Ozone 7
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
-Neutron Equalizer
+Neutron 3 Equalizer
 ValhallaShimmer
 
 /Volumes/projects/music/projects/k53/k53 Project/k53.als
 Default
 Falcon
 FF Pro-R
-iZotope Ozone 7
-iZotope Ozone 7 Imager
-iZotope Ozone 7 Maximizer
-iZotope Ozone 7 Vintage EQ
-Neutron Equalizer
+Neutron 3 Equalizer
 ValhallaShimmer
 
 /Volumes/projects/music/projects/k53/k53 Project/voice transmission all.als
