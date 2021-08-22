@@ -39,11 +39,20 @@ namespace ListVst.StudioOne
 
         private IEnumerable<string> GetDeviceNames(XDocument document)
         {
+            var list = new List<string>();
+
             var attributesElements = document.Descendants("Attributes");
-            var containingDeviceData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "deviceData");
-            var withNameAttribute = containingDeviceData.Attributes().Where(a => a.Name == "name");
-            var values = withNameAttribute.Select(a => a.Value);
-            return values;
+            //var containingDeviceData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "deviceData");
+            var containingGhostData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "ghostData");
+            foreach (var ghostData in containingGhostData)
+            {
+                var classInfoAttributes = ghostData.Descendants("Attributes").Where(xe => xe.Attribute("_id")?.Value == "classInfo");
+                var withNameAttribute = classInfoAttributes.Attributes().Where(a => a.Name == "name");
+                var values = withNameAttribute.Select(a => a.Value);
+                list.AddRange(values);
+            }            
+
+            return list;
         }
     }
 }

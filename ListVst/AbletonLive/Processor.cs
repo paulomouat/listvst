@@ -15,6 +15,7 @@ namespace ListVst.AbletonLive
             var files = fl.GetFiles("als").Where(f => !f.Contains("Backup"));
             foreach (var file in files)
             {
+                Console.WriteLine($"Processing Ableton Live project {file}");
                 var pf = new ProjectFile(file);
                 await pf.Read();
                 var c = pf.Contents;

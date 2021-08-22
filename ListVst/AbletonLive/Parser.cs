@@ -39,11 +39,26 @@ namespace ListVst.AbletonLive
 
         private IEnumerable<string> GetDeviceNames(XDocument document)
         {
+            var values = new List<string>();
+
             var pluginDescElements = document.Descendants("PluginDesc");
-            var manufacturerElements = pluginDescElements.Descendants("Manufacturer");
-            var nameElements = manufacturerElements.Select(m => m.Parent).Elements("Name");
-            var values = nameElements.Attributes("Value").Select(a => a.Value);
-            return values;
+            foreach(var pluginDescElement in pluginDescElements)
+            {
+                var manufacturerElements = pluginDescElement.Descendants("Manufacturer");
+                var manufacturerElement = manufacturerElements.FirstOrDefault();
+                if (manufacturerElement != null)
+                {
+                    var manufacturer = manufacturerElement.Attribute("Value").Value;
+                    var nameElements = manufacturerElement.Parent.Elements("Name");
+                    var names = nameElements.Attributes("Value").Select(a => a.Value);
+
+                    var pluginDetails = names.Select(n => $"{manufacturer} {n}");
+                    values.AddRange(pluginDetails);
+                }
+
+            }
+
+            return values.Distinct().OrderBy(s => s);
         }
     }
 }

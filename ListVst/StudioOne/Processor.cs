@@ -16,6 +16,7 @@ namespace ListVst.StudioOne
                 !f.Contains("(Before Autosave)") && !f.Contains("/History/"));
             foreach (var file in files)
             {
+                Console.WriteLine($"Processing Studio One project {file}");
                 var pf = new ProjectFile(file);
                 await pf.Read();
                 var c = pf.Contents;

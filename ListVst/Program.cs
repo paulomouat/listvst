@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ListVst
@@ -10,8 +11,8 @@ namespace ListVst
         {
             Console.WriteLine("List VSTs");
 
-            var sourcePath = Environment.GetEnvironmentVariable("HOME") + "/Documents/projects/music";
-            //var sourcePath = "/Volumes/projects/music";
+            //var sourcePath = Environment.GetEnvironmentVariable("HOME") + "/Documents/projects/music";
+            var sourcePath = "/Volumes/projects/music";
 
             if (args.Length == 1)
             {
@@ -19,11 +20,19 @@ namespace ListVst
             }
 
             var p = new Program();
+
+            Console.WriteLine($"Source path is {sourcePath}");
+
             var sovsts = await p.ProcessStudioOneProjects(sourcePath);
             var alvsts = await p.ProcessAbletonLiveProjects(sourcePath);
 
-            p.Output(sovsts);
-            p.Output(alvsts);
+            Console.WriteLine();
+            Console.WriteLine("List of VSTs:");
+            Console.WriteLine();
+
+            var list = alvsts.Concat(sovsts).OrderBy(v => v.Path).ToList();
+
+            p.Output(list);
 
             Console.WriteLine("Done.");
         }
