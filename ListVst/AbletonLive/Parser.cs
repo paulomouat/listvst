@@ -54,8 +54,19 @@ namespace ListVst.AbletonLive
 
                     var pluginDetails = names.Select(n => $"{manufacturer} {n}");
                     values.AddRange(pluginDetails);
+                    continue;
                 }
 
+                var plugNameElements = pluginDescElement.Descendants("PlugName");
+                var plugNameElement = plugNameElements.FirstOrDefault();
+                if (plugNameElement != null)
+                {
+                    var name = plugNameElement.Attribute("Value")?.Value;
+                    if (!string.IsNullOrWhiteSpace(name))
+                    {
+                        values.Add(name);
+                    }
+                }
             }
 
             return values.Distinct().OrderBy(s => s);
