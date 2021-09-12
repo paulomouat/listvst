@@ -27,36 +27,45 @@ namespace ListVst
             var alvsts = await p.ProcessAbletonLiveProjects(sourcePath);
 
             Console.WriteLine();
-            Console.WriteLine("List of VSTs:");
+            Console.WriteLine("List of VSTs (by project):");
             Console.WriteLine();
 
-            var list = alvsts.Concat(sovsts).OrderBy(v => v.Path).ToList();
+            var all = alvsts.Concat(sovsts);
 
-            p.Output(list);
+            var allByPath = all.ToLookup(e => e.Path, e => e.Vst).OrderBy(v => v.Key);
+
+            p.Output(allByPath);
+
+            Console.WriteLine("List of VSTs (by VST):");
+            Console.WriteLine();
+
+            var allByVst = all.ToLookup(e => e.Vst, e => e.Path).OrderBy(v => v.Key);
+
+            p.Output(allByVst);
 
             Console.WriteLine("Done.");
         }
 
-        private async Task<IEnumerable<VstList>> ProcessStudioOneProjects(string sourcePath)
+        private async Task<IEnumerable<(string Path, string Vst)>> ProcessStudioOneProjects(string sourcePath)
         {
             var processor = new StudioOne.Processor();
             return await processor.Process(sourcePath);
         }
 
-        private async Task<IEnumerable<VstList>> ProcessAbletonLiveProjects(string sourcePath)
+        private async Task<IEnumerable<(string Path, string Vst)>> ProcessAbletonLiveProjects(string sourcePath)
         {
             var processor = new AbletonLive.Processor();
             return await processor.Process(sourcePath);
         }
 
-        private void Output(IEnumerable<VstList> vsts)
+        private void Output(IOrderedEnumerable<IGrouping<string, string>> lookup)
         {
-            foreach(var vstList in vsts)
+            foreach(var group in lookup)
             {
-                Console.WriteLine(vstList.Path);
-                foreach(var vst in vstList.Vsts)
+                Console.WriteLine(group.Key);
+                foreach(var element in group)
                 {
-                    Console.WriteLine(vst);
+                    Console.WriteLine(element);
                 }
 
                 Console.WriteLine();
