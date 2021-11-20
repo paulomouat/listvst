@@ -1,4 +1,3 @@
-~/Documents/projects/dev/ListVst/ListVst/bin/Debug/net5.0 ~/Documents/projects/dev/ListVst
 List VSTs
 Source path is /Volumes/projects/music
 Processing Studio One project /Volumes/projects/music/projects/_prototypes/sq01/sq01.song
@@ -6,6 +5,7 @@ Processing Studio One project /Volumes/projects/music/projects/_prototypes/Studi
 Processing Studio One project /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 Processing Studio One project /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 Processing Studio One project /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+Processing Studio One project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 Processing Studio One project /Volumes/projects/music/projects/c04/c04.song
 Processing Studio One project /Volumes/projects/music/projects/c04/sound design.song
 Processing Studio One project /Volumes/projects/music/projects/c33/c33.song
@@ -130,10 +130,8 @@ Processing Ableton Live project /Volumes/projects/music/projects/a12/a12 Project
 Processing Ableton Live project /Volumes/projects/music/projects/a12/a12 Project/a12 part 1.als
 Processing Ableton Live project /Volumes/projects/music/projects/a12/a12 Project/a12 part 2.als
 Processing Ableton Live project /Volumes/projects/music/projects/a12/a12 Project/a12.als
-Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
-Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
-Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m05.als
-Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground Project.als
+Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+Processing Ableton Live project /Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 Processing Ableton Live project /Volumes/projects/music/projects/b71/b71 Project/b71.als
 Processing Ableton Live project /Volumes/projects/music/projects/b71/b71 Project/burt.als
 Processing Ableton Live project /Volumes/projects/music/projects/b71/b71 Project/tines.als
@@ -789,25 +787,49 @@ Soundtoys EchoBoy
 Soundtoys FilterFreak2
 TDR Labs Proximity
 
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+FabFilter Pro-L 2
+FLUX SE StereoToolV3
 GRM Comb Stereo
 GRM FreqShift Stereo
-LexChamber
+LiquidSonics Seventh Heaven Professional
+Softube British Class A
+Softube Drawmer 1973
+Softube Weiss EQ MP
+Tone Projects Kelvin
+u-he ColourCopy
 
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
-GRM Comb Stereo
-GRM FreqShift Stereo
-LexChamber
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
+ColourCopy
+FabFilter Pro-L 2
+Hammer DSP
+Kelvin
+Mu
+Novatron
+Pro-Q 3
+Satin
+Satson Buss
+Satson Channel
+Seventh Heaven Professional
+Spectrum Meter
+spiff
+StereoToolV3
+Transient Shaper
+Tube-Tech Equalizers mk II
+VU Meter
+Weiss MM-1 Mastering Maximizer
 
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m05.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
+FabFilter Pro-L 2
+FLUX SE StereoToolV3
 GRM Comb Stereo
 GRM FreqShift Stereo
-Lexicon LexChamber
-
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground Project.als
-GRM Comb Stereo
-GRM FreqShift Stereo
-LexChamber
+LiquidSonics Seventh Heaven Professional
+Softube British Class A
+Softube Drawmer 1973
+Softube Weiss EQ MP
+Tone Projects Kelvin
+u-he ColourCopy
 
 /Volumes/projects/music/projects/b71/b71 Project/b71.als
 LiquidSonics Seventh Heaven Professional
@@ -1990,6 +2012,9 @@ ClariphonicDSPmkii
 /Volumes/projects/music/projects/scintilla nella notte/studio one/scintilla nella notte-old.song
 /Volumes/projects/music/projects/scintilla nella notte/studio one/scintilla nella notte.song
 
+ColourCopy
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
+
 Comp TUBE-STA
 /Volumes/projects/music/projects/l15/l15 Project/l15.als
 /Volumes/projects/music/projects/l15/l15.song
@@ -2136,6 +2161,8 @@ FabFilter Pro-L 2
 /Volumes/projects/music/projects/a12/a12 Project/a12 part 1.als
 /Volumes/projects/music/projects/a12/a12 Project/a12 part 2.als
 /Volumes/projects/music/projects/a12/a12 Project/a12.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/d01/d01 Project/d01.als
 /Volumes/projects/music/projects/f96/f96 Project/f96-v1.1.als
 /Volumes/projects/music/projects/f96/f96 Project/f96-v1.2.als
@@ -2156,6 +2183,7 @@ FabFilter Pro-L 2
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/e98/e98.song
 /Volumes/projects/music/projects/h36/h36.song
 /Volumes/projects/music/projects/j37/j37.song
@@ -2316,6 +2344,8 @@ FLUX SE - IRCAM TraxV3
 FLUX SE StereoToolV3
 /Volumes/projects/music/projects/_prototypes/Ableton als file structure/v81 Project/v81.als
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/crackles.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/l15/l15 Project/l15.als
 /Volumes/projects/music/projects/v81/v81 Project/v81.als
 
@@ -2367,10 +2397,8 @@ Glitchmachines Quadrant
 
 GRM Comb Stereo
 /Volumes/projects/music/projects/_prototypes/work in progress 2/the ocean hath no painted stones or shells Project.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m05.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground Project.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 
 GRM Evolution
 /Volumes/projects/music/projects/j37/sound design/sound design Project/sound design.als
@@ -2381,10 +2409,8 @@ GRM Evolution
 
 GRM FreqShift Stereo
 /Volumes/projects/music/projects/_prototypes/work in progress 2/the ocean hath no painted stones or shells Project.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m05.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground Project.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/r95/r95.song
 
 GRM SpaceGrain
@@ -2413,6 +2439,7 @@ Gullfoss
 /Volumes/projects/music/projects/x94/x94/x94.song
 
 Hammer DSP
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/l15/l15.song
 
 IK Multimedia TR5 Metering
@@ -2540,6 +2567,7 @@ Kazrog True Dynamics
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/bass sines.als
 
 Kelvin
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/e98/e98.song
 /Volumes/projects/music/projects/h36/h36.song
 /Volumes/projects/music/projects/z02/z02.song
@@ -2563,17 +2591,11 @@ Kush Audio Omega N
 
 LexChamber
 /Volumes/projects/music/projects/_prototypes/work in progress 2/the ocean hath no painted stones or shells Project.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m02.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m03.als
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground Project.als
 
 LexConcertHall
 /Volumes/projects/music/projects/o32/o32.als
 /Volumes/projects/music/projects/scintilla nella notte/studio one/scintilla nella notte.song
 /Volumes/projects/music/projects/the ocean hath no painted stones or shells/studioone/the ocean hath no painted stones or shells.song
-
-Lexicon LexChamber
-/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground m05.als
 
 Lexicon LexRandomHall
 /Volumes/projects/music/projects/f96/f96 Project/f96-v1.1.als
@@ -2623,6 +2645,8 @@ LiquidSonics Seventh Heaven Professional
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/ending trk 8.als
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/ending trk 9.als
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/ending.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/b71/b71 Project/b71.als
 /Volumes/projects/music/projects/b71/b71 Project/tines.als
 /Volumes/projects/music/projects/j92/j92 Project/j92.als
@@ -2678,6 +2702,7 @@ Modular FX
 /Volumes/projects/music/projects/v50/v50.song
 
 Mu
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/p73/p73-with-inserts.song
 /Volumes/projects/music/projects/p73/p73.song
 /Volumes/projects/music/projects/the ocean hath no painted stones or shells/studioone/the ocean hath no painted stones or shells.song
@@ -2769,6 +2794,9 @@ Newfangled Audio Newfangled Elevate
 
 Newfangled Audio Newfangled EQuivocate
 /Volumes/projects/music/projects/_prototypes/plugin measurements Project/plugin measurements.als
+
+Novatron
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 
 oeksound soothe
 /Volumes/projects/music/projects/_prototypes/veinsca/vcdr/sz-4x-3oct/scr-processing Project/original1.scr-processing.als
@@ -2988,6 +3016,7 @@ Pro-Q 3
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/j47/j47-neve.song
 /Volumes/projects/music/projects/j47/j47.song
 /Volumes/projects/music/projects/m58/m58.song
@@ -3064,12 +3093,17 @@ Relab Development VSR S24
 Replika XT
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 
+Satin
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
+
 Satson Buss
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/the ocean hath no painted stones or shells/studioone/the ocean hath no painted stones or shells.song
 /Volumes/projects/music/projects/v35/v35.song
 /Volumes/projects/music/projects/w88/w88.song
 
 Satson Channel
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/m58/m58.song
 /Volumes/projects/music/projects/the ocean hath no painted stones or shells/studioone/the ocean hath no painted stones or shells.song
 /Volumes/projects/music/projects/v35/v35.song
@@ -3102,6 +3136,7 @@ Seventh Heaven
 
 Seventh Heaven Professional
 /Volumes/projects/music/projects/_prototypes/sq01/sq01.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/e98/e98.song
 /Volumes/projects/music/projects/h36/h36.song
 /Volumes/projects/music/projects/m92/m92.song
@@ -3113,6 +3148,10 @@ Seventh Heaven Professional
 
 ShimmerVerb
 /Volumes/projects/music/projects/w88/w88.song
+
+Softube British Class A
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 
 Softube Chandler Limited Germanium Comp
 /Volumes/projects/music/projects/_prototypes/compressor-testing/compressor-testing Project/compressor-testing.als
@@ -3134,6 +3173,8 @@ Softube Drawmer 1973
 /Volumes/projects/music/projects/_prototypes/Ableton als file structure/v81 Project/v81.als
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/bass 0091 1 cycle.als
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/ending eq.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/l15/l15 Project/l15.als
 /Volumes/projects/music/projects/p73/sound design/p73.als
 /Volumes/projects/music/projects/u03/sound design/plugin-experiments Project/plugin-experiments.als
@@ -3203,6 +3244,8 @@ Softube Weiss Deess
 /Volumes/projects/music/projects/r95/r95 sound design Project/astray hf.als
 
 Softube Weiss EQ MP
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 /Volumes/projects/music/projects/m92/sound design/sound design Project/sound design.als
 /Volumes/projects/music/projects/r95/r95 sound design Project/02-1-hi.als
 /Volumes/projects/music/projects/r95/r95 sound design Project/03-1-mid-hi.als
@@ -3311,6 +3354,7 @@ Spectrum Meter
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/d60/d60.song
 /Volumes/projects/music/projects/j47/j47-neve.song
 /Volumes/projects/music/projects/j47/j47.song
@@ -3332,6 +3376,7 @@ Spectrum Meter
 
 spiff
 /Volumes/projects/music/projects/w88/sound design/w88 sound design Project/w88 segments.als
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/p73/p73.song
 /Volumes/projects/music/projects/scintilla nella notte/studio one/scintilla nella notte.song
 
@@ -3344,6 +3389,7 @@ SPL Passeq
 /Volumes/projects/music/projects/v81/v81/v81.song
 
 StereoToolV3
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/e98/e98.song
 /Volumes/projects/music/projects/p06/p06.song
 /Volumes/projects/music/projects/r95/r95.song
@@ -3456,6 +3502,10 @@ Tonal Balance Control 2
 /Volumes/projects/music/projects/r27/r27.song
 /Volumes/projects/music/projects/v81/v81/v81.song
 
+Tone Projects Kelvin
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
+
 Tone Projects Unisum
 /Volumes/projects/music/projects/a loose and rorid vapour/sound design/sound design Project/bass 0091 timpani.als
 
@@ -3478,6 +3528,9 @@ TR5 VC-670
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
 
+Transient Shaper
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
+
 True Dynamics
 /Volumes/projects/music/projects/r95/r95.song
 
@@ -3499,6 +3552,7 @@ Tube-Tech Classic Channel mk II
 Tube-Tech Equalizers mk II
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 
 Tube-Tech ME 1B
 /Volumes/projects/music/projects/_prototypes/Voices-all Project/Voices-all.als
@@ -3509,6 +3563,10 @@ Tube-Tech PE 1C
 /Volumes/projects/music/projects/j47/j47-neve.song
 /Volumes/projects/music/projects/j47/j47.song
 /Volumes/projects/music/projects/r27/r27.song
+
+u-he ColourCopy
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.als
+/Volumes/projects/music/projects/all my petals fell to the ground/sound design/all my petals fell to the ground.als
 
 u-he Presswerk
 /Volumes/projects/music/projects/t52/sound design/t52 sound design Project/t52 natural.als
@@ -3630,6 +3688,7 @@ VU Meter
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour - trk 7-12 neutron 3.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour further eq.song
 /Volumes/projects/music/projects/a loose and rorid vapour/studio one/a loose and rorid vapour.song
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/e98/e98.song
 /Volumes/projects/music/projects/i08/i08 initial.song
 /Volumes/projects/music/projects/i08/i08.song
@@ -3682,6 +3741,7 @@ Weiss EQ1
 /Volumes/projects/music/projects/y50/y50.song
 
 Weiss MM-1 Mastering Maximizer
+/Volumes/projects/music/projects/all my petals fell to the ground/all my petals fell to the ground.song
 /Volumes/projects/music/projects/m92/m92.song
 /Volumes/projects/music/projects/p73/p73-with-inserts.song
 /Volumes/projects/music/projects/p73/p73.song
@@ -3706,4 +3766,3 @@ Youlean Youlean Loudness Meter 2
 /Volumes/projects/music/projects/d01/d01 Project/d01.als
 
 Done.
-~/Documents/projects/dev/ListVst
