@@ -19,6 +19,7 @@
     <ProjectReference Include="..\AbletonLive\AbletonLive.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\StudioOne\StudioOne.csproj" />
+    <ProjectReference Include="..\OutputFormatters\OutputFormatters.csproj" />
   </ItemGroup>
 
   <ItemGroup>

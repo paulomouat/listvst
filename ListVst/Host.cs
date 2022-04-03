@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cocona;
 using Microsoft.Extensions.Configuration;
@@ -12,24 +13,30 @@ namespace ListVst
         
         static async Task Main(string[] args)
         {
-            await CoconaApp
+            var builder = CoconaApp
                 .CreateHostBuilder()
                 .ConfigureAppConfiguration(builder =>
                 {
                     var config = builder.Build();
                     PrepareConfiguration(config);
                 })
-                .ConfigureServices(RegisterServices)
-                .RunAsync<Program>();
+                .ConfigureServices(RegisterServices);
+            
+            await builder.RunAsync<Program>(/*args, options =>
+                {
+                    options.TreatPublicMethodsAsCommands = false;
+                }*/);
         }
 
         private static void PrepareConfiguration(IConfiguration configuration)
         {
             var defaultSourcePath = configuration.GetValue<string>("defaultSourcePath");
+            var outputs = configuration.GetSection("outputs").Get<IEnumerable<OutputDetails>>();
             
             var listVstConfig = new Configuration
             {
                 SourcePath = defaultSourcePath,
+                Outputs = outputs
             };
 
             Configuration = listVstConfig;
