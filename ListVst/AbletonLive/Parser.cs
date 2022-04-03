@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace ListVst.AbletonLive
 {
-    public class Parser
+    public class Parser : IParser
     {
         private XDocument? Document { get; set; }
 
