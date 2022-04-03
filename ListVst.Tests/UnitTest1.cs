@@ -1,14 +1,28 @@
 using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace ListVst.Tests
 {
     public class UnitTest1
     {
-        [Fact]
+	    private readonly ITestOutputHelper _testOutputHelper;
+
+	    public UnitTest1(ITestOutputHelper testOutputHelper)
+	    {
+		    _testOutputHelper = testOutputHelper;
+	    }
+
+	    [Fact]
         public void Test1()
         {
-
+			_testOutputHelper.WriteLine("1");
+        }
+        
+        [Fact]
+        public void Test2()
+        {
+	        _testOutputHelper.WriteLine("2");
         }
 
         private const string TextXml = @"

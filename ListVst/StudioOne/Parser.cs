@@ -7,11 +7,17 @@ namespace ListVst.StudioOne
 {
     public class Parser
     {
-        private XDocument Document { get; set; }
+        private XDocument? Document { get; set; }
 
         public IEnumerable<string> Parse(string xml)
         {
+            if (string.IsNullOrEmpty(xml))
+            {
+                return Array.Empty<string>();
+            }
+            
             Document = CreateDocument(xml);
+            
             var names = GetDeviceNames(Document);
             return names.Distinct().OrderBy(n => n);
         }

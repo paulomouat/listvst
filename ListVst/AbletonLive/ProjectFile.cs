@@ -6,9 +6,9 @@ namespace ListVst.AbletonLive
 {
     public class ProjectFile
     {
-        public string Name { get; private set; }
-        public string Path { get; private set; }
-        public string Contents { get; private set; }
+        public string Name { get; }
+        public string Path { get; }
+        public string? Contents { get; private set; }
 
         public ProjectFile(string path)
         {

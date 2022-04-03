@@ -20,6 +20,12 @@ namespace ListVst.StudioOne
                 var pf = new ProjectFile(file);
                 await pf.Read();
                 var c = pf.Contents;
+
+                if (string.IsNullOrEmpty(c))
+                {
+                    continue;
+                }
+
                 var p = new Parser();
                 var vsts = p.Parse(c);
                 var list = vsts.Select(vst => (file, vst)).ToList();

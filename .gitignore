@@ -331,3 +331,5 @@ ASALocalRun/
 
 # P4Merge files created during merge
 *.orig
+
+output.txt

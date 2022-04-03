@@ -7,10 +7,15 @@ namespace ListVst.AbletonLive
 {
     public class Parser
     {
-        private XDocument Document { get; set; }
+        private XDocument? Document { get; set; }
 
         public IEnumerable<string> Parse(string xml)
         {
+            if (string.IsNullOrEmpty(xml))
+            {
+                return Array.Empty<string>();
+            }
+
             Document = CreateDocument(xml);
             var names = GetDeviceNames(Document);
             return names.Distinct().OrderBy(n => n);
@@ -48,8 +53,8 @@ namespace ListVst.AbletonLive
                 var manufacturerElement = manufacturerElements.FirstOrDefault();
                 if (manufacturerElement != null)
                 {
-                    var manufacturer = manufacturerElement.Attribute("Value").Value;
-                    var nameElements = manufacturerElement.Parent.Elements("Name");
+                    var manufacturer = manufacturerElement.Attribute("Value")!.Value;
+                    var nameElements = manufacturerElement.Parent!.Elements("Name");
                     var names = nameElements.Attributes("Value").Select(a => a.Value);
 
                     var pluginDetails = names.Select(n => $"{manufacturer} {n}");
