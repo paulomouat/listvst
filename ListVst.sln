@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListVst", "ListVst\ListVst.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListVst.Tests", "ListVst.Tests\ListVst.Tests.csproj", "{49FA4627-2660-4177-831D-87E5D1B05C67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9816006D-DCE0-4410-969B-1A72067A8A7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8CE48F69-700C-4677-8EC6-DFF46F114683}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{098E7EC2-8C47-4E45-A520-E15E640FF409}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +25,17 @@ Global
 		{49FA4627-2660-4177-831D-87E5D1B05C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49FA4627-2660-4177-831D-87E5D1B05C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49FA4627-2660-4177-831D-87E5D1B05C67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9816006D-DCE0-4410-969B-1A72067A8A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9816006D-DCE0-4410-969B-1A72067A8A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9816006D-DCE0-4410-969B-1A72067A8A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9816006D-DCE0-4410-969B-1A72067A8A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098E7EC2-8C47-4E45-A520-E15E640FF409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098E7EC2-8C47-4E45-A520-E15E640FF409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098E7EC2-8C47-4E45-A520-E15E640FF409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098E7EC2-8C47-4E45-A520-E15E640FF409}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49FA4627-2660-4177-831D-87E5D1B05C67} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
+		{098E7EC2-8C47-4E45-A520-E15E640FF409} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
 	EndGlobalSection
 EndGlobal

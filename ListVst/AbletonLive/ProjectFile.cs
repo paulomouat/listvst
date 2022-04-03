@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ListVst.AbletonLive
 {
-    public class ProjectFile
+    public class ProjectFile : IProjectFile
     {
         public string Name { get; }
         public string Path { get; }
@@ -18,25 +18,23 @@ namespace ListVst.AbletonLive
 
         public async Task Read()
         {
-            using (var ms = new MemoryStream())
+            await using var ms = new MemoryStream();
+            await using (var fs = File.OpenRead(Path))
             {
-                using (var fs = File.OpenRead(Path))
+                await using (var gz = new GZipStream(fs, CompressionMode.Decompress))
                 {
-                    using (var gz = new GZipStream(fs, CompressionMode.Decompress))
+                    var buffer = new byte[1024];
+                    int n;
+                    while ((n = gz.Read(buffer, 0, buffer.Length)) > 0)
                     {
-                        byte[] buffer = new byte[1024];
-                        int n;
-                        while ((n = gz.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            ms.Write(buffer, 0, n);
-                        }
+                        ms.Write(buffer, 0, n);
                     }
                 }
-
-                ms.Position = 0;
-                var reader = new StreamReader(ms);
-                Contents = await reader.ReadToEndAsync();
             }
+
+            ms.Position = 0;
+            var reader = new StreamReader(ms);
+            Contents = await reader.ReadToEndAsync();
         }
     }
 }

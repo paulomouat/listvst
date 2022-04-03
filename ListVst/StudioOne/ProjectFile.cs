@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ListVst.StudioOne
 {
-    public class ProjectFile
+    public class ProjectFile : IProjectFile
     {
         public string Name { get; }
         public string Path { get; }
@@ -19,27 +19,23 @@ namespace ListVst.StudioOne
 
         public async Task Read()
         {
-            using (var ms = new MemoryStream())
+            await using var ms = new MemoryStream();
+            await using (var fs = File.OpenRead(Path))
             {
-                using (var fs = File.OpenRead(Path))
+                using (var z = new ZipArchive(fs, ZipArchiveMode.Read))
                 {
-                    using (var z = new ZipArchive(fs, ZipArchiveMode.Read))
+                    var entry = z.Entries.SingleOrDefault(e => e.Name == "audiomixer.xml");
+                    if (entry != null)
                     {
-                        var entry = z.Entries.SingleOrDefault(e => e.Name == "audiomixer.xml");
-                        if (entry != null)
-                        {
-                            using (var es = entry.Open())
-                            {
-                                await es.CopyToAsync(ms);
-                            }
-                        }
+                        await using var es = entry.Open();
+                        await es.CopyToAsync(ms);
                     }
                 }
-
-                ms.Position = 0;
-                var reader = new StreamReader(ms);
-                Contents = await reader.ReadToEndAsync();
             }
+
+            ms.Position = 0;
+            var reader = new StreamReader(ms);
+            Contents = await reader.ReadToEndAsync();
         }
     }
 }
