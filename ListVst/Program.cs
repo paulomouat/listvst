@@ -2,28 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace ListVst
 {
     class Program
     {
-        static async Task Main(string[] args)
+        private ILogger Logger { get; set; }
+        private Configuration Configuration { get; set; }
+
+        public void Run()
         {
-            Console.WriteLine("List VSTs");
+            Logger.LogInformation("List VSTs");
+            Logger.LogInformation($"Source path is {Configuration.SourcePath}");
 
-            //var sourcePath = Environment.GetEnvironmentVariable("HOME") + "/Documents/projects/music";
-            var sourcePath = "/Volumes/projects/music";
-
-            if (args.Length == 1)
-            {
-                sourcePath = args[0];
-            }
-
-            var p = new Program();
-
-            Console.WriteLine($"Source path is {sourcePath}");
-
-            var sovsts = await p.ProcessStudioOneProjects(sourcePath);
+            var all = Configuration.Processors
+                .SelectMany(p => p.Process(Configuration.SourcePath!).Result)
+                .ToList();
+            
+            var allByPath = all
+                .ToLookup(e => e.Path, e => e.Vst)
+                .OrderBy(v => v.Key);
+            Output(allByPath);
+            
+            var allByVst = all
+                .ToLookup(e => e.Vst, e => e.Path)
+                .OrderBy(v => v.Key);
+            Output(allByVst);
+            
+            /*var sovsts = await p.ProcessStudioOneProjects(sourcePath);
             var alvsts = await p.ProcessAbletonLiveProjects(sourcePath);
 
             Console.WriteLine();
@@ -41,21 +50,13 @@ namespace ListVst
 
             var allByVst = all.ToLookup(e => e.Vst, e => e.Path).OrderBy(v => v.Key);
 
-            p.Output(allByVst);
-
-            Console.WriteLine("Done.");
+            p.Output(allByVst);*/
         }
-
-        private async Task<IEnumerable<(string Path, string Vst)>> ProcessStudioOneProjects(string sourcePath)
+        
+        public Program(Configuration configuration, ILogger<Program> logger)
         {
-            var processor = new StudioOne.Processor();
-            return await processor.Process(sourcePath);
-        }
-
-        private async Task<IEnumerable<(string Path, string Vst)>> ProcessAbletonLiveProjects(string sourcePath)
-        {
-            var processor = new AbletonLive.Processor();
-            return await processor.Process(sourcePath);
+            Logger = logger;
+            Configuration = configuration;
         }
 
         private void Output(IOrderedEnumerable<IGrouping<string, string>> lookup)
