@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace ListVst
+﻿namespace ListVst
 {
     public class FileList
     {

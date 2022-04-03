@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ListVst.AbletonLive
+﻿namespace ListVst.AbletonLive
 {
     public class Processor : IProcessor
     {
