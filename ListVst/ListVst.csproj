@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AbletonLive\AbletonLive.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\StudioOne\StudioOne.csproj" />
   </ItemGroup>
 </Project>
