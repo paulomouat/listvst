@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ListVst.StudioOne
 {
-    public class Processor
+    public class Processor : IProcessor
     {
         public async Task<IEnumerable<(string Path, string Vst)>> Process(string sourcePath)
         {
