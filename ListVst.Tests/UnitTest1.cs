@@ -15,7 +15,7 @@ namespace ListVst.Tests
 	    [Fact]
         public void Test1()
         {
-			_testOutputHelper.WriteLine("1");
+	        _testOutputHelper.WriteLine("1");
         }
         
         [Fact]
