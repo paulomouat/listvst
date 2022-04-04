@@ -46,6 +46,12 @@ namespace ListVst
         {
             services.AddSingleton(Configuration);
 
+            RegisterProcessors(services);
+            RegisterOutputFormatters(services);
+        }
+
+        private static void RegisterProcessors(IServiceCollection services)
+        {
             // TODO: Move to dynamic registration
             services.AddTransient<IProcessor, AbletonLive.Processor>();
             services.AddTransient<IProcessor, StudioOne.Processor>();
@@ -53,6 +59,23 @@ namespace ListVst
             var serviceProvider = services.BuildServiceProvider();
             var processors = serviceProvider.GetServices(typeof(IProcessor)).Cast<IProcessor>();
             Configuration.Processors = processors;
+        }
+
+        private static void RegisterOutputFormatters(IServiceCollection services)
+        {
+            // TODO: Move to dynamic registration
+            services.AddTransient<IOutputFormatter, OutputFormatters.TxtFile>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var formatters = serviceProvider.GetServices(typeof(IOutputFormatter)).Cast<IOutputFormatter>();
+
+            var registry = new OutputFormatterRegistry();
+            foreach (var formatter in formatters)
+            {
+                registry.Register(formatter.Format, formatter);
+            }
+
+            services.AddSingleton<IOutputFormatterRegistry>(sp => registry);
         }
     }
 }

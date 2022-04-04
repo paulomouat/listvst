@@ -7,13 +7,15 @@ namespace ListVst
 {
     class Program
     {
-        private ILogger Logger { get; }
+        private IOutputFormatterRegistry OutputFormatterRegistry { get; }
         private Configuration Configuration { get; }
+        private ILogger Logger { get; }
         
-        public Program(Configuration configuration, ILogger<Program> logger)
+        public Program(IOutputFormatterRegistry outputFormatterRegistry, Configuration configuration, ILogger<Program> logger)
         {
-            Logger = logger;
+            OutputFormatterRegistry = outputFormatterRegistry;
             Configuration = configuration;
+            Logger = logger;
         }
 
         [Command("save")]
@@ -40,14 +42,18 @@ namespace ListVst
             Logger.LogInformation($"Source path is {sourcePath}");
             Logger.LogInformation($"Output is in format {format} into file {file}");
 
-            // TODO: Instantiate through output formatter registry
-            var outputFormatter = new TxtFile(file!);
+            var outputFormatter = OutputFormatterRegistry[format!];
+
+            var formatterOptions = new FileOutputFormatterOptions
+            {
+                Path = file
+            };
             
             var all = Configuration.Processors
                 .SelectMany(p => p.Process(Configuration.SourcePath!).Result)
                 .ToList();
 
-            outputFormatter.Write(all);
+            outputFormatter!.Write(all, formatterOptions);
         }
 
         private static string? ApplyPrecedence(string? configurationValue, string? overrideValue)

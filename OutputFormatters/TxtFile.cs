@@ -1,20 +1,21 @@
-using System.Text;
-
 namespace ListVst.OutputFormatters;
 
 public class TxtFile : IOutputFormatter
 {
     public string Format => "txt";
+    
+    public async Task Write(IEnumerable<(string Path, string Vst)> details, IFileOutputFormatterOptions options)
+    {
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
 
-    private string Path { get; }
-    
-    public TxtFile(string path)
-    {
-        Path = path;
-    }
-    
-    public async Task Write(IEnumerable<(string Path, string Vst)> details)
-    {
+        if (string.IsNullOrWhiteSpace(options.Path))
+        {
+            throw new ArgumentException(nameof(options.Path));
+        }
+        
         var lines = new List<string>();
         
         var allByPath = details
@@ -29,10 +30,10 @@ public class TxtFile : IOutputFormatter
         
         lines.AddRange(ToLines(allByVst));
 
-        await File.WriteAllLinesAsync(Path, lines);
+        await File.WriteAllLinesAsync(options.Path, lines);
     }
 
-    private IEnumerable<string> ToLines(IOrderedEnumerable<IGrouping<string, string>> lookup)
+    private static IEnumerable<string> ToLines(IEnumerable<IGrouping<string, string>> lookup)
     {
         var lines = new List<string>();
 
@@ -48,5 +49,15 @@ public class TxtFile : IOutputFormatter
         }
 
         return lines;
+    }
+
+    Task IOutputFormatter.Write(IEnumerable<(string Path, string Vst)> details, IOutputFormatterOptions options)
+    {
+        if (options is not IFileOutputFormatterOptions formatterOptions)
+        {
+            throw new ArgumentException("This formatter requires an options type of IFileOutputFormatterOptions");
+        }
+
+        return Write(details, formatterOptions);
     }
 }
