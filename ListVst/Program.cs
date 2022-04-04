@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Cocona;
 using ListVst.OutputFormatters;
 using Microsoft.Extensions.Logging;
@@ -33,56 +31,35 @@ namespace ListVst
                 StopParsingOptions = false,
                 ValueName = "value")]string? sourcePath)
         {
-            format = Configuration.Outputs.First().Format;
-            file = Configuration.Outputs.First().Path!;
-            sourcePath = Configuration.SourcePath;
+            // TODO: Implement support for multiple outputs
+            format = ApplyPrecedence(Configuration.Outputs.FirstOrDefault()?.Format, format);
+            file = ApplyPrecedence(Configuration.Outputs.FirstOrDefault()?.Path, file);
+            sourcePath = ApplyPrecedence(Configuration.SourcePath, sourcePath);
             
             Logger.LogInformation("List VSTs");
             Logger.LogInformation($"Source path is {sourcePath}");
             Logger.LogInformation($"Output is in format {format} into file {file}");
 
             // TODO: Instantiate through output formatter registry
-            var outputFormatter = new TxtFile(file);
+            var outputFormatter = new TxtFile(file!);
             
             var all = Configuration.Processors
                 .SelectMany(p => p.Process(Configuration.SourcePath!).Result)
                 .ToList();
 
             outputFormatter.Write(all);
-            
-            /*var sovsts = await p.ProcessStudioOneProjects(sourcePath);
-            var alvsts = await p.ProcessAbletonLiveProjects(sourcePath);
-
-            Console.WriteLine();
-            Console.WriteLine("List of VSTs (by project):");
-            Console.WriteLine();
-
-            var all = alvsts.Concat(sovsts);
-
-            var allByPath = all.ToLookup(e => e.Path, e => e.Vst).OrderBy(v => v.Key);
-
-            p.Output(allByPath);
-
-            Console.WriteLine("List of VSTs (by VST):");
-            Console.WriteLine();
-
-            var allByVst = all.ToLookup(e => e.Vst, e => e.Path).OrderBy(v => v.Key);
-
-            p.Output(allByVst);*/
         }
 
-        /*private void Output(IOrderedEnumerable<IGrouping<string, string>> lookup)
+        private static string? ApplyPrecedence(string? configurationValue, string? overrideValue)
         {
-            foreach(var group in lookup)
-            {
-                Console.WriteLine(group.Key);
-                foreach(var element in group)
-                {
-                    Console.WriteLine(element);
-                }
+            var result = configurationValue;
 
-                Console.WriteLine();
+            if (!string.IsNullOrWhiteSpace(overrideValue))
+            {
+                result = overrideValue;
             }
-        }*/
+
+            return result;
+        }
     }
 }
