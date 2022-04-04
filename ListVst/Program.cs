@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cocona;
 using ListVst.OutputFormatters;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,20 @@ namespace ListVst
             Configuration = configuration;
         }
 
-        public void Run(string? format, string? file, string? sourcePath)
+        [Command("save")]
+        public void Save(
+            [Option("format",
+                Description = "The format to use in the output file (e.g. txt, html)",
+                StopParsingOptions = false,
+                ValueName = "value")]string? format,
+            [Option("file",
+                Description = "The output file with the saved list",
+                StopParsingOptions = false,
+                ValueName = "value")]string? file,
+            [Option("sourcePath",
+                Description = "The path to the projects to be inspected (note: will automatically search subfolders)",
+                StopParsingOptions = false,
+                ValueName = "value")]string? sourcePath)
         {
             format = Configuration.Outputs.First().Format;
             file = Configuration.Outputs.First().Path!;

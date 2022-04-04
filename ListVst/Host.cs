@@ -22,10 +22,10 @@ namespace ListVst
                 })
                 .ConfigureServices(RegisterServices);
             
-            await builder.RunAsync<Program>(/*args, options =>
+            await builder.RunAsync<Program>(args, options =>
                 {
                     options.TreatPublicMethodsAsCommands = false;
-                }*/);
+                });
         }
 
         private static void PrepareConfiguration(IConfiguration configuration)
