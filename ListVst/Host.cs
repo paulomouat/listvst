@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Cocona;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Logging.Console;
 
 namespace ListVst;
 
-class Host
+internal class Host
 {
     private static Configuration Configuration { get; set; } = new();
     
@@ -18,11 +17,6 @@ class Host
     {
         var builder = CoconaApp
             .CreateHostBuilder()
-            .ConfigureAppConfiguration(builder =>
-            {
-                var config = builder.Build();
-                PrepareConfiguration(config);
-            })
             .ConfigureLogging((ctx, builder) =>
             {
                 AddBareConsoleFormatterIfConfigured(ctx, builder);
@@ -33,20 +27,6 @@ class Host
             {
                 options.TreatPublicMethodsAsCommands = false;
             });
-    }
-
-    private static void PrepareConfiguration(IConfiguration configuration)
-    {
-        var defaultSourcePath = configuration.GetValue<string>("defaultSourcePath");
-        var outputs = configuration.GetSection("outputs").Get<IEnumerable<OutputDetails>>();
-        
-        var listVstConfig = new Configuration
-        {
-            SourcePath = defaultSourcePath,
-            Outputs = outputs
-        };
-
-        Configuration = listVstConfig;
     }
 
     private static void AddBareConsoleFormatterIfConfigured(HostBuilderContext ctx, ILoggingBuilder builder)

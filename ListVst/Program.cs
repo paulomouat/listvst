@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ListVst
 {
-    class Program
+    internal class Program
     {
         private IOutputFormatterRegistry OutputFormatterRegistry { get; }
         private Configuration Configuration { get; }
@@ -38,36 +38,41 @@ namespace ListVst
 
             Logger.LogInformation($"Source path is {sourcePath}");
 
-            ValidateCommandLineParameters(format, file);
-
-            var mappedFormatters = GetFormatters(format, file);
-            
-            if (!mappedFormatters.Any())
+            try
             {
-                var message = "There were no output formats nor output files specified.";
-                Logger.LogCritical(message);
-                throw new ArgumentException(message);
-            }
+                ValidateCommandLineParameters(format, file);
 
-            Logger.LogInformation("Will process list into the following {OutputCount} outputs:", mappedFormatters.Count());
-            foreach (var mappedFormatter in mappedFormatters)
-            {
-                Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
-            }
-            
-            var all = Configuration.Processors
-                .SelectMany(p => p.Process(sourcePath).Result)
-                .ToList();
-
-            foreach (var mappedFormatter in mappedFormatters)
-            {
-                var formatterOptions = new FileOutputFormatterOptions
+                var mappedFormatters = GetFormatters(format, file).ToList();
+                if (!mappedFormatters.Any())
                 {
-                    Path = mappedFormatter.File
-                };
+                    var message = "There were no output formats nor output files specified.";
+                    throw new ArgumentException(message);
+                }
 
-                mappedFormatter.Formatter.Write(all, formatterOptions);
+                Logger.LogInformation("Will process list into the following {OutputCount} outputs:", mappedFormatters.Count());
+                foreach (var mappedFormatter in mappedFormatters)
+                {
+                    Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
+                }
+                
+                var all = Configuration.Processors
+                    .SelectMany(p => p.Process(sourcePath).Result)
+                    .ToList();
+
+                foreach (var mappedFormatter in mappedFormatters)
+                {
+                    var formatterOptions = new FileOutputFormatterOptions
+                    {
+                        Path = mappedFormatter.File
+                    };
+
+                    mappedFormatter.Formatter.Write(all, formatterOptions);
+                }
             }
+            catch (ArgumentException ae)
+            {
+                Logger.LogCritical(ae, ae.Message);
+            }        
         }
 
         private static void ValidateCommandLineParameters(string[]? formats, string[]? files)
@@ -105,7 +110,6 @@ namespace ListVst
                 if (formatter is null)
                 {
                     var message = $"No formatter registered for format '{format}'.";
-                    Logger.LogCritical(message);
                     throw new ArgumentException(message);
                 }
 
@@ -117,7 +121,5 @@ namespace ListVst
             
             return mappedFormatters;
         }
-
-        private record struct MappedFormatter(string Format, string File, IOutputFormatter Formatter);
     }
 }
