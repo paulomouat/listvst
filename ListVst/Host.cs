@@ -66,6 +66,7 @@ internal class Host
     {
         // TODO: Move to dynamic registration
         services.AddTransient<IOutputFormatter, OutputFormatting.TxtFile.Formatter>();
+        services.AddTransient<IOutputFormatter, OutputFormatting.HtmlFile.Formatter>();
 
         var serviceProvider = services.BuildServiceProvider();
         var formatters = serviceProvider.GetServices(typeof(IOutputFormatter)).Cast<IOutputFormatter>();

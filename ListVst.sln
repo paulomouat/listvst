@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputFormatting.TxtFile", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputFormatting.TxtFile.Tests", "OutputFormatting.TxtFile.Tests\OutputFormatting.TxtFile.Tests.csproj", "{B21EFF9C-4245-4988-BEFC-80D503D08930}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputFormatting.HtmlFile", "OutputFormatting.HtmlFile\OutputFormatting.HtmlFile.csproj", "{D1043282-52B9-4E51-A9B9-D59F7EFC8B2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputFormatting.HtmlFile.Tests", "OutputFormatting.HtmlFile.Tests\OutputFormatting.HtmlFile.Tests.csproj", "{974BF287-118B-48DE-A030-D152DF03ABCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{B21EFF9C-4245-4988-BEFC-80D503D08930}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21EFF9C-4245-4988-BEFC-80D503D08930}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21EFF9C-4245-4988-BEFC-80D503D08930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1043282-52B9-4E51-A9B9-D59F7EFC8B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1043282-52B9-4E51-A9B9-D59F7EFC8B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1043282-52B9-4E51-A9B9-D59F7EFC8B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1043282-52B9-4E51-A9B9-D59F7EFC8B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974BF287-118B-48DE-A030-D152DF03ABCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974BF287-118B-48DE-A030-D152DF03ABCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974BF287-118B-48DE-A030-D152DF03ABCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974BF287-118B-48DE-A030-D152DF03ABCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{49FA4627-2660-4177-831D-87E5D1B05C67} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
@@ -89,5 +101,6 @@ Global
 		{712B5223-1C2C-4E95-8D39-D63CDD9110AA} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
 		{BD369969-1B5D-4FC1-BCF8-C4BADC177E18} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
 		{B21EFF9C-4245-4988-BEFC-80D503D08930} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
+		{974BF287-118B-48DE-A030-D152DF03ABCB} = {8CE48F69-700C-4677-8EC6-DFF46F114683}
 	EndGlobalSection
 EndGlobal
