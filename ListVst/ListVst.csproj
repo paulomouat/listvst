@@ -16,12 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AbletonLive\AbletonLive.csproj" />
+    <ProjectReference Include="..\Processing.AbletonLive\Processing.AbletonLive.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\OutputFormatting.HtmlFile\OutputFormatting.HtmlFile.csproj" />
     <ProjectReference Include="..\OutputFormatting.TxtFile\OutputFormatting.TxtFile.csproj" />
     <ProjectReference Include="..\OutputFormatting\OutputFormatting.csproj" />
-    <ProjectReference Include="..\StudioOne\StudioOne.csproj" />
+    <ProjectReference Include="..\Processing.StudioOne\Processing.StudioOne.csproj" />
   </ItemGroup>
 
   <ItemGroup>

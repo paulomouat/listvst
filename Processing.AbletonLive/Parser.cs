@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace ListVst.AbletonLive
+namespace ListVst.Processing.AbletonLive
 {
     public class Parser : IParser
     {

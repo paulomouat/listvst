@@ -55,8 +55,8 @@ internal class Host
     private static void RegisterProcessors(IServiceCollection services)
     {
         // TODO: Move to dynamic registration
-        services.AddTransient<IProcessor, AbletonLive.Processor>();
-        services.AddTransient<IProcessor, StudioOne.Processor>();
+        services.AddTransient<IProcessor, Processing.AbletonLive.Processor>();
+        services.AddTransient<IProcessor, Processing.StudioOne.Processor>();
 
         var serviceProvider = services.BuildServiceProvider();
         var processors = serviceProvider.GetServices(typeof(IProcessor)).Cast<IProcessor>();

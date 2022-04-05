@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace ListVst.StudioOne
+namespace ListVst.Processing.StudioOne
 {
     public class Parser : IParser
     {

@@ -4,8 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>ListVst.StudioOne</AssemblyName>
-        <RootNamespace>ListVst.StudioOne</RootNamespace>
+        <AssemblyName>ListVst.Processing.StudioOne</AssemblyName>
+        <RootNamespace>ListVst.Processing.StudioOne</RootNamespace>
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 

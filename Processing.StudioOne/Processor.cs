@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace ListVst.StudioOne
+namespace ListVst.Processing.StudioOne
 {
     public class Processor : IProcessor
     {

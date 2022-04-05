@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8CE48F69
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{098E7EC2-8C47-4E45-A520-E15E640FF409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbletonLive", "AbletonLive\AbletonLive.csproj", "{9BFC1F8A-23D8-4E83-9BCD-3F94058F9B89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.AbletonLive", "Processing.AbletonLive\Processing.AbletonLive.csproj", "{9BFC1F8A-23D8-4E83-9BCD-3F94058F9B89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioOne", "StudioOne\StudioOne.csproj", "{D14E80B6-CF1D-4778-AD72-99EDBAC4167D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.StudioOne", "Processing.StudioOne\Processing.StudioOne.csproj", "{D14E80B6-CF1D-4778-AD72-99EDBAC4167D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbletonLive.Tests", "AbletonLive.Tests\AbletonLive.Tests.csproj", "{2DE35E37-C924-47FE-B6A2-072CBE4C280F}"
 EndProject

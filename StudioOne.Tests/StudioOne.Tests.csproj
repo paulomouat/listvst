@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\StudioOne\StudioOne.csproj" />
+    <ProjectReference Include="..\Processing.StudioOne\Processing.StudioOne.csproj" />
   </ItemGroup>
 
 </Project>

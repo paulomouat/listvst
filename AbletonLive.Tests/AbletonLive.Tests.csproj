@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AbletonLive\AbletonLive.csproj" />
+    <ProjectReference Include="..\Processing.AbletonLive\Processing.AbletonLive.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 

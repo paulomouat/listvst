@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace ListVst.AbletonLive
+namespace ListVst.Processing.AbletonLive
 {
     public class Processor : IProcessor
     {

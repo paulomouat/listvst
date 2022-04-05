@@ -1,6 +1,6 @@
 ﻿using System.IO.Compression;
 
-namespace ListVst.StudioOne
+namespace ListVst.Processing.StudioOne
 {
     public class ProjectFile : IProjectFile
     {
