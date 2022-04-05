@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cocona;
+using ListVst.OutputFormatting;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst
