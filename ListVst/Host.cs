@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
 using Cocona;
 using ListVst.OutputFormatting;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Options;
 
 namespace ListVst;
 
@@ -32,11 +30,10 @@ internal class Host
                 RegisterServices(services);
             });
         
-        /*await builder.RunAsync<Program>(args, options =>
+        await builder.RunAsync<Program>(args, options =>
             {
                 options.TreatPublicMethodsAsCommands = false;
-            });*/
-        builder.Run<Program>();
+            });
 
         await Task.CompletedTask;
     }
@@ -117,21 +114,5 @@ internal class Host
         }
 
         services.AddSingleton<IOutputFormatterRegistry, OutputFormatterRegistry>();
-        
-        /*
-        // TODO: Move to dynamic registration
-        services.AddTransient<IOutputFormatter, OutputFormatting.TxtFile.Formatter>();
-        services.AddTransient<IOutputFormatter, OutputFormatting.HtmlFile.Formatter>();
-
-        var serviceProvider = services.BuildServiceProvider();
-        var formatters = serviceProvider.GetServices(typeof(IOutputFormatter)).Cast<IOutputFormatter>();
-
-        var registry = new OutputFormatterRegistry();
-        foreach (var formatter in formatters)
-        {
-            registry.Register(formatter.Format, formatter);
-        }
-
-        services.AddSingleton<IOutputFormatterRegistry>(sp => registry);*/
     }
 }

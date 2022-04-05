@@ -5,7 +5,6 @@ using Cocona;
 using ListVst.OutputFormatting;
 using ListVst.Processing;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace ListVst
 {
@@ -75,7 +74,9 @@ namespace ListVst
             catch (ArgumentException ae)
             {
                 Logger.LogCritical(ae, ae.Message);
-            }        
+            }
+            
+            Logger.LogInformation("List VSTs done.");
         }
 
         private static void ValidateCommandLineParameters(string[]? formats, string[]? files)
