@@ -4,8 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>ListVst.OutputFormatters</AssemblyName>
-        <RootNamespace>ListVst.OutputFormatters</RootNamespace>
+        <AssemblyName>ListVst.OutputFormatting</AssemblyName>
+        <RootNamespace>ListVst.OutputFormatting</RootNamespace>
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 

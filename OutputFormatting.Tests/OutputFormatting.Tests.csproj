@@ -8,8 +8,6 @@
     <LangVersion>10</LangVersion>
 
     <Nullable>enable</Nullable>
-
-    <RootNamespace>TxtFile.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\OutputFormatters\OutputFormatters.csproj" />
+    <ProjectReference Include="..\OutputFormatting\OutputFormatting.csproj" />
   </ItemGroup>
 
 </Project>

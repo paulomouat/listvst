@@ -1,4 +1,4 @@
-namespace TxtFile.Tests
+namespace OutputFormatting.TxtFile.Tests
 {
     public class UnitTest1
     {

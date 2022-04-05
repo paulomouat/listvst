@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Cocona;
 using Microsoft.Extensions.Configuration;
@@ -65,7 +67,7 @@ internal class Host
     private static void RegisterOutputFormatters(IServiceCollection services)
     {
         // TODO: Move to dynamic registration
-        services.AddTransient<IOutputFormatter, OutputFormatters.TxtFile>();
+        services.AddTransient<IOutputFormatter, OutputFormatting.TxtFile.Formatter>();
 
         var serviceProvider = services.BuildServiceProvider();
         var formatters = serviceProvider.GetServices(typeof(IOutputFormatter)).Cast<IOutputFormatter>();

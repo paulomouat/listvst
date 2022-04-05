@@ -1,6 +1,6 @@
-namespace ListVst.OutputFormatters;
+namespace ListVst.OutputFormatting.TxtFile;
 
-public class TxtFile : IOutputFormatter
+public class Formatter : IOutputFormatter
 {
     public string Format => "txt";
     
