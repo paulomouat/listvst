@@ -14,10 +14,20 @@ public class OutputFormatterRegistry : IOutputFormatterRegistry
     }
 
     public OutputFormatterRegistry()
+        : this(Array.Empty<IOutputFormatter>())
     {
         Registry = new Dictionary<string, IOutputFormatter>();
     }
 
+    public OutputFormatterRegistry(IEnumerable<IOutputFormatter> formatters)
+    {
+        Registry = new Dictionary<string, IOutputFormatter>();
+        foreach (var formatter in formatters)
+        {
+            Registry[formatter.Format] = formatter;
+        }
+    }
+    
     public void Register(string format, IOutputFormatter outputFormatter)
     {
         Registry[format] = outputFormatter;

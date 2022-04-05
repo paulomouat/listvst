@@ -39,7 +39,7 @@ namespace ListVst
         {
             Logger.LogInformation("List VSTs");
 
-            Logger.LogInformation($"Source path is {sourcePath}");
+            Logger.LogInformation("Source path is {SourcePath}", sourcePath);
 
             try
             {

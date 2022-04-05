@@ -75,7 +75,7 @@ internal class Host
             if (processorType is null)
             {
                 throw new ConfigurationErrorsException(
-                    $"The processor {processorTypeName} indicated in configuration wasn't found.");
+                    $"The processor {processorTypeName} indicated in configuration was not found.");
             }
 
             if (!processorType.IsAssignableTo(typeof(IProcessor)))
@@ -92,6 +92,33 @@ internal class Host
 
     private static void RegisterOutputFormatters(IServiceCollection services)
     {
+        //services.Configure<OutputFormattingConfiguration>(section);
+
+        var configuration = new OutputFormattingConfiguration();
+        var section = Configuration?.GetSection(OutputFormattingConfiguration.SectionName);
+        section.Bind(configuration);
+
+        foreach (var formatterTypeName in configuration.Formatters)
+        {
+            var formatterType = Type.GetType(formatterTypeName);
+            if (formatterType is null)
+            {
+                throw new ConfigurationErrorsException(
+                    $"The output formatter {formatterTypeName} indicated in configuration was not found.");
+            }
+
+            if (!formatterType.IsAssignableTo(typeof(IOutputFormatter)))
+            {
+                throw new ConfigurationErrorsException(
+                    $"The output formatter {formatterTypeName} indicated in configuration must implement IOutputFormatter.");
+            }
+
+            services.AddSingleton(typeof(IOutputFormatter), formatterType);
+        }
+
+        services.AddSingleton<IOutputFormatterRegistry, OutputFormatterRegistry>();
+        
+        /*
         // TODO: Move to dynamic registration
         services.AddTransient<IOutputFormatter, OutputFormatting.TxtFile.Formatter>();
         services.AddTransient<IOutputFormatter, OutputFormatting.HtmlFile.Formatter>();
@@ -105,6 +132,6 @@ internal class Host
             registry.Register(formatter.Format, formatter);
         }
 
-        services.AddSingleton<IOutputFormatterRegistry>(sp => registry);
+        services.AddSingleton<IOutputFormatterRegistry>(sp => registry);*/
     }
 }
