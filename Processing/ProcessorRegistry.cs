@@ -6,10 +6,9 @@ public class ProcessorRegistry : IProcessorRegistry
 
     private List<IProcessor> ProcessorsInternal { get; }
 
-    /*public ProcessorRegistry()
-    {
-        ProcessorsInternal = new List<IProcessor>();
-    }*/
+    public ProcessorRegistry()
+        : this(Array.Empty<IProcessor>())
+    { }
 
     public ProcessorRegistry(IEnumerable<IProcessor> processors)
     {
