@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Cocona;
 using ListVst.OutputFormatting;
+using ListVst.Processing;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace ListVst
 {
     internal class Program
     {
         private IOutputFormatterRegistry OutputFormatterRegistry { get; }
-        private Configuration Configuration { get; }
+        private IProcessorRegistry ProcessorRegistry { get; }
         private ILogger Logger { get; }
         
-        public Program(IOutputFormatterRegistry outputFormatterRegistry, Configuration configuration, ILogger<Program> logger)
+        public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry, ILogger<Program> logger)
         {
             OutputFormatterRegistry = outputFormatterRegistry;
-            Configuration = configuration;
+            ProcessorRegistry = processorRegistry;
             Logger = logger;
         }
 
@@ -56,7 +58,7 @@ namespace ListVst
                     Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
                 }
                 
-                var all = Configuration.Processors
+                var all = ProcessorRegistry.Processors
                     .SelectMany(p => p.Process(sourcePath).Result)
                     .ToList();
 

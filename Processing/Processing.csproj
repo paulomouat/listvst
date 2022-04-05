@@ -4,8 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>ListVst.Processing.AbletonLive</AssemblyName>
-        <RootNamespace>ListVst.Processing.AbletonLive</RootNamespace>
+        <AssemblyName>ListVst.Processing</AssemblyName>
+        <RootNamespace>ListVst.Processing</RootNamespace>
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 
@@ -18,12 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common\Common.csproj" />
-      <ProjectReference Include="..\Processing\Processing.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+      <PackageReference Include="System.Text.Json" Version="6.0.2" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace ListVst;
+namespace ListVst.Processing;
 
 public interface IParser
 {

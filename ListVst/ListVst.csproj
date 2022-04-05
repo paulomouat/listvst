@@ -16,11 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Processing.AbletonLive\Processing.AbletonLive.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\OutputFormatting.HtmlFile\OutputFormatting.HtmlFile.csproj" />
     <ProjectReference Include="..\OutputFormatting.TxtFile\OutputFormatting.TxtFile.csproj" />
     <ProjectReference Include="..\OutputFormatting\OutputFormatting.csproj" />
+    <ProjectReference Include="..\Processing\Processing.csproj" />
+    <ProjectReference Include="..\Processing.AbletonLive\Processing.AbletonLive.csproj" />
     <ProjectReference Include="..\Processing.StudioOne\Processing.StudioOne.csproj" />
   </ItemGroup>
 
@@ -33,5 +34,6 @@
   <ItemGroup>
     <PackageReference Include="Cocona" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 </Project>
