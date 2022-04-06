@@ -25,20 +25,14 @@ public class Formatter : IOutputFormatter
             .OrderBy(v => v.Key);
 
         var byPathEntries = ToEntries(allByPath);
-        foreach (var entry in byPathEntries)
-        {
-            document.Add(new XElement("p", entry));
-        }
+        document.Add(byPathEntries);
         
         var allByVst = details
             .ToLookup(e => e.Vst, e => e.Path)
             .OrderBy(v => v.Key);
 
         var byVstEntries = ToEntries(allByVst);
-        foreach (var entry in byVstEntries)
-        {
-            document.Add(new XElement("p", entry));
-        }
+        document.Add(byVstEntries);
 
         await using var stream = File.OpenWrite(options.Path);
         document.Save(stream);
@@ -50,14 +44,22 @@ public class Formatter : IOutputFormatter
         
         foreach(var group in lookup)
         {
-            var key = new XElement("div", group.Key);
+            var entry = new XElement("p");
+            entry.SetAttributeValue("class", "entry");
+            
+            var title = new XElement("div", group.Key);
+            title.SetAttributeValue("class", "title");
+            
+            entry.Add(title);
+            
             foreach(var item in group)
             {
                 var element = new XElement("div", item);
-                key.Add(element);
+                element.SetAttributeValue("class", "item");
+                title.Add(element);
             }
             
-            elements.Add(key);
+            elements.Add(entry);
         }
 
         return elements;
