@@ -22,40 +22,47 @@ public class Formatter : IOutputFormatter
 
         var pathSection = CreatePathSection(details);
         document.Add(pathSection);
+
+        var pluginSection = CreatePluginSection(details);
+        document.Add(pluginSection);
         
-        /*var allByPath = details
-            .ToLookup(e => e.Path, e => e.Vst)
-            .OrderBy(v => v.Key);
-
-        var byPathEntries = ToEntries(allByPath);
-        document.Add(byPathEntries);*/
-        
-        var allByVst = details
-            .ToLookup(e => e.Vst, e => e.Path)
-            .OrderBy(v => v.Key);
-
-        var byVstEntries = ToEntries(allByVst);
-        document.Add(byVstEntries);
-
         await using var stream = File.OpenWrite(options.Path);
         document.Save(stream);
     }
 
     private static XElement CreatePathSection(IEnumerable<(string Path, string Vst)> details)
     {
-        var container = new XElement("div");
-        
-        var title = new XElement("div", "Listing by path");
-        var listing = new XElement("div");
-        
-        var allByPath = details
+        var lookup = details
             .ToLookup(e => e.Path, e => e.Vst)
             .OrderBy(v => v.Key);
 
-        var entries = ToEntries(allByPath);
+        var section = CreateSection("Listing by path", lookup);
+
+        return section;
+    }
+    
+    private static XElement CreatePluginSection(IEnumerable<(string Path, string Vst)> details)
+    {
+        var lookup = details
+            .ToLookup(e => e.Vst, e => e.Path)
+            .OrderBy(v => v.Key);
+
+        var section = CreateSection("Listing by plugin", lookup);
+
+        return section;
+    }
+
+    private static XElement CreateSection(string title, IEnumerable<IGrouping<string, string>> lookup)
+    {
+        var container = new XElement("div");
+        
+        var titleElement = new XElement("div", title);
+        var listing = new XElement("div");
+        
+        var entries = ToEntries(lookup);
         listing.Add(entries);
         
-        container.Add(title);
+        container.Add(titleElement);
         container.Add(listing);
 
         return container;
