@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 using Cocona;
 using ListVst.OutputFormatting;
@@ -56,6 +57,7 @@ internal class Host
     {
         RegisterProcessors(services);
         RegisterOutputFormatters(services);
+        RegisterNamingAliases(services);
     }
 
     private static void RegisterProcessors(IServiceCollection services)
@@ -114,5 +116,25 @@ internal class Host
         }
 
         services.AddSingleton<IOutputFormatterRegistry, OutputFormatterRegistry>();
+    }
+
+    private static void RegisterNamingAliases(IServiceCollection services)
+    {
+        var configuration = new NamingConfiguration();
+        var section = Configuration?.GetSection(NamingConfiguration.SectionName);
+        section.Bind(configuration);
+
+        var registry = new PluginAliasesRegistry();
+        var plugins = configuration.Plugins;
+        foreach (var plugin in plugins)
+        {
+            var main = plugin.Main;
+            if (!string.IsNullOrWhiteSpace(main) && plugin.Aliases.Any())
+            {
+                registry.Register(main, plugin.Aliases);
+            }
+        }
+
+        services.AddSingleton<IPluginAliasesRegistry>(registry);
     }
 }
