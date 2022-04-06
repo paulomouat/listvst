@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Formatter : IOutputFormatter
@@ -15,46 +17,62 @@ public class Formatter : IOutputFormatter
         {
             throw new ArgumentException(nameof(options.Path));
         }
-        
-        var lines = new List<string>();
-        
-        lines.Add("<html><body>");
+
+        var document = CreateOutputDocument();
         
         var allByPath = details
             .ToLookup(e => e.Path, e => e.Vst)
             .OrderBy(v => v.Key);
-        
-        lines.AddRange(ToLines(allByPath));
 
+        var byPathEntries = ToEntries(allByPath);
+        foreach (var entry in byPathEntries)
+        {
+            document.Add(new XElement("p", entry));
+        }
+        
         var allByVst = details
             .ToLookup(e => e.Vst, e => e.Path)
             .OrderBy(v => v.Key);
-        
-        lines.AddRange(ToLines(allByVst));
 
-        lines.Add("</body></html>");
-        
-        await File.WriteAllLinesAsync(options.Path, lines);
-    }
-
-    private static IEnumerable<string> ToLines(IEnumerable<IGrouping<string, string>> lookup)
-    {
-        var lines = new List<string>();
-
-        foreach(var group in lookup)
+        var byVstEntries = ToEntries(allByVst);
+        foreach (var entry in byVstEntries)
         {
-            lines.Add(group.Key);
-            foreach(var element in group)
-            {
-                lines.Add(element);
-            }
-
-            lines.Add(string.Empty);
+            document.Add(new XElement("p", entry));
         }
 
-        return lines;
+        await using var stream = File.OpenWrite(options.Path);
+        document.Save(stream);
     }
 
+    private static IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
+    {
+        var elements = new List<XElement>();
+        
+        foreach(var group in lookup)
+        {
+            var key = new XElement("div", group.Key);
+            foreach(var item in group)
+            {
+                var element = new XElement("div", item);
+                key.Add(element);
+            }
+            
+            elements.Add(key);
+        }
+
+        return elements;
+    }
+
+    private static XElement CreateOutputDocument()
+    {
+        var root = new XElement("html");
+        var body = new XElement("body");
+
+        root.Add(body);
+
+        return root;
+    }
+    
     Task IOutputFormatter.Write(IEnumerable<(string Path, string Vst)> details, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cocona;
 using ListVst.OutputFormatting;
 using ListVst.Processing;
@@ -22,7 +23,7 @@ namespace ListVst
         }
 
         [Command("save")]
-        public void Save(
+        public async Task Save(
             [Option("format",
                 Description = "The format to use in the output file (e.g. txt, html)",
                 StopParsingOptions = false,
@@ -68,12 +69,12 @@ namespace ListVst
                         Path = mappedFormatter.File
                     };
 
-                    mappedFormatter.Formatter.Write(all, formatterOptions);
+                    await mappedFormatter.Formatter.Write(all, formatterOptions);
                 }
             }
             catch (ArgumentException ae)
             {
-                Logger.LogCritical(ae, ae.Message);
+                Logger.LogCritical(ae, "Error while listing the VSTs.");
             }
             
             Logger.LogInformation("List VSTs done.");
