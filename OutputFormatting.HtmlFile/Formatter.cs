@@ -19,13 +19,16 @@ public class Formatter : IOutputFormatter
         }
 
         var document = CreateOutputDocument();
+
+        var pathSection = CreatePathSection(details);
+        document.Add(pathSection);
         
-        var allByPath = details
+        /*var allByPath = details
             .ToLookup(e => e.Path, e => e.Vst)
             .OrderBy(v => v.Key);
 
         var byPathEntries = ToEntries(allByPath);
-        document.Add(byPathEntries);
+        document.Add(byPathEntries);*/
         
         var allByVst = details
             .ToLookup(e => e.Vst, e => e.Path)
@@ -38,6 +41,26 @@ public class Formatter : IOutputFormatter
         document.Save(stream);
     }
 
+    private static XElement CreatePathSection(IEnumerable<(string Path, string Vst)> details)
+    {
+        var container = new XElement("div");
+        
+        var title = new XElement("div", "Listing by path");
+        var listing = new XElement("div");
+        
+        var allByPath = details
+            .ToLookup(e => e.Path, e => e.Vst)
+            .OrderBy(v => v.Key);
+
+        var entries = ToEntries(allByPath);
+        listing.Add(entries);
+        
+        container.Add(title);
+        container.Add(listing);
+
+        return container;
+    }
+    
     private static IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
     {
         var elements = new List<XElement>();
