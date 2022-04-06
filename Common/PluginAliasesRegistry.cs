@@ -4,11 +4,11 @@ public class PluginAliasesRegistry : IPluginAliasesRegistry
 {
     private Dictionary<string, string> Registry { get; }
 
-    public string? this[string alias]
+    public string this[string alias]
     {
         get
         {
-            if (!Registry.TryGetValue(alias, out string name))
+            if (!Registry.TryGetValue(alias, out var name))
             {
                 return alias;
             }

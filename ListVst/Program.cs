@@ -13,12 +13,16 @@ namespace ListVst
     {
         private IOutputFormatterRegistry OutputFormatterRegistry { get; }
         private IProcessorRegistry ProcessorRegistry { get; }
+        private IPluginAliasesRegistry PluginAliasesRegistry { get; }
         private ILogger Logger { get; }
         
-        public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry, ILogger<Program> logger)
+        public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
+            IPluginAliasesRegistry pluginAliasesRegistry,
+            ILogger<Program> logger)
         {
             OutputFormatterRegistry = outputFormatterRegistry;
             ProcessorRegistry = processorRegistry;
+            PluginAliasesRegistry = pluginAliasesRegistry;
             Logger = logger;
         }
 
@@ -58,9 +62,20 @@ namespace ListVst
                     Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
                 }
                 
-                var all = ProcessorRegistry.Processors
+                var allPlugins = ProcessorRegistry.Processors
                     .SelectMany(p => p.Process(sourcePath).Result)
                     .ToList();
+
+                var aliasedPlugins = allPlugins.Select(pd =>
+                {
+                    var alias = pd.Name;
+                    var name = PluginAliasesRegistry[alias];
+                    if (!string.IsNullOrWhiteSpace(name) && name != alias)
+                    {
+                        pd.Name = name;
+                    };
+                    return pd;
+                }).ToList();
 
                 foreach (var mappedFormatter in mappedFormatters)
                 {
@@ -69,7 +84,7 @@ namespace ListVst
                         Path = mappedFormatter.File
                     };
 
-                    await mappedFormatter.Formatter.Write(all, formatterOptions);
+                    await mappedFormatter.Formatter.Write(aliasedPlugins, formatterOptions);
                 }
             }
             catch (ArgumentException ae)
