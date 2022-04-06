@@ -6,7 +6,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "html";
     
-    public async Task Write(IEnumerable<(string Path, string Vst)> details, IFileOutputFormatterOptions options)
+    public async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -34,10 +34,10 @@ public class Formatter : IOutputFormatter
         document.Save(stream);
     }
 
-    private static Section CreatePathSection(IEnumerable<(string Path, string Vst)> details)
+    private static Section CreatePathSection(IEnumerable<PluginDescriptor> details)
     {
         var lookup = details
-            .ToLookup(e => e.Path, e => e.Vst)
+            .ToLookup(e => e.Path, e => e.Name)
             .OrderBy(v => v.Key);
 
         var section = Section.Create("listing-by-path","Listing by path", lookup);
@@ -45,10 +45,10 @@ public class Formatter : IOutputFormatter
         return section;
     }
     
-    private static Section CreatePluginSection(IEnumerable<(string Path, string Vst)> details)
+    private static Section CreatePluginSection(IEnumerable<PluginDescriptor> details)
     {
         var lookup = details
-            .ToLookup(e => e.Vst, e => e.Path)
+            .ToLookup(e => e.Name, e => e.Path)
             .OrderBy(v => v.Key);
 
         var section = Section.Create("listing-by-plugin", "Listing by plugin", lookup);
@@ -72,7 +72,7 @@ public class Formatter : IOutputFormatter
         return container;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<(string Path, string Vst)> details, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginDescriptor> details, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {

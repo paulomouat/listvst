@@ -4,7 +4,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "txt";
     
-    public async Task Write(IEnumerable<(string Path, string Vst)> details, IFileOutputFormatterOptions options)
+    public async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -19,13 +19,13 @@ public class Formatter : IOutputFormatter
         var lines = new List<string>();
         
         var allByPath = details
-            .ToLookup(e => e.Path, e => e.Vst)
+            .ToLookup(e => e.Path, e => e.Name)
             .OrderBy(v => v.Key);
         
         lines.AddRange(ToLines(allByPath));
 
         var allByVst = details
-            .ToLookup(e => e.Vst, e => e.Path)
+            .ToLookup(e => e.Name, e => e.Path)
             .OrderBy(v => v.Key);
         
         lines.AddRange(ToLines(allByVst));
@@ -51,7 +51,7 @@ public class Formatter : IOutputFormatter
         return lines;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<(string Path, string Vst)> details, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginDescriptor> details, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {

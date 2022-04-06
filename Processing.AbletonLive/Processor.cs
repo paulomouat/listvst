@@ -11,9 +11,9 @@ namespace ListVst.Processing.AbletonLive
             Logger = logger;
         }
         
-        public async Task<IEnumerable<(string Path, string Vst)>> Process(string sourcePath)
+        public async Task<IEnumerable<PluginDescriptor>> Process(string sourcePath)
         {
-            var results = new List<(string Path, string Vst)>();
+            var results = new List<PluginDescriptor>();
 
             var fl = new FileList(sourcePath);
             var files = fl.GetFiles("als").Where(f => !f.Contains("Backup"));
@@ -31,7 +31,7 @@ namespace ListVst.Processing.AbletonLive
                 
                 var p = new Parser();
                 var vsts = p.Parse(c);
-                var list = vsts.Select(vst => (file, vst)).ToList();
+                var list = vsts.Select(vst => new PluginDescriptor(file, vst)).ToList();
                 results.AddRange(list);
             }
 
