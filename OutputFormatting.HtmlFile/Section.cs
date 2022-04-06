@@ -21,12 +21,14 @@ public class Section : XElement
         var titleElement = new XElement("div", new XAttribute("id", id), title);
         titleElement.SetAttributeValue("class", "section-title");
 
-        var listing = new XElement("div");
+        var index = EntryIndex.Create(id + "-index", "All entries", lookup.Select(g => g.Key));
         
+        var listing = new XElement("div");
         var entries = ToEntries(lookup);
         listing.Add(entries);
         
         container.Add(titleElement);
+        container.Add(index);
         container.Add(listing);
 
         return container;
@@ -38,10 +40,14 @@ public class Section : XElement
         
         foreach(var group in lookup)
         {
+            var key = group.Key;
+            var id = new Id(key).Value;
+            
             var entry = new XElement("p");
+            entry.SetAttributeValue("id", id);
             entry.SetAttributeValue("class", "entry");
             
-            var title = new XElement("div", group.Key);
+            var title = new XElement("div", key);
             title.SetAttributeValue("class", "title");
             
             entry.Add(title);
