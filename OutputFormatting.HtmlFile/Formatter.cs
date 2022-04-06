@@ -18,93 +18,60 @@ public class Formatter : IOutputFormatter
             throw new ArgumentException(nameof(options.Path));
         }
 
-        var document = CreateOutputDocument();
+        var document = Document.Create("List of VSTs");
 
         var pathSection = CreatePathSection(details);
-        document.Add(pathSection);
-
         var pluginSection = CreatePluginSection(details);
+
+        var mainIndex = CreateMainIndex(new[] { pathSection, pluginSection });
+        
+        document.Body.Add(mainIndex);
+        
+        document.Add(pathSection);
         document.Add(pluginSection);
         
         await using var stream = File.OpenWrite(options.Path);
         document.Save(stream);
     }
 
-    private static XElement CreatePathSection(IEnumerable<(string Path, string Vst)> details)
+    private static Section CreatePathSection(IEnumerable<(string Path, string Vst)> details)
     {
         var lookup = details
             .ToLookup(e => e.Path, e => e.Vst)
             .OrderBy(v => v.Key);
 
-        var section = CreateSection("Listing by path", lookup);
+        var section = Section.Create("listing-by-path","Listing by path", lookup);
 
         return section;
     }
     
-    private static XElement CreatePluginSection(IEnumerable<(string Path, string Vst)> details)
+    private static Section CreatePluginSection(IEnumerable<(string Path, string Vst)> details)
     {
         var lookup = details
             .ToLookup(e => e.Vst, e => e.Path)
             .OrderBy(v => v.Key);
 
-        var section = CreateSection("Listing by plugin", lookup);
+        var section = Section.Create("listing-by-plugin", "Listing by plugin", lookup);
 
         return section;
     }
 
-    private static XElement CreateSection(string title, IEnumerable<IGrouping<string, string>> lookup)
+    private static XElement CreateMainIndex(IEnumerable<Section> sections)
     {
-        var container = new XElement("div");
-        
-        var titleElement = new XElement("div", title);
-        var listing = new XElement("div");
-        
-        var entries = ToEntries(lookup);
-        listing.Add(entries);
-        
-        container.Add(titleElement);
-        container.Add(listing);
+        var container = new XElement("p");
 
+        foreach (var section in sections)
+        {
+            var entry = new XElement("div");
+            var anchor = new XElement("a", new XAttribute("href", "#" + section.Id), section.Title);
+            entry.Add(anchor);
+
+            container.Add(entry);
+        }
+        
         return container;
     }
-    
-    private static IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
-    {
-        var elements = new List<XElement>();
-        
-        foreach(var group in lookup)
-        {
-            var entry = new XElement("p");
-            entry.SetAttributeValue("class", "entry");
-            
-            var title = new XElement("div", group.Key);
-            title.SetAttributeValue("class", "title");
-            
-            entry.Add(title);
-            
-            foreach(var item in group)
-            {
-                var element = new XElement("div", item);
-                element.SetAttributeValue("class", "item");
-                title.Add(element);
-            }
-            
-            elements.Add(entry);
-        }
 
-        return elements;
-    }
-
-    private static XElement CreateOutputDocument()
-    {
-        var root = new XElement("html");
-        var body = new XElement("body");
-
-        root.Add(body);
-
-        return root;
-    }
-    
     Task IOutputFormatter.Write(IEnumerable<(string Path, string Vst)> details, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
