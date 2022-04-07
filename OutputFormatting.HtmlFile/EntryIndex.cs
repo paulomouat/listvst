@@ -6,13 +6,6 @@ public class EntryIndex : XElement
 {
     public string Id { get; private set; }
     public string Title { get; private set; }
-
-    public EntryIndex(string id, string title, string tag = "p")
-        : base(tag)
-    {
-        Id = id;
-        Title = title;
-    }
     
     public static EntryIndex Create(string id, string title, IEnumerable<string> values)
     {
@@ -32,5 +25,12 @@ public class EntryIndex : XElement
         }
         
         return container;
+    }
+
+    private EntryIndex(string id, string title, string tag = "p")
+        : base(tag)
+    {
+        Id = id;
+        Title = title;
     }
 }

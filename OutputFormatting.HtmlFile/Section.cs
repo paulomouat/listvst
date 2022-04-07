@@ -6,13 +6,6 @@ public class Section : XElement
 {
     public string Id { get; private set; }
     public string Title { get; private set; }
-
-    public Section(string id, string title)
-        : base("div")
-    {
-        Id = id;
-        Title = title;
-    }
     
     public static Section Create(string id, string title, IEnumerable<IGrouping<string, string>> lookup)
     {
@@ -64,5 +57,12 @@ public class Section : XElement
         }
 
         return elements;
+    }
+
+    private Section(string id, string title)
+        : base("div")
+    {
+        Id = id;
+        Title = title;
     }
 }

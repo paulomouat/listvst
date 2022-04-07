@@ -6,8 +6,19 @@ public class Document : XElement
 {
     public string Title { get; }
     public XElement Body { get; }
+    
+    public static Document Create(string title)
+    {
+        var container = new Document(title);
+        return container;
+    }
 
-    public Document(string title)
+    public void Add(Section section)
+    {
+        Body.Add(section);
+    }
+
+    private Document(string title)
         : base("html")
     {
         Title = title;
@@ -23,16 +34,5 @@ public class Document : XElement
         Body.Add(titleElement);
 
         Add(Body);
-    }
-    
-    public static Document Create(string title)
-    {
-        var container = new Document(title);
-        return container;
-    }
-
-    public void Add(Section section)
-    {
-        Body.Add(section);
     }
 }
