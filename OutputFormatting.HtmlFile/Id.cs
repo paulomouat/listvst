@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Id
@@ -11,16 +13,29 @@ public class Id
 
     private static string Escape(string value)
     {
-        var result = string.Empty;
-            
-        if (!string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            result = value.Replace(" ", "-");
-            result = result.Replace("/", "-");
-            result = result.Replace(".", "-");
-            result = result.ToLowerInvariant();
+            return value;
         }
 
-        return result;
+        var escaped = MultiReplace(value, new[] { " ", "/", ".", "'", ";", ":" });
+        return escaped;
+    }
+
+    private static string MultiReplace(string target, IEnumerable<string> replaced, string replacement = "-")
+    {
+        var builder = new StringBuilder(target.ToLowerInvariant());
+        
+        if (target.StartsWith(replacement))
+        {
+            builder.Remove(0, 1);
+        }
+
+        foreach (var c in replaced)
+        {
+            builder.Replace(c, replacement);
+        }
+
+        return builder.ToString();
     }
 }
