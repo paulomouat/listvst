@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Collections.Concurrent;
+using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.StudioOne
 {
@@ -13,31 +14,40 @@ namespace ListVst.Processing.StudioOne
         
         public async Task<IEnumerable<PluginDescriptor>> Process(string sourcePath)
         {
-            var results = new List<PluginDescriptor>();
+            var results = new ConcurrentBag<PluginDescriptor>();
 
             var fl = new FileList(sourcePath);
             var files = fl.GetFiles("song").Where(f => !f.Contains("(Autosaved)") &&
-                !f.Contains("(Before Autosave)") && !f.Contains("/History/"));
-            
-            foreach (var file in files)
+                                                       !f.Contains("(Before Autosave)") && !f.Contains("/History/"));
+
+            await Parallel.ForEachAsync(files, async (file, token) =>
             {
-                Logger.LogInformation("Processing Studio One project {File}", file);
-                var pf = new ProjectFile(file);
-                await pf.Read();
-                var c = pf.Contents;
-
-                if (string.IsNullOrEmpty(c))
+                var batch = await ProcessFile(file);
+                foreach (var pd in batch)
                 {
-                    continue;
+                    results.Add(pd);
                 }
-
-                var p = new Parser();
-                var vsts = p.Parse(c);
-                var list = vsts.Select(vst => new PluginDescriptor(file, vst)).ToList();
-                results.AddRange(list);
-            }
+            });
 
             return results;
+        }
+
+        private async Task<IEnumerable<PluginDescriptor>> ProcessFile(string file)
+        {
+            Logger.LogInformation("Processing Studio One project {File}", file);
+            var pf = new ProjectFile(file);
+            await pf.Read();
+            var c = pf.Contents;
+
+            if (string.IsNullOrEmpty(c))
+            {
+                return Array.Empty<PluginDescriptor>();
+            }
+                
+            var p = new Parser();
+            var vsts = p.Parse(c);
+            var list = vsts.Select(vst => new PluginDescriptor(file, vst)).ToList();
+            return list;
         }
     }
 }

@@ -37,8 +37,9 @@ public class Formatter : IOutputFormatter
     private static Section CreatePathSection(IEnumerable<PluginDescriptor> details)
     {
         var lookup = details
-            .ToLookup(e => e.Path, e => e.Name)
-            .OrderBy(v => v.Key);
+            .OrderBy(pd => pd.Path)
+            .ThenBy(pd => pd.Name)
+            .ToLookup(e => e.Path, e => e.Name);
 
         var section = Section.Create("listing-by-path","Listing by path", lookup);
 
@@ -48,8 +49,9 @@ public class Formatter : IOutputFormatter
     private static Section CreatePluginSection(IEnumerable<PluginDescriptor> details)
     {
         var lookup = details
-            .ToLookup(e => e.Name, e => e.Path)
-            .OrderBy(v => v.Key);
+            .OrderBy(pd => pd.Name)
+            .ThenBy(pd => pd.Path)
+            .ToLookup(e => e.Name, e => e.Path);
 
         var section = Section.Create("listing-by-plugin", "Listing by plugin", lookup);
 

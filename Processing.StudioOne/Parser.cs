@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Text;
+using System.Xml.Linq;
 
 namespace ListVst.Processing.StudioOne
 {
@@ -19,14 +20,17 @@ namespace ListVst.Processing.StudioOne
             return names.Distinct().OrderBy(n => n);
         }
 
-        private string CleanUp(string xml)
+        private static string CleanUp(string xml)
         {
-            xml = xml.Replace("::", "_");
-            xml = xml.Replace("x:", "_");
-            return xml;
+            var builder = new StringBuilder(xml);
+            
+            builder.Replace("::", "_")
+                .Replace("x:", "_");
+            
+            return builder.ToString();
         }
 
-        private XDocument CreateDocument(string xml)
+        private static XDocument CreateDocument(string xml)
         {
             xml = CleanUp(xml);
 
@@ -42,7 +46,7 @@ namespace ListVst.Processing.StudioOne
 
         private IEnumerable<string> GetDeviceNames(XDocument document)
         {
-            var list = new List<string>();
+            var list = new HashSet<string>();
 
             var attributesElements = document.Descendants("Attributes");
             //var containingDeviceData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "deviceData");
@@ -51,8 +55,11 @@ namespace ListVst.Processing.StudioOne
             {
                 var classInfoAttributes = ghostData.Descendants("Attributes").Where(xe => xe.Attribute("_id")?.Value == "classInfo");
                 var withNameAttribute = classInfoAttributes.Attributes().Where(a => a.Name == "name");
-                var values = withNameAttribute.Select(a => a.Value);
-                list.AddRange(values);
+                var values = withNameAttribute.Select(a => a.Value).ToHashSet();
+                foreach (var value in values)
+                {
+                    list.Add(value);
+                }
             }            
 
             return list;

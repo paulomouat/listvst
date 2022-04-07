@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Text;
+using System.Xml.Linq;
 
 namespace ListVst.Processing.AbletonLive
 {
@@ -15,17 +16,20 @@ namespace ListVst.Processing.AbletonLive
 
             Document = CreateDocument(xml);
             var names = GetDeviceNames(Document);
-            return names.Distinct().OrderBy(n => n);
+            return names;
         }
 
-        private string CleanUp(string xml)
+        private static string CleanUp(string xml)
         {
-            xml = xml.Replace("::", "_");
-            xml = xml.Replace("x:", "_");
-            return xml;
+            var builder = new StringBuilder(xml);
+            
+            builder.Replace("::", "_")
+                .Replace("x:", "_");
+            
+            return builder.ToString();
         }
 
-        private XDocument CreateDocument(string xml)
+        private static XDocument CreateDocument(string xml)
         {
             xml = CleanUp(xml);
 
@@ -39,9 +43,9 @@ namespace ListVst.Processing.AbletonLive
             return parsed;
         }
 
-        private IEnumerable<string> GetDeviceNames(XDocument document)
+        private static IEnumerable<string> GetDeviceNames(XDocument document)
         {
-            var values = new List<string>();
+            var values = new HashSet<string>();
 
             var pluginDescElements = document.Descendants("PluginDesc");
             foreach(var pluginDescElement in pluginDescElements)
@@ -54,8 +58,11 @@ namespace ListVst.Processing.AbletonLive
                     var nameElements = manufacturerElement.Parent!.Elements("Name");
                     var names = nameElements.Attributes("Value").Select(a => a.Value);
 
-                    var pluginDetails = names.Select(n => $"{manufacturer} {n}");
-                    values.AddRange(pluginDetails);
+                    var pluginDetails = names.Select(n => $"{manufacturer} {n}").ToHashSet();
+                    foreach (var pd in pluginDetails)
+                    {
+                        values.Add(pd);
+                    }
                     continue;
                 }
 
@@ -71,7 +78,7 @@ namespace ListVst.Processing.AbletonLive
                 }
             }
 
-            return values.Distinct().OrderBy(s => s);
+            return values;
         }
     }
 }
