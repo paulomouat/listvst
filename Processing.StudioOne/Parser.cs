@@ -7,7 +7,7 @@ namespace ListVst.Processing.StudioOne
     {
         private XDocument? Document { get; set; }
 
-        public IEnumerable<string> Parse(string xml)
+        public async Task<IEnumerable<string>> Parse(string xml)
         {
             if (string.IsNullOrEmpty(xml))
             {
@@ -17,6 +17,9 @@ namespace ListVst.Processing.StudioOne
             Document = CreateDocument(xml);
             
             var names = GetDeviceNames(Document);
+
+            await Task.CompletedTask;
+            
             return names;
         }
 

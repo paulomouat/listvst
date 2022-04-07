@@ -5,8 +5,8 @@ namespace ListVst.OutputFormatting.HtmlFile;
 public class Formatter : IOutputFormatter
 {
     public string Format => "html";
-    
-    public async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
+
+    protected virtual async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {

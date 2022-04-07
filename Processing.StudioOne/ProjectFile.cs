@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using System.Text;
 
 namespace ListVst.Processing.StudioOne
 {
@@ -30,6 +31,24 @@ namespace ListVst.Processing.StudioOne
                 }
             }
 
+            /*var contents = new StringBuilder();
+            
+            ms.Position = 0;
+            using var reader = new StreamReader(ms);
+            while(reader.Peek() >= 0)
+            {
+                var line = await reader.ReadLineAsync();
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    line = line.Trim();
+                    line = line.Replace("::", "_");
+                    line = line.Replace("x:", "_");
+                    contents.Append(line);
+                }
+            }
+            
+            Contents = contents.ToString();*/
+            
             ms.Position = 0;
             var reader = new StreamReader(ms);
             Contents = await reader.ReadToEndAsync();

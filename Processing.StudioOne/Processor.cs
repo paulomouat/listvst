@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.StudioOne
@@ -43,10 +44,22 @@ namespace ListVst.Processing.StudioOne
             {
                 return Array.Empty<PluginDescriptor>();
             }
-                
+
+            var sw = new Stopwatch();
+            sw.Start();
+            
             var p = new Parser();
-            var vsts = p.Parse(c);
+            var vsts = await p.Parse(c);
+            var parseTime = sw.ElapsedMilliseconds;
+            sw.Stop();
+            
             var list = vsts.Select(vst => new PluginDescriptor(file, vst)).ToList();
+            
+            sw.Stop();
+            
+            Logger.LogInformation("  Project {File} is {Size} bytes and was parsed in {ParseTime} ms.",
+                file, c.Length, parseTime);
+
             return list;
         }
     }

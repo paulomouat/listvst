@@ -3,8 +3,8 @@ namespace ListVst.OutputFormatting.TxtFile;
 public class Formatter : IOutputFormatter
 {
     public string Format => "txt";
-    
-    public async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
+
+    protected virtual async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -19,14 +19,16 @@ public class Formatter : IOutputFormatter
         var lines = new List<string>();
         
         var allByPath = details
-            .ToLookup(e => e.Path, e => e.Name)
-            .OrderBy(v => v.Key);
+            .OrderBy(pd => pd.Path)
+            .ThenBy(pd => pd.Name)
+            .ToLookup(e => e.Path, e => e.Name);
         
         lines.AddRange(ToLines(allByPath));
 
         var allByVst = details
-            .ToLookup(e => e.Name, e => e.Path)
-            .OrderBy(v => v.Key);
+            .OrderBy(pd => pd.Name)
+            .ThenBy(pd => pd.Path)
+            .ToLookup(e => e.Name, e => e.Path);
         
         lines.AddRange(ToLines(allByVst));
 

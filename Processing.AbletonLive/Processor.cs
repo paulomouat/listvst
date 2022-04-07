@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.AbletonLive
@@ -42,10 +43,20 @@ namespace ListVst.Processing.AbletonLive
             {
                 return Array.Empty<PluginDescriptor>();
             }
-                
-            var p = new Parser();
-            var vsts = p.Parse(c);
+            
+            var sw = new Stopwatch();
+            sw.Start();
+
+            var p = new Parser(Logger);
+            var vsts = await p.Parse(c);
+            var parseTime = sw.ElapsedMilliseconds;
+            sw.Stop();
+            
             var list = vsts.Select(vst => new PluginDescriptor(file, vst)).ToList();
+            
+            Logger.LogInformation("  Project {File} is {Size} bytes and was parsed in {ParseTime} ms.",
+                file, c.Length, parseTime);
+
             return list;
         }
     }
