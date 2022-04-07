@@ -54,7 +54,8 @@ public class Section : XElement
             
             foreach(var item in group)
             {
-                var element = new XElement("div", item);
+                var anchor = new XElement("a", new XAttribute("href", "#" + new Id(item).Value), item);
+                var element = new XElement("div", anchor);
                 element.SetAttributeValue("class", "item");
                 title.Add(element);
             }
