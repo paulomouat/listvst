@@ -62,6 +62,10 @@ public class Formatter : IOutputFormatter
     {
         var container = new XElement("p");
 
+        var title = new XElement("div", "Main index");
+        title.SetAttributeValue("class", "main-index-title");
+        container.Add(title);
+        
         foreach (var section in sections)
         {
             var entry = new XElement("div");

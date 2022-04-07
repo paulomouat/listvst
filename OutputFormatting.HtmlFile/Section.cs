@@ -50,7 +50,7 @@ public class Section : XElement
                 var anchor = new XElement("a", new XAttribute("href", "#" + new Id(item).Value), item);
                 var element = new XElement("div", anchor);
                 element.SetAttributeValue("class", "item");
-                title.Add(element);
+                entry.Add(element);
             }
             
             elements.Add(entry);

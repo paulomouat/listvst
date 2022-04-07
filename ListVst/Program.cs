@@ -66,7 +66,17 @@ namespace ListVst
                     .SelectMany(p => p.Process(sourcePath).Result)
                     .ToList();
 
-                var aliasedPlugins = allPlugins.Select(pd =>
+                var withSimplifiedPaths = allPlugins.Select(pd =>
+                {
+                    var rawPath = pd.Path;
+                    if (rawPath.StartsWith(sourcePath))
+                    {
+                        pd.Path = rawPath.Substring(sourcePath.Length);
+                    }
+                    return pd;
+                });
+                
+                var withAliases = withSimplifiedPaths.Select(pd =>
                 {
                     var alias = pd.Name;
                     var name = PluginAliasesRegistry[alias];
@@ -84,7 +94,7 @@ namespace ListVst
                         Path = mappedFormatter.File
                     };
 
-                    await mappedFormatter.Formatter.Write(aliasedPlugins, formatterOptions);
+                    await mappedFormatter.Formatter.Write(withAliases, formatterOptions);
                 }
             }
             catch (ArgumentException ae)
