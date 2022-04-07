@@ -17,7 +17,7 @@ namespace ListVst.Processing.StudioOne
             Document = CreateDocument(xml);
             
             var names = GetDeviceNames(Document);
-            return names.Distinct().OrderBy(n => n);
+            return names;
         }
 
         private static string CleanUp(string xml)
@@ -44,7 +44,7 @@ namespace ListVst.Processing.StudioOne
             return parsed;
         }
 
-        private IEnumerable<string> GetDeviceNames(XDocument document)
+        private static IEnumerable<string> GetDeviceNames(XDocument document)
         {
             var list = new HashSet<string>();
 
