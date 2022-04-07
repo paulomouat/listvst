@@ -41,6 +41,12 @@ namespace ListVst.Processing.AbletonLive
                 if (!string.IsNullOrWhiteSpace(line))
                 {
                     line = line.Trim();
+
+                    if (!line.StartsWith("<"))
+                    {
+                        contents.Append(' ');
+                    }
+
                     line = line.Replace("::", "_");
                     line = line.Replace("x:", "_");
                     contents.Append(line);

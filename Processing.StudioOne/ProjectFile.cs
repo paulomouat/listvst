@@ -30,7 +30,7 @@ namespace ListVst.Processing.StudioOne
                 }
             }
 
-            /*var contents = new StringBuilder();
+            var contents = new System.Text.StringBuilder();
             
             ms.Position = 0;
             using var reader = new StreamReader(ms);
@@ -40,17 +40,19 @@ namespace ListVst.Processing.StudioOne
                 if (!string.IsNullOrWhiteSpace(line))
                 {
                     line = line.Trim();
+
+                    if (!line.StartsWith("<"))
+                    {
+                        contents.Append(' ');
+                    }
+                    
                     line = line.Replace("::", "_");
                     line = line.Replace("x:", "_");
                     contents.Append(line);
                 }
             }
             
-            Contents = contents.ToString();*/
-            
-            ms.Position = 0;
-            var reader = new StreamReader(ms);
-            Contents = await reader.ReadToEndAsync();
+            Contents = contents.ToString();
         }
     }
 }

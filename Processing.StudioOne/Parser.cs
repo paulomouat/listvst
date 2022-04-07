@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using System.Xml;
 using System.Xml.Linq;
 
 namespace ListVst.Processing.StudioOne
@@ -14,47 +14,39 @@ namespace ListVst.Processing.StudioOne
                 return Array.Empty<string>();
             }
             
-            Document = CreateDocument(xml);
-            
-            var names = GetDeviceNames(Document);
-
-            await Task.CompletedTask;
-            
+            // NOTE: Performance is substantially faster if we slice the xml into
+            // the chunks we are interested in via an XmlReader and then creating
+            // individual XElement instances for each, than it is if we create a
+            // single XDocument with the whole xml string
+            var pluginElements = await ExtractPluginElements(xml);
+            var xelements = pluginElements.Select(XElement.Parse);
+            var names = GetDeviceNames(xelements);
             return names;
         }
 
-        private static string CleanUp(string xml)
+        private static async Task<IEnumerable<string>> ExtractPluginElements(string xml)
         {
-            var builder = new StringBuilder(xml);
+            var elements = new List<string>();
             
-            builder.Replace("::", "_")
-                .Replace("x:", "_");
-            
-            return builder.ToString();
+            using var sr = new StringReader(xml);
+            using var reader = XmlReader.Create(sr, new XmlReaderSettings{ Async = true });
+            while (await reader.ReadAsync())
+            {
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" && reader.GetAttribute("_id") == "ghostData")
+                {
+                    var element = await reader.ReadOuterXmlAsync();
+                    elements.Add(element);
+                }
+            }
+
+            return elements;
         }
-
-        private static XDocument CreateDocument(string xml)
-        {
-            xml = CleanUp(xml);
-
-            //var nsm = new XmlNamespaceManager(new NameTable());
-            //nsm.AddNamespace("x", "urn:ignore");
-
-            //var ctx = new XmlParserContext(null, nsm, null, XmlSpace.Preserve);
-            //var reader = new XmlTextReader(xml, XmlNodeType.Element, ctx);
-            //var parsed = XDocument.Load(reader);
-            var parsed = XDocument.Parse(xml);
-            return parsed;
-        }
-
-        private static IEnumerable<string> GetDeviceNames(XDocument document)
+        
+        private static IEnumerable<string> GetDeviceNames(IEnumerable<XElement> pluginElements)
         {
             var list = new HashSet<string>();
 
-            var attributesElements = document.Descendants("Attributes");
-            //var containingDeviceData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "deviceData");
-            var containingGhostData = attributesElements.Where(xe => xe.Attribute("_id")?.Value == "ghostData");
-            foreach (var ghostData in containingGhostData)
+            foreach (var ghostData in pluginElements)
             {
                 var classInfoAttributes = ghostData.Descendants("Attributes").Where(xe => xe.Attribute("_id")?.Value == "classInfo");
                 var withNameAttribute = classInfoAttributes.Attributes().Where(a => a.Name == "name");
@@ -66,6 +58,6 @@ namespace ListVst.Processing.StudioOne
             }            
 
             return list;
-        }
+        }        
     }
 }
