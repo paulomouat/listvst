@@ -18,7 +18,7 @@ public class EntryIndex : XElement
         
         foreach (var value in values)
         {
-            var entry = new XElement("div");
+            var entry = new XElement("div", new XAttribute("class", "item"));
             var anchor = new XElement("a", new XAttribute("href", "#" + new Id(value).Value), value);
             entry.Add(anchor);
 

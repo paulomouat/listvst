@@ -30,6 +30,9 @@ body {
 .key {
     font-size: 1.1em;
 }
+.item {
+    margin-left: 1ex;
+}
 .link-to-top {
     font-size: 0.8em;
     margin-left: 1ex;

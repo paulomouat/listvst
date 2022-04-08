@@ -31,7 +31,7 @@ public class Id
             builder.Replace(c, replacement);
         }
         
-        if (builder[0] == replacement[0])
+        if (replacement.Length > 0 && builder[0] == replacement[0])
         {
             builder.Remove(0, 1);
         }

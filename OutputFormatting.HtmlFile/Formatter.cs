@@ -68,7 +68,7 @@ public class Formatter : IOutputFormatter
         
         foreach (var section in sections)
         {
-            var entry = new XElement("div");
+            var entry = new XElement("div", new XAttribute("class", "item"));
             var anchor = new XElement("a", new XAttribute("href", "#" + section.Id), section.Title);
             entry.Add(anchor);
 
