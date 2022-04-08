@@ -6,6 +6,7 @@ namespace ListVst.Processing.AbletonLive
     public class Processor : IProcessor
     {
         private ILogger Logger { get; }
+        private string? SourcePath { get; set; }
 
         public Processor(ILogger<Processor> logger)
         {
@@ -14,6 +15,8 @@ namespace ListVst.Processing.AbletonLive
         
         public async Task<IEnumerable<PluginDescriptor>> Process(string sourcePath)
         {
+            SourcePath = sourcePath;
+            
             var results = new ConcurrentBag<PluginDescriptor>();
 
             var fl = new FileList(sourcePath);
@@ -34,6 +37,7 @@ namespace ListVst.Processing.AbletonLive
         private async Task<IEnumerable<PluginDescriptor>> ProcessFile(string file)
         {
             Logger.LogInformation("Processing Ableton Live project {File}", file);
+            
             var pf = new ProjectFile(file);
             await pf.Read();
             var c = pf.Contents;
@@ -45,8 +49,16 @@ namespace ListVst.Processing.AbletonLive
 
             var p = new Parser(Logger);
             var plugins = await p.Parse(c);
-            var path = ProjectPath.Parse(file);
-            var list = plugins.Select(plugin => new PluginDescriptor(file, file, file, plugin)).ToList();
+
+            var rawPath = file;
+            if (rawPath.StartsWith(SourcePath!))
+            {
+                rawPath = rawPath[SourcePath!.Length..];
+            }
+            
+            var projectDescriptor = ProjectDescriptor.Parse(rawPath);
+            var list = plugins.Select(plugin => new PluginDescriptor(
+                projectDescriptor, plugin)).ToList();
             
             return list;
         }

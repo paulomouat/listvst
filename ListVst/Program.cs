@@ -65,18 +65,8 @@ namespace ListVst
                 var allPlugins = ProcessorRegistry.Processors
                     .SelectMany(p => p.Process(sourcePath).Result)
                     .ToList();
-
-                var withSimplifiedPaths = allPlugins.Select(pd =>
-                {
-                    var rawPath = pd.Path;
-                    if (rawPath.StartsWith(sourcePath))
-                    {
-                        pd.Path = rawPath.Substring(sourcePath.Length);
-                    }
-                    return pd;
-                });
                 
-                var withAliases = withSimplifiedPaths.Select(pd =>
+                var withAliases = allPlugins.Select(pd =>
                 {
                     var alias = pd.Name;
                     var name = PluginAliasesRegistry[alias];

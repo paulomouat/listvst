@@ -1,10 +1,10 @@
 using FluentAssertions;
-using ListVst.Processing;
+using ListVst;
 using Xunit;
 
-namespace Processing.Tests
+namespace Common.Tests
 {
-    public class ProjectPathFixture
+    public class ProjectDescriptorFixture
     {
         private const string RegularPath = "/main project/some subfolder/another subfolder/main file.ext";
         private const string NoLeadingSlashPath = "main project/some subfolder/another subfolder/main file.ext";
@@ -17,9 +17,9 @@ namespace Processing.Tests
         [InlineData(NoLeadingSlashPath)]
         public void RegularPath_AssignsProject(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
-            sut.Project.Should().Be("main project");
+            sut.Name.Should().Be("main project");
         }
         
         [Theory]
@@ -27,9 +27,9 @@ namespace Processing.Tests
         [InlineData(NoLeadingSlashPath)]
         public void RegularPath_AssignsProjectFile(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
-            sut.ProjectFile.Should().Be("main file.ext");
+            sut.File.Should().Be("main file.ext");
         }
         
         [Theory]
@@ -37,7 +37,7 @@ namespace Processing.Tests
         [InlineData(NoLeadingSlashPath)]
         public void RegularPath_DoesNotAssignSpecialFolder(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
             sut.SpecialFolder.Should().BeEmpty();
         }
@@ -47,9 +47,9 @@ namespace Processing.Tests
         [InlineData(SpecialFolderNoLeadingSlashPath)]
         public void SpecialFolderPath_AssignsProject(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
-            sut.Project.Should().Be("main project");
+            sut.Name.Should().Be("main project");
         }
         
         [Theory]
@@ -57,9 +57,9 @@ namespace Processing.Tests
         [InlineData(SpecialFolderNoLeadingSlashPath)]
         public void SpecialFolderPath_AssignsProjectFile(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
-            sut.ProjectFile.Should().Be("main file.ext");
+            sut.File.Should().Be("main file.ext");
         }
         
         [Theory]
@@ -67,7 +67,7 @@ namespace Processing.Tests
         [InlineData(SpecialFolderNoLeadingSlashPath)]
         public void SpecialFolderPath_AssignsSpecialFolder(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
             sut.SpecialFolder.Should().Be("_special folder");
         }
@@ -75,7 +75,7 @@ namespace Processing.Tests
         [Fact]
         public void FullPath_AssignsSegments()
         {
-            var sut = ProjectPath.Parse(SpecialFolderPath);
+            var sut = ProjectDescriptor.Parse(SpecialFolderPath);
 
             sut.Segments.Should().BeEquivalentTo(new[]
             {
@@ -92,7 +92,7 @@ namespace Processing.Tests
         [InlineData(SpecialFolderPath)]
         public void FullPath_AssignsSubsegments(string rawPath)
         {
-            var sut = ProjectPath.Parse(rawPath);
+            var sut = ProjectDescriptor.Parse(rawPath);
 
             sut.Subsegments.Should().BeEquivalentTo(new[]
             {
@@ -105,7 +105,7 @@ namespace Processing.Tests
         [Fact]
         public void ShallowPath_HasNoSubsegments()
         {
-            var sut = ProjectPath.Parse(ShallowPath);
+            var sut = ProjectDescriptor.Parse(ShallowPath);
 
             sut.Subsegments.Should().BeEquivalentTo(new[]
             {

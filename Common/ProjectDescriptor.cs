@@ -1,39 +1,43 @@
-namespace ListVst.Processing;
+namespace ListVst;
 
-public class ProjectPath
+public class ProjectDescriptor
 {
     private const string SpecialFolderPrefix = "_";
     
-    public string Project { get; private set; }
-    public string ProjectFile { get; private set; }
+    public string Name { get; private set; }
+    public string File { get; private set; }
     public string SpecialFolder { get; private set; }
+    public string Path { get; private set; }
     
     public IEnumerable<string> Segments { get; private set; }
     public IEnumerable<string> Subsegments { get; private set; }
     
-    public static ProjectPath Parse(string rawPath)
+    public static ProjectDescriptor Parse(string rawPath)
     {
-        if (rawPath.StartsWith("/"))
+        var sanitizedPath = rawPath;
+        
+        if (sanitizedPath.StartsWith("/"))
         {
-            rawPath = rawPath[1..];
+            sanitizedPath = sanitizedPath[1..];
         }
 
-        var segments = Segment(rawPath);
+        var segments = Segment(sanitizedPath);
 
         var (project, specialFolder) = ExtractProjectFolder(segments);
         var projectFile = ExtractProjectFile(segments);
         var subsegments = ExtractSubsegments(segments, project, specialFolder);
         
-        var projectPath = new ProjectPath
+        var projectDescriptor = new ProjectDescriptor
         {
-            Project = project,
-            ProjectFile = projectFile,
+            Name = project,
+            File = projectFile,
             SpecialFolder = specialFolder,
+            Path = rawPath,
             Segments = segments,
             Subsegments = subsegments
         };
 
-        return projectPath;
+        return projectDescriptor;
     }
 
     private static string[] Segment(string path)
@@ -77,11 +81,12 @@ public class ProjectPath
         return segments.Skip(skip).ToArray();
     }
     
-    private ProjectPath()
+    private ProjectDescriptor()
     {
-        Project = string.Empty;
-        ProjectFile = string.Empty;
+        Name = string.Empty;
+        File = string.Empty;
         SpecialFolder = string.Empty;
+        Path = string.Empty;
         Segments = Array.Empty<string>();
         Subsegments = Array.Empty<string>();
     }
