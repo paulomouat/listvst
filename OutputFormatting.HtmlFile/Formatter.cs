@@ -60,10 +60,10 @@ public class Formatter : IOutputFormatter
 
     private static XElement CreateMainIndex(IEnumerable<Section> sections)
     {
-        var container = new XElement("p");
+        var container = new XElement("div");
 
         var title = new XElement("div", "Main index");
-        title.SetAttributeValue("class", "main-index-title");
+        title.SetAttributeValue("class", "main-index title");
         container.Add(title);
         
         foreach (var section in sections)

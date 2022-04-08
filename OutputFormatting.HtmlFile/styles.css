@@ -1,0 +1,40 @@
+@import url(//fonts.googleapis.com/css?family=Libre+Franklin:400,700);
+@import url(//fonts.googleapis.com/css?family=Assistant);
+
+body {
+    font-family: "Assistant", sans-serif;
+    color: #444444;
+}
+.title {
+    font-family: "Libre Franklin", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+.list {
+    font-size: 2em;
+}
+.main-index {
+    font-size: 1.5em;
+    margin-top: 2ex;
+}
+.section {
+    font-size: 1.5em;
+    margin-top: 2ex;
+}
+.index {
+    font-size: 1.1em;
+    margin-top: 1ex;
+}
+.entry {
+    margin-top: 1ex;
+}
+.key {
+    font-size: 1.1em;
+}
+a {
+    text-decoration: none;
+    color: #666666;
+}
+a:hover {
+    text-decoration: underline;
+    color: #999999;
+}

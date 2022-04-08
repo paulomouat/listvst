@@ -12,7 +12,7 @@ public class Section : XElement
         var container = new Section(id, title);
         
         var titleElement = new XElement("div", new XAttribute("id", id), title);
-        titleElement.SetAttributeValue("class", "section-title");
+        titleElement.SetAttributeValue("class", "section title");
 
         var index = EntryIndex.Create(id + "-index", "All entries", lookup.Select(g => g.Key));
         
@@ -36,14 +36,14 @@ public class Section : XElement
             var key = group.Key;
             var id = new Id(key).Value;
             
-            var entry = new XElement("p");
+            var entry = new XElement("div");
             entry.SetAttributeValue("id", id);
             entry.SetAttributeValue("class", "entry");
             
-            var title = new XElement("div", key);
-            title.SetAttributeValue("class", "title");
+            var keyTitle = new XElement("div", key);
+            keyTitle.SetAttributeValue("class", "key title");
             
-            entry.Add(title);
+            entry.Add(keyTitle);
             
             foreach(var item in group)
             {

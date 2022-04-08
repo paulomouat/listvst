@@ -12,7 +12,7 @@ public class EntryIndex : XElement
         var container = new EntryIndex(id, title);
 
         var titleElement = new XElement("div", title);
-        titleElement.SetAttributeValue("class", "index-title");
+        titleElement.SetAttributeValue("class", "index title");
         container.Add(titleElement);        
         
         foreach (var value in values)
@@ -27,7 +27,7 @@ public class EntryIndex : XElement
         return container;
     }
 
-    private EntryIndex(string id, string title, string tag = "p")
+    private EntryIndex(string id, string title, string tag = "div")
         : base(tag)
     {
         Id = id;
