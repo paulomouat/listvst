@@ -46,7 +46,7 @@ namespace ListVst.Processing.StudioOne
             
             var p = new Parser();
             var plugins = await p.Parse(c);
-            var list = plugins.Select(plugin => new PluginDescriptor(file, plugin)).ToList();
+            var list = plugins.Select(plugin => new PluginDescriptor(file, file, file, plugin)).ToList();
 
             return list;
         }
