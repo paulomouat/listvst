@@ -13,6 +13,11 @@ public class Document : XElement
         return container;
     }
 
+    public void Add(MainIndex mainIndex)
+    {
+        Body.Add(mainIndex);
+    }
+
     public void Add(Section section)
     {
         Body.Add(section);

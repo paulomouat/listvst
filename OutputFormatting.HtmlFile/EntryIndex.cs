@@ -4,8 +4,8 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class EntryIndex : XElement
 {
-    public string Id { get; private set; }
-    public string Title { get; private set; }
+    public string Id { get; }
+    public string Title { get; }
     
     public static EntryIndex Create(string id, string title, IEnumerable<string> values)
     {

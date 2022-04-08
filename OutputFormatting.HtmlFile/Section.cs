@@ -4,8 +4,8 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Section : XElement
 {
-    public string Id { get; private set; }
-    public string Title { get; private set; }
+    public string Id { get; }
+    public string Title { get; }
     
     public static Section Create(string id, string title, IEnumerable<IGrouping<string, string>> lookup)
     {

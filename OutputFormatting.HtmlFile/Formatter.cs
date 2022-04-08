@@ -1,5 +1,3 @@
-using System.Xml.Linq;
-
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Formatter : IOutputFormatter
@@ -23,10 +21,9 @@ public class Formatter : IOutputFormatter
         var pathSection = CreatePathSection(details);
         var pluginSection = CreatePluginSection(details);
 
-        var mainIndex = CreateMainIndex(new[] { pathSection, pluginSection });
-        
-        document.Body.Add(mainIndex);
-        
+        var mainIndex = MainIndex.Create("main-index","Main index",new[] { pathSection, pluginSection });
+       
+        document.Add(mainIndex);
         document.Add(pathSection);
         document.Add(pluginSection);
         
@@ -56,26 +53,6 @@ public class Formatter : IOutputFormatter
         var section = Section.Create("listing-by-plugin", "Listing by plugin", lookup);
 
         return section;
-    }
-
-    private static XElement CreateMainIndex(IEnumerable<Section> sections)
-    {
-        var container = new XElement("div");
-
-        var title = new XElement("div", "Main index");
-        title.SetAttributeValue("class", "main-index title");
-        container.Add(title);
-        
-        foreach (var section in sections)
-        {
-            var entry = new XElement("div", new XAttribute("class", "item"));
-            var anchor = new XElement("a", new XAttribute("href", "#" + section.Id), section.Title);
-            entry.Add(anchor);
-
-            container.Add(entry);
-        }
-        
-        return container;
     }
 
     Task IOutputFormatter.Write(IEnumerable<PluginDescriptor> details, IOutputFormatterOptions options)
