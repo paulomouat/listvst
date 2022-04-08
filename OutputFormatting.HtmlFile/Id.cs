@@ -25,15 +25,15 @@ public class Id
     private static string MultiReplace(string target, IEnumerable<string> replaced, string replacement = "-")
     {
         var builder = new StringBuilder(target.ToLowerInvariant());
-        
-        if (target.StartsWith(replacement))
-        {
-            builder.Remove(0, 1);
-        }
 
         foreach (var c in replaced)
         {
             builder.Replace(c, replacement);
+        }
+        
+        if (builder[0] == replacement[0])
+        {
+            builder.Remove(0, 1);
         }
 
         return builder.ToString();

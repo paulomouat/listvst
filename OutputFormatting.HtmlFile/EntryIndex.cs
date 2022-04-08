@@ -10,9 +10,10 @@ public class EntryIndex : XElement
     public static EntryIndex Create(string id, string title, IEnumerable<string> values)
     {
         var container = new EntryIndex(id, title);
-
-        var titleElement = new XElement("div", title);
-        titleElement.SetAttributeValue("class", "index title");
+        container.SetAttributeValue("id", id);
+        
+        var titleElement = new XElement("div", title,
+            new XAttribute("class", "index title"));
         container.Add(titleElement);        
         
         foreach (var value in values)

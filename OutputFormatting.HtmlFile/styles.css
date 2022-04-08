@@ -30,6 +30,20 @@ body {
 .key {
     font-size: 1.1em;
 }
+.link-to-top {
+    font-size: 0.8em;
+    margin-left: 1ex;
+}
+.link-to-top::before {
+    content: "\2191 ";
+}
+.link-to-section {
+    font-size: 0.8em;
+    margin-left: 1ex;
+}
+.link-to-section::before {
+    content: "\2191 ";
+}
 a {
     text-decoration: none;
     color: #666666;

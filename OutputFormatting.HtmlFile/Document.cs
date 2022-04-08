@@ -36,8 +36,9 @@ public class Document : XElement
         var body = new XElement("body");
         Body = body;
             
-        var titleElement = new XElement("p", Title);
-        titleElement.SetAttributeValue("class", "list title");
+        var titleElement = new XElement("div", Title,
+            new XAttribute("id", "document-title"),
+            new XAttribute("class", "list title"));
         Body.Add(titleElement);
 
         Add(Body);
