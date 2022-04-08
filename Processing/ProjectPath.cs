@@ -8,23 +8,29 @@ public class ProjectPath
     public string ProjectFile { get; private set; }
     public string SpecialFolder { get; private set; }
     
+    public IEnumerable<string> Segments { get; private set; }
+    public IEnumerable<string> Subsegments { get; private set; }
+    
     public static ProjectPath Parse(string rawPath)
     {
         if (rawPath.StartsWith("/"))
         {
             rawPath = rawPath[1..];
         }
-        
+
         var segments = Segment(rawPath);
 
         var (project, specialFolder) = ExtractProjectFolder(segments);
         var projectFile = ExtractProjectFile(segments);
-
+        var subsegments = ExtractSubsegments(segments, project, specialFolder);
+        
         var projectPath = new ProjectPath
         {
             Project = project,
             ProjectFile = projectFile,
-            SpecialFolder = specialFolder
+            SpecialFolder = specialFolder,
+            Segments = segments,
+            Subsegments = subsegments
         };
 
         return projectPath;
@@ -55,11 +61,28 @@ public class ProjectPath
         var projectFile = segments.Last();
         return projectFile;
     }
+
+    private static string[] ExtractSubsegments(string[] segments, string project, string specialFolder)
+    {
+        var skip = 0;
+        if (!string.IsNullOrWhiteSpace(project))
+        {
+            skip++;
+        }
+        if (!string.IsNullOrWhiteSpace(specialFolder))
+        {
+            skip++;
+        }
+
+        return segments.Skip(skip).ToArray();
+    }
     
     private ProjectPath()
     {
         Project = string.Empty;
         ProjectFile = string.Empty;
         SpecialFolder = string.Empty;
+        Segments = Array.Empty<string>();
+        Subsegments = Array.Empty<string>();
     }
 }
