@@ -14,10 +14,12 @@ public class Section : XElement
         
         var titleElement = new XElement("div", new XAttribute("class", "section title"), title);
 
-        var index = EntryIndex.Create(id + "-index", "All entries", lookup.Select(g => g.Key));
+        var lookupList = lookup.ToList();
+        var entryNames = lookupList.Select(g => g.Key);
+        var index = EntryIndex.Create(id + "-index", "All entries", entryNames);
         
         var listing = new XElement("div", new XAttribute("id", id + "-entries"));
-        var entries = container.ToEntries(lookup);
+        var entries = container.ToEntries(lookupList);
         listing.Add(entries);
         
         container.Add(titleElement);
