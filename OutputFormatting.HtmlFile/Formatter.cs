@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Formatter : IOutputFormatter
@@ -18,17 +20,19 @@ public class Formatter : IOutputFormatter
 
         var document = Document.Create("List of VSTs");
 
-        var pathSection = CreatePathSection(details);
-        var pluginSection = CreatePluginSection(details);
+        var detailsList = details.ToList();
+        
+        var pathSection = CreatePathSection(detailsList);
+        var pluginSection = CreatePluginSection(detailsList);
 
         var mainIndex = MainIndex.Create("main-index","Main index",new[] { pathSection, pluginSection });
        
         document.Add(mainIndex);
         document.Add(pathSection);
         document.Add(pluginSection);
-        
-        await using var stream = File.OpenWrite(options.Path);
-        document.Save(stream);
+
+        document.Save(options.Path);
+        await Task.CompletedTask;
     }
 
     private static Section CreatePathSection(IEnumerable<PluginDescriptor> details)

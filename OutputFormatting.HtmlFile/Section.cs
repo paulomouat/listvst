@@ -51,7 +51,7 @@ public class Section : XElement
             var linkToSection = new XElement("a",
                 new XAttribute("class", "link-to-section"),
                 new XAttribute("href", "#" + Id),
-                "index");
+                "section index");
             entry.Add(linkToSection);
             
             foreach(var item in group)
