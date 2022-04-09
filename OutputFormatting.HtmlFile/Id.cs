@@ -2,15 +2,13 @@ using System.Text;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class Id
+public readonly record struct Id(string SourceValue)
 {
-    public string Value { get; set; }
+    public string Value => Escape(SourceValue);
+    private string SourceValue { get; } = SourceValue;
 
-    public Id(string value)
-    {
-        Value = Escape(value);
-    }
-
+    public static implicit operator string(Id id) => id.Value;
+    
     private static string Escape(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
