@@ -14,9 +14,15 @@ public class EntryIndex : XElement
         
         var titleElement = new XElement("div", title,
             new XAttribute("class", "index title"));
-        container.Add(titleElement);        
+        container.Add(titleElement);
+
+        var valueList = values.ToList();
         
-        foreach (var value in values)
+        var statsElement = new XElement("div", "Number of entries: " + valueList.Count,
+            new XAttribute("class", "stats"));
+        container.Add(statsElement);
+        
+        foreach (var value in valueList)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
             var anchor = new XElement("a", new XAttribute("href", "#" + new Id(value).Value), value);

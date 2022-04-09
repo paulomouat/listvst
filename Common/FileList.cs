@@ -9,10 +9,12 @@
             SourcePath = sourcePath;
         }
 
-        public IEnumerable<string> GetFiles(string extension)
+        public IEnumerable<string> GetFiles(string extension, Func<string, bool> filter)
         {
             var files = Directory.EnumerateFiles(SourcePath, $"*.{extension}", SearchOption.AllDirectories);
-            files = files.Where(f => !f.Contains("._")).OrderBy(f => f);
+            files = files.Where(f => !f.Contains("._"))
+                .Where(filter)
+                .OrderBy(f => f);
             return files;
         }
     }
