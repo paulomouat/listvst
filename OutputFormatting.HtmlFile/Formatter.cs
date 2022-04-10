@@ -21,12 +21,13 @@ public class Formatter : IOutputFormatter
         var detailsList = details.ToList();
         
         var projectSection = new ProjectSection();
-        projectSection.Populate(detailsList);
+        projectSection.Add(detailsList);
 
         var pluginSection = new PluginSection();
-        pluginSection.Populate(detailsList);
+        pluginSection.Add(detailsList);
 
-        var mainIndex = MainIndex.Create("main-index","Main index",new Section[] { projectSection, pluginSection });
+        var mainIndex = new MainIndex("main-index", "Main index");
+        mainIndex.Add(new Section[] { projectSection, pluginSection });
        
         document.Add(mainIndex);
         document.Add(projectSection);

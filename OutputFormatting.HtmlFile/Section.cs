@@ -6,51 +6,50 @@ public abstract class Section : XElement
 {
     public string Id { get; }
     public string Title { get; }
-    
-    public Section(string id, string title)
+
+    protected Section(string id, string title)
         : base("div")
     {
         Id = id;
         Title = title;
+
+        SetAttributeValue("id", Id);
+        var titleElement = new XElement("div", new XAttribute("class", "section title"), Title);
+        Add(titleElement);
     }
 
-    public abstract void Populate(IEnumerable<PluginDescriptor> details);
+    public abstract void Add(IEnumerable<PluginDescriptor> details);
 
-    protected virtual void Populate(IEnumerable<IGrouping<string, string>> lookup)
+    protected virtual void Add(ILookup<string, PluginDescriptor> lookup)
     {
-        SetAttributeValue("id", Id);
-        
-        var titleElement = new XElement("div", new XAttribute("class", "section title"), Title);
-
-        var lookupList = lookup.ToList();
-        var entryNames = lookupList.Select(g => g.Key);
-        var index = EntryIndex.Create(Id + "-index", "All entries", entryNames);
+        var index = new EntryIndex(Id + "-index", "All entries");
+        var entryNames = lookup.Select(g => g.Key);
+        index.Add(entryNames);
         
         var listing = new XElement("div", new XAttribute("id", Id + "-entries"));
-        var entries = ToEntries(lookupList);
+        var entries = ToEntryElements(lookup);
         listing.Add(entries);
         
-        Add(titleElement);
         Add(index);
         Add(listing);
     }
     
-    protected virtual IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
+    protected virtual IEnumerable<XElement> ToEntryElements(ILookup<string, PluginDescriptor> lookup)
     {
         var elements = new List<XElement>();
         
         foreach(var group in lookup)
         {
             var key = group.Key;
-            var id = new Id(key).Value;
+            var entryId = new Id(key).Value;
             
             var entry = new XElement("div");
-            entry.SetAttributeValue("id", id);
+            entry.SetAttributeValue("id", entryId);
             entry.SetAttributeValue("class", "entry");
             
-            var keyTitle = new XElement("div", key);
-            keyTitle.SetAttributeValue("class", "key title");
-            entry.Add(keyTitle);
+            var entryTitle = new XElement("div", key);
+            entryTitle.SetAttributeValue("class", "key title");
+            entry.Add(entryTitle);
             var linkToTop = new XElement("a",
                 new XAttribute("class", "link-to-top"),
                 new XAttribute("href", "#document-title"),
@@ -62,17 +61,24 @@ public abstract class Section : XElement
                 "section index");
             entry.Add(linkToSection);
             
-            foreach(var item in group)
+            foreach(var pluginDescriptor in group)
             {
-                var anchor = new XElement("a", new XAttribute("href", "#" + new Id(item)), item);
-                var element = new XElement("div", anchor);
-                element.SetAttributeValue("class", "item");
-                entry.Add(element);
+                var itemElement = ToItemElement(pluginDescriptor);
+                entry.Add(itemElement);
             }
             
             elements.Add(entry);
         }
 
         return elements;
+    }
+
+    protected virtual XElement ToItemElement(PluginDescriptor pluginDescriptor)
+    {
+        var item = pluginDescriptor.Name;
+        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(item)), item);
+        var element = new XElement("div", anchor);
+        element.SetAttributeValue("class", "item");
+        return element;
     }
 }

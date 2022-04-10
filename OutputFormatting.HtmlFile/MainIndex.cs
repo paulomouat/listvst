@@ -6,31 +6,29 @@ public class MainIndex : XElement
 {
     public string Id { get; }
     public string Title { get; }
-
-    public static MainIndex Create(string id, string title, IEnumerable<Section> sections)
+    
+    public MainIndex(string id, string title)
+        : base("div")
     {
-        var container = new MainIndex(id, title);
+        Id = id;
+        Title = title;
 
-        var titleElement = new XElement("div", container.Title);
-        titleElement.SetAttributeValue("class", "main-index title");
-        container.Add(titleElement);
+        SetAttributeValue("id", id);
         
+        var titleElement = new XElement("div", title,
+            new XAttribute("class", "main-index title"));
+        Add(titleElement);
+    }
+
+    public virtual void Add(IEnumerable<Section> sections)
+    {
         foreach (var section in sections)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
             var anchor = new XElement("a", new XAttribute("href", "#" + section.Id), section.Title);
             entry.Add(anchor);
 
-            container.Add(entry);
+            Add(entry);
         }
-        
-        return container;
-    }
-    
-    private MainIndex(string id, string title, string tag = "div")
-        : base(tag)
-    {
-        Id = id;
-        Title = title;
     }
 }

@@ -6,13 +6,13 @@ public class ProjectSection : Section
         : base(id, title)
     { }
 
-    public override void Populate(IEnumerable<PluginDescriptor> details)
+    public override void Add(IEnumerable<PluginDescriptor> details)
     {
         var lookup = details
             .OrderBy(pd => pd.ProjectDescriptor.Path)
             .ThenBy(pd => pd.Name)
-            .ToLookup(e => e.ProjectDescriptor.Path, e => e.Name);
+            .ToLookup(e => e.ProjectDescriptor.Path, e => e);
 
-        base.Populate(lookup);
+        base.Add(lookup);
     }
 }

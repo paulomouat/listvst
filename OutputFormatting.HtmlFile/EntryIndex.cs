@@ -6,21 +6,33 @@ public class EntryIndex : XElement
 {
     public string Id { get; }
     public string Title { get; }
-    
-    public static EntryIndex Create(string id, string title, IEnumerable<string> values)
+
+    public EntryIndex(string id, string title)
+        : base("div")
     {
-        var container = new EntryIndex(id, title);
-        container.SetAttributeValue("id", id);
+        Id = id;
+        Title = title;
+        
+        SetAttributeValue("id", id);
         
         var titleElement = new XElement("div", title,
             new XAttribute("class", "index title"));
-        container.Add(titleElement);
-
+        Add(titleElement);
+    }
+    
+    public virtual void Add(IEnumerable<string> values)
+    {
         var valueList = values.ToList();
         
+        var linkToTop = new XElement("a",
+            new XAttribute("class", "link-to-top"),
+            new XAttribute("href", "#document-title"),
+            "top");
+        Add(linkToTop);
+
         var statsElement = new XElement("div", "Number of entries: " + valueList.Count,
             new XAttribute("class", "stats"));
-        container.Add(statsElement);
+        Add(statsElement);
         
         foreach (var value in valueList)
         {
@@ -28,16 +40,7 @@ public class EntryIndex : XElement
             var anchor = new XElement("a", new XAttribute("href", "#" + new Id(value)), value);
             entry.Add(anchor);
 
-            container.Add(entry);
+            Add(entry);
         }
-        
-        return container;
-    }
-
-    private EntryIndex(string id, string title, string tag = "div")
-        : base(tag)
-    {
-        Id = id;
-        Title = title;
     }
 }
