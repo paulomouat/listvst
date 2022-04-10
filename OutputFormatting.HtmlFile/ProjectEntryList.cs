@@ -2,15 +2,15 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class PluginEntryList : EntryList
+public class ProjectEntryList : EntryList
 {
-    public PluginEntryList(string id, Section parentSection)
+    public ProjectEntryList(string id, Section parentSection)
         : base(id, parentSection)
     { }
-
+    
     public override void Add(PluginDescriptor pluginDescriptor, XElement entry)
     {
-        var item = pluginDescriptor.ProjectDescriptor.Path;
+        var item = pluginDescriptor.Name;
         var anchor = new XElement("a",
             new XAttribute("href", "#" + new Id(item)),
             item);

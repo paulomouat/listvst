@@ -15,4 +15,11 @@ public class ProjectSection : Section
 
         base.Add(lookup);
     }
+
+    protected override EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
+    {
+        var list = new ProjectEntryList(Id + "-entries", this);
+        list.Add(lookup);
+        return list;
+    }
 }

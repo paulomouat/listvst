@@ -53,14 +53,5 @@ public class EntryList : XElement
     }
 
     public virtual void Add(PluginDescriptor pluginDescriptor, XElement entry)
-    {
-        var item = pluginDescriptor.Name;
-        var anchor = new XElement("a",
-            new XAttribute("href", "#" + new Id(item)),
-            item);
-        var element = new XElement("div",
-            new XAttribute("class", "item"),
-            anchor);
-        entry.Add(element);
-    }
+    { }
 }
