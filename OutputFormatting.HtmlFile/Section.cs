@@ -2,34 +2,40 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class Section : XElement
+public abstract class Section : XElement
 {
     public string Id { get; }
     public string Title { get; }
     
-    public static Section Create(string id, string title, IEnumerable<IGrouping<string, string>> lookup)
+    public Section(string id, string title)
+        : base("div")
     {
-        var container = new Section(id, title);
-        container.SetAttributeValue("id", id);
+        Id = id;
+        Title = title;
+    }
+
+    public abstract void Populate(IEnumerable<PluginDescriptor> details);
+
+    protected virtual void Populate(IEnumerable<IGrouping<string, string>> lookup)
+    {
+        SetAttributeValue("id", Id);
         
-        var titleElement = new XElement("div", new XAttribute("class", "section title"), title);
+        var titleElement = new XElement("div", new XAttribute("class", "section title"), Title);
 
         var lookupList = lookup.ToList();
         var entryNames = lookupList.Select(g => g.Key);
-        var index = EntryIndex.Create(id + "-index", "All entries", entryNames);
+        var index = EntryIndex.Create(Id + "-index", "All entries", entryNames);
         
-        var listing = new XElement("div", new XAttribute("id", id + "-entries"));
-        var entries = container.ToEntries(lookupList);
+        var listing = new XElement("div", new XAttribute("id", Id + "-entries"));
+        var entries = ToEntries(lookupList);
         listing.Add(entries);
         
-        container.Add(titleElement);
-        container.Add(index);
-        container.Add(listing);
-
-        return container;
+        Add(titleElement);
+        Add(index);
+        Add(listing);
     }
     
-    private IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
+    protected virtual IEnumerable<XElement> ToEntries(IEnumerable<IGrouping<string, string>> lookup)
     {
         var elements = new List<XElement>();
         
@@ -68,12 +74,5 @@ public class Section : XElement
         }
 
         return elements;
-    }
-
-    private Section(string id, string title)
-        : base("div")
-    {
-        Id = id;
-        Title = title;
     }
 }

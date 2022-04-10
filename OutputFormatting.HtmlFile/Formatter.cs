@@ -20,41 +20,20 @@ public class Formatter : IOutputFormatter
 
         var detailsList = details.ToList();
         
-        var pathSection = CreatePathSection(detailsList);
-        var pluginSection = CreatePluginSection(detailsList);
+        var projectSection = new ProjectSection();
+        projectSection.Populate(detailsList);
 
-        var mainIndex = MainIndex.Create("main-index","Main index",new[] { pathSection, pluginSection });
+        var pluginSection = new PluginSection();
+        pluginSection.Populate(detailsList);
+
+        var mainIndex = MainIndex.Create("main-index","Main index",new Section[] { projectSection, pluginSection });
        
         document.Add(mainIndex);
-        document.Add(pathSection);
+        document.Add(projectSection);
         document.Add(pluginSection);
 
         document.Save(options.Path);
         await Task.CompletedTask;
-    }
-
-    private static Section CreatePathSection(IEnumerable<PluginDescriptor> details)
-    {
-        var lookup = details
-            .OrderBy(pd => pd.ProjectDescriptor.Path)
-            .ThenBy(pd => pd.Name)
-            .ToLookup(e => e.ProjectDescriptor.Path, e => e.Name);
-
-        var section = Section.Create("listing-by-path","Listing by path", lookup);
-
-        return section;
-    }
-    
-    private static Section CreatePluginSection(IEnumerable<PluginDescriptor> details)
-    {
-        var lookup = details
-            .OrderBy(pd => pd.Name)
-            .ThenBy(pd => pd.ProjectDescriptor.Path)
-            .ToLookup(e => e.Name, e => e.ProjectDescriptor.Path);
-
-        var section = Section.Create("listing-by-plugin", "Listing by plugin", lookup);
-
-        return section;
     }
 
     Task IOutputFormatter.Write(IEnumerable<PluginDescriptor> details, IOutputFormatterOptions options)
