@@ -7,11 +7,14 @@ public class EntryIndex : XElement
     public string Id { get; }
     public string Title { get; }
 
-    public EntryIndex(string id, string title)
+    public Section ParentSection { get; }
+    
+    public EntryIndex(string id, string title, Section parentSection)
         : base("div")
     {
         Id = id;
         Title = title;
+        ParentSection = parentSection;
         
         SetAttributeValue("id", id);
         
@@ -20,27 +23,29 @@ public class EntryIndex : XElement
         Add(titleElement);
     }
     
-    public virtual void Add(IEnumerable<string> values)
+    public virtual void Add(ILookup<string, PluginDescriptor> lookup)
     {
-        var valueList = values.ToList();
-        
         var linkToTop = new XElement("a",
             new XAttribute("class", "link-to-top"),
             new XAttribute("href", "#document-title"),
             "top");
         Add(linkToTop);
 
-        var statsElement = new XElement("div", "Number of entries: " + valueList.Count,
+        var statsElement = new XElement("div", "Number of entries: " + lookup.Count,
             new XAttribute("class", "stats"));
         Add(statsElement);
         
-        foreach (var value in valueList)
+        foreach (var group in lookup)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
-            var anchor = new XElement("a", new XAttribute("href", "#" + new Id(value)), value);
-            entry.Add(anchor);
-
+            Add(group.Key, entry);
             Add(entry);
         }
+    }
+
+    public virtual void Add(string itemName, XElement entry)
+    {
+        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemName)), itemName);
+        entry.Add(anchor);
     }
 }

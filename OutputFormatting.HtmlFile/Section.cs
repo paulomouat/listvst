@@ -30,15 +30,14 @@ public abstract class Section : XElement
 
     protected virtual EntryIndex BuildEntryIndex(ILookup<string, PluginDescriptor> lookup)
     {
-        var index = new EntryIndex(Id + "-index", "All entries");
-        var entryNames = lookup.Select(g => g.Key);
-        index.Add(entryNames);
+        var index = new EntryIndex(Id + "-index", "All entries", this);
+        index.Add(lookup);
         return index;
     }
 
     protected virtual EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
     {
-        var list = new EntryList(Id + "-entries");
+        var list = new EntryList(Id + "-entries", this);
         list.Add(lookup);
         return list;
     }

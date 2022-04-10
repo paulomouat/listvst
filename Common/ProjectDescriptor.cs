@@ -1,43 +1,32 @@
 namespace ListVst;
 
-public class ProjectDescriptor
+public readonly record struct ProjectDescriptor
 {
     private const string SpecialFolderPrefix = "_";
     
-    public string Name { get; private set; }
-    public string File { get; private set; }
-    public string SpecialFolder { get; private set; }
-    public string Path { get; private set; }
+    public string Name { get; }
+    public string File { get; }
+    public string SpecialFolder { get; }
+    public string Path { get; }
     
-    public IEnumerable<string> Segments { get; private set; }
-    public IEnumerable<string> Subsegments { get; private set; }
+    public string[] Segments { get; }
+    public string[] Subsegments { get; }
     
-    public static ProjectDescriptor Parse(string rawPath)
+    public ProjectDescriptor(string path)
     {
-        var sanitizedPath = rawPath;
+        Path = path;
         
+        var sanitizedPath = Path;
         if (sanitizedPath.StartsWith("/"))
         {
             sanitizedPath = sanitizedPath[1..];
         }
 
-        var segments = Segment(sanitizedPath);
+        Segments = Segment(sanitizedPath);
 
-        var (project, specialFolder) = ExtractProjectFolder(segments);
-        var projectFile = ExtractProjectFile(segments);
-        var subsegments = ExtractSubsegments(segments, project, specialFolder);
-        
-        var projectDescriptor = new ProjectDescriptor
-        {
-            Name = project,
-            File = projectFile,
-            SpecialFolder = specialFolder,
-            Path = rawPath,
-            Segments = segments,
-            Subsegments = subsegments
-        };
-
-        return projectDescriptor;
+        (Name, SpecialFolder) = ExtractProjectFolder(Segments);
+        File = ExtractProjectFile(Segments);
+        Subsegments = ExtractSubsegments(Segments, Name, SpecialFolder);
     }
 
     private static string[] Segment(string path)
@@ -66,7 +55,7 @@ public class ProjectDescriptor
         return projectFile;
     }
 
-    private static string[] ExtractSubsegments(string[] segments, string project, string specialFolder)
+    private static string[] ExtractSubsegments(IEnumerable<string> segments, string project, string specialFolder)
     {
         var skip = 0;
         if (!string.IsNullOrWhiteSpace(project))
@@ -79,15 +68,5 @@ public class ProjectDescriptor
         }
 
         return segments.Skip(skip).ToArray();
-    }
-    
-    private ProjectDescriptor()
-    {
-        Name = string.Empty;
-        File = string.Empty;
-        SpecialFolder = string.Empty;
-        Path = string.Empty;
-        Segments = Array.Empty<string>();
-        Subsegments = Array.Empty<string>();
     }
 }

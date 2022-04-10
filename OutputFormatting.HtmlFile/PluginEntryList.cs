@@ -4,8 +4,8 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class PluginEntryList : EntryList
 {
-    public PluginEntryList(string id)
-        : base(id)
+    public PluginEntryList(string id, Section parentSection)
+        : base(id, parentSection)
     { }
 
     public override void Add(PluginDescriptor pluginDescriptor, XElement entry)

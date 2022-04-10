@@ -72,7 +72,8 @@ internal class Program
                 var name = PluginAliasesRegistry[alias];
                 if (!string.IsNullOrWhiteSpace(name) && name != alias)
                 {
-                    pd.Name = name;
+                    var adjusted = pd with { Name = name };
+                    return adjusted;
                 };
                 return pd;
             }).ToList();

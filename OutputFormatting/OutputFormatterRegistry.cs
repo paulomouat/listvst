@@ -8,7 +8,7 @@ public class OutputFormatterRegistry : IOutputFormatterRegistry
     {
         get
         {
-            Registry.TryGetValue(format, out IOutputFormatter outputFormatter);
+            Registry.TryGetValue(format, out IOutputFormatter? outputFormatter);
             return outputFormatter;
         }
     }

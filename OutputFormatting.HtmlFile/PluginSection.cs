@@ -18,7 +18,7 @@ public class PluginSection : Section
 
     protected override EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
     {
-        var list = new PluginEntryList(Id + "-entries");
+        var list = new PluginEntryList(Id + "-entries", this);
         list.Add(lookup);
         return list;
     }

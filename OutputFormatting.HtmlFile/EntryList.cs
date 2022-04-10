@@ -6,10 +6,13 @@ public class EntryList : XElement
 {
     public string Id { get; }
 
-    public EntryList(string id)
+    public Section ParentSection { get; }
+    
+    public EntryList(string id, Section parentSection)
         : base("div")
     {
         Id = id;
+        ParentSection = parentSection;
         
         SetAttributeValue("id", id);
     }
@@ -36,7 +39,7 @@ public class EntryList : XElement
             entry.Add(linkToTop);
             var linkToSection = new XElement("a",
                 new XAttribute("class", "link-to-section"),
-                new XAttribute("href", "#" + Id),
+                new XAttribute("href", "#" + ParentSection.Id),
                 "section index");
             entry.Add(linkToSection);
             

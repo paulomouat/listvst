@@ -63,7 +63,7 @@ public abstract class ProcessorBase : IProcessor
             rawPath = rawPath[SourcePath!.Length..];
         }
             
-        var projectDescriptor = ProjectDescriptor.Parse(rawPath);
+        var projectDescriptor = new ProjectDescriptor(rawPath);
 
         var list = plugins.Select(plugin => new PluginDescriptor(
             projectDescriptor, plugin)).ToList();
