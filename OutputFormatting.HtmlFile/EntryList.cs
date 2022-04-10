@@ -2,13 +2,13 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class EntryList : XElement
+public class EntryList<TEntry, TItem> : XElement, IEntryList
 {
     public string Id { get; }
 
-    public Section ParentSection { get; }
+    public ISection ParentSection { get; }
     
-    public EntryList(string id, Section parentSection)
+    public EntryList(string id, ISection parentSection)
         : base("div")
     {
         Id = id;
@@ -17,11 +17,11 @@ public class EntryList : XElement
         SetAttributeValue("id", id);
     }
     
-    public virtual void Add(ILookup<string, PluginDescriptor> lookup)
+    public virtual void Add(ILookup<TEntry, TItem> lookup)
     {
         foreach(var group in lookup)
         {
-            var key = group.Key;
+            var key = GetKey(group.Key);
             var entryId = new Id(key).Value;
             
             var entry = new XElement("div",
@@ -43,15 +43,20 @@ public class EntryList : XElement
                 "section index");
             entry.Add(linkToSection);
             
-            foreach(var pluginDescriptor in group)
+            foreach(var item in group)
             {
-                Add(pluginDescriptor, entry);
+                Add(item, entry);
             }
             
             Add(entry);
         }
     }
 
-    public virtual void Add(PluginDescriptor pluginDescriptor, XElement entry)
+    public virtual void Add(TItem item, XElement entry)
     { }
+
+    protected virtual string GetKey(TEntry entry)
+    {
+        return string.Empty;
+    }
 }

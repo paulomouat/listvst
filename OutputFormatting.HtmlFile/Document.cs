@@ -18,7 +18,7 @@ public class Document : XElement
         Body.Add(mainIndex);
     }
 
-    public void Add(Section section)
+    public void Add(ISection section)
     {
         Body.Add(section);
     }

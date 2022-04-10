@@ -1,22 +1,29 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectSection : Section
+public class ProjectSection : Section<ProjectDescriptor, PluginDescriptor>
 {
     public ProjectSection(string id = "listing-by-path", string title = "Listing by project path")
         : base(id, title)
     { }
 
-    public override void Add(IEnumerable<PluginDescriptor> details)
+    public override void Add(IEnumerable<PluginProjectPair> pairs)
     {
-        var lookup = details
-            .OrderBy(pd => pd.ProjectDescriptor.Path)
-            .ThenBy(pd => pd.Name)
-            .ToLookup(e => e.ProjectDescriptor.Path, e => e);
+        var lookup = pairs
+            .OrderBy(pair => pair.ProjectDescriptor.Path)
+            .ThenBy(pair => pair.PluginDescriptor.Name)
+            .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
 
         base.Add(lookup);
     }
 
-    protected override EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
+    protected override IEntryIndex BuildEntryIndex(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
+    {
+        var index = new ProjectEntryIndex(Id + "-index", "All entries", this);
+        index.Add(lookup);
+        return index;
+    }
+    
+    protected override IEntryList BuildEntryList(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         var list = new ProjectEntryList(Id + "-entries", this);
         list.Add(lookup);

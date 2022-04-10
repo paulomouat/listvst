@@ -62,20 +62,20 @@ internal class Program
                 Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
             }
                 
-            var allPlugins = ProcessorRegistry.Processors
+            var allPairs = ProcessorRegistry.Processors
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
                 
-            var withAliases = allPlugins.Select(pd =>
+            var withAliases = allPairs.Select(pair =>
             {
-                var alias = pd.Name;
+                var alias = pair.PluginDescriptor.Name;
                 var name = PluginAliasesRegistry[alias];
                 if (!string.IsNullOrWhiteSpace(name) && name != alias)
                 {
-                    var adjusted = pd with { Name = name };
+                    var adjusted = pair with { PluginDescriptor = new PluginDescriptor(name) };
                     return adjusted;
                 };
-                return pd;
+                return pair;
             }).ToList();
 
             foreach (var mappedFormatter in mappedFormatters)

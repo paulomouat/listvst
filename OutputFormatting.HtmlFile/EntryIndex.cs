@@ -2,14 +2,14 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class EntryIndex : XElement
+public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
 {
     public string Id { get; }
     public string Title { get; }
 
-    public Section ParentSection { get; }
+    public ISection ParentSection { get; }
     
-    public EntryIndex(string id, string title, Section parentSection)
+    public EntryIndex(string id, string title, ISection parentSection)
         : base("div")
     {
         Id = id;
@@ -23,7 +23,7 @@ public class EntryIndex : XElement
         Add(titleElement);
     }
     
-    public virtual void Add(ILookup<string, PluginDescriptor> lookup)
+    public virtual void Add(ILookup<TEntry, TItem> lookup)
     {
         var linkToTop = new XElement("a",
             new XAttribute("class", "link-to-top"),
@@ -38,7 +38,7 @@ public class EntryIndex : XElement
         foreach (var group in lookup)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
-            Add(group.Key, entry);
+            Add(GetKey(group.Key), entry);
             Add(entry);
         }
     }
@@ -47,5 +47,10 @@ public class EntryIndex : XElement
     {
         var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemName)), itemName);
         entry.Add(anchor);
+    }
+
+    protected virtual string GetKey(TEntry entry)
+    {
+        return string.Empty;
     }
 }

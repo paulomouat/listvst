@@ -17,11 +17,11 @@ public abstract class ProcessorBase : IProcessor
         Logger = logger;
     }
         
-    public virtual async Task<IEnumerable<PluginDescriptor>> Process(string sourcePath)
+    public virtual async Task<IEnumerable<PluginProjectPair>> Process(string sourcePath)
     {
         SourcePath = sourcePath;
             
-        var results = new ConcurrentBag<PluginDescriptor>();
+        var results = new ConcurrentBag<PluginProjectPair>();
 
         var fl = new FileList(sourcePath);
         var files = fl.GetFiles(FileExtension, FileFilter);
@@ -29,9 +29,9 @@ public abstract class ProcessorBase : IProcessor
         await Parallel.ForEachAsync(files, async (file, token) =>
         {
             var batch = await ProcessFile(file);
-            foreach (var pd in batch)
+            foreach (var pair in batch)
             {
-                results.Add(pd);
+                results.Add(pair);
             }
         });
 
@@ -41,7 +41,7 @@ public abstract class ProcessorBase : IProcessor
     protected abstract IProjectFile GetProjectFile(string file);
     protected abstract IParser GetParser(ILogger logger);
         
-    protected virtual async Task<IEnumerable<PluginDescriptor>> ProcessFile(string file)
+    protected virtual async Task<IEnumerable<PluginProjectPair>> ProcessFile(string file)
     {
         Logger.LogInformation("Processing " + ProjectType + "project {File}", file);
             
@@ -51,11 +51,11 @@ public abstract class ProcessorBase : IProcessor
 
         if (string.IsNullOrEmpty(c))
         {
-            return Array.Empty<PluginDescriptor>();
+            return Array.Empty<PluginProjectPair>();
         }
             
         var p = GetParser(Logger);
-        var plugins = await p.Parse(c);
+        var pluginNames = await p.Parse(c);
 
         var rawPath = file;
         if (rawPath.StartsWith(SourcePath!))
@@ -65,8 +65,12 @@ public abstract class ProcessorBase : IProcessor
             
         var projectDescriptor = new ProjectDescriptor(rawPath);
 
-        var list = plugins.Select(plugin => new PluginDescriptor(
-            projectDescriptor, plugin)).ToList();
+        var list = pluginNames.Select(pluginName =>
+        {
+            var pluginDescriptor = new PluginDescriptor(pluginName);
+            var pair = new PluginProjectPair(pluginDescriptor, projectDescriptor);
+            return pair;
+        }).ToList();
 
         return list;
     }

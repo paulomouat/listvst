@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public abstract class Section : XElement
+public abstract class Section<TEntry, TItem> : XElement, ISection
 {
     public string Id { get; }
     public string Title { get; }
@@ -18,9 +18,9 @@ public abstract class Section : XElement
         Add(titleElement);
     }
 
-    public abstract void Add(IEnumerable<PluginDescriptor> details);
+    public abstract void Add(IEnumerable<PluginProjectPair> pairs);
 
-    protected virtual void Add(ILookup<string, PluginDescriptor> lookup)
+    protected virtual void Add(ILookup<TEntry, TItem> lookup)
     {
         var index = BuildEntryIndex(lookup);
         var list = BuildEntryList(lookup);
@@ -28,17 +28,6 @@ public abstract class Section : XElement
         Add(list);
     }
 
-    protected virtual EntryIndex BuildEntryIndex(ILookup<string, PluginDescriptor> lookup)
-    {
-        var index = new EntryIndex(Id + "-index", "All entries", this);
-        index.Add(lookup);
-        return index;
-    }
-
-    protected virtual EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
-    {
-        var list = new EntryList(Id + "-entries", this);
-        list.Add(lookup);
-        return list;
-    }
+    protected abstract IEntryIndex BuildEntryIndex(ILookup<TEntry, TItem> lookup);
+    protected abstract IEntryList BuildEntryList(ILookup<TEntry, TItem> lookup);
 }

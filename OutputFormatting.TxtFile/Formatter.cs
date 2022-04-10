@@ -4,7 +4,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "txt";
 
-    protected virtual async Task Write(IEnumerable<PluginDescriptor> details, IFileOutputFormatterOptions options)
+    protected virtual async Task Write(IEnumerable<PluginProjectPair> pairs, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -18,17 +18,17 @@ public class Formatter : IOutputFormatter
         
         var lines = new List<string>();
         
-        var allByPath = details
-            .OrderBy(pd => pd.ProjectDescriptor.Path)
-            .ThenBy(pd => pd.Name)
-            .ToLookup(e => e.ProjectDescriptor.Path, e => e.Name);
+        var allByPath = pairs
+            .OrderBy(pair => pair.ProjectDescriptor.Path)
+            .ThenBy(pair => pair.PluginDescriptor.Name)
+            .ToLookup(pair => pair.ProjectDescriptor.Path, pair => pair.PluginDescriptor.Name);
         
         lines.AddRange(ToLines(allByPath));
 
-        var allByVst = details
-            .OrderBy(pd => pd.Name)
-            .ThenBy(pd => pd.ProjectDescriptor.Path)
-            .ToLookup(e => e.Name, e => e.ProjectDescriptor.Path);
+        var allByVst = pairs
+            .OrderBy(pair => pair.PluginDescriptor.Name)
+            .ThenBy(pair => pair.ProjectDescriptor.Path)
+            .ToLookup(pair => pair.PluginDescriptor.Name, e => e.ProjectDescriptor.Path);
         
         lines.AddRange(ToLines(allByVst));
 
@@ -53,13 +53,13 @@ public class Formatter : IOutputFormatter
         return lines;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<PluginDescriptor> details, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginProjectPair> pairs, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {
             throw new ArgumentException("This formatter requires an options type of IFileOutputFormatterOptions");
         }
 
-        return Write(details, formatterOptions);
+        return Write(pairs, formatterOptions);
     }
 }

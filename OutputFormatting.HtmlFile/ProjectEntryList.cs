@@ -2,9 +2,9 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntryList : EntryList
+public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
 {
-    public ProjectEntryList(string id, Section parentSection)
+    public ProjectEntryList(string id, ISection parentSection)
         : base(id, parentSection)
     { }
     
@@ -18,5 +18,10 @@ public class ProjectEntryList : EntryList
             new XAttribute("class", "item"),
             anchor);
         entry.Add(element);
+    }
+
+    protected override string GetKey(ProjectDescriptor entry)
+    {
+        return entry.Path;
     }
 }

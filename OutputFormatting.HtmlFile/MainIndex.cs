@@ -20,7 +20,7 @@ public class MainIndex : XElement
         Add(titleElement);
     }
 
-    public virtual void Add(IEnumerable<Section> sections)
+    public virtual void Add(IEnumerable<ISection> sections)
     {
         foreach (var section in sections)
         {
