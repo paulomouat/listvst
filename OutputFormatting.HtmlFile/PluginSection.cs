@@ -1,5 +1,3 @@
-using System.Xml.Linq;
-
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class PluginSection : Section
@@ -18,11 +16,10 @@ public class PluginSection : Section
         base.Add(lookup);
     }
 
-    protected override XElement ToItemElement(PluginDescriptor pluginDescriptor)
+    protected override EntryList BuildEntryList(ILookup<string, PluginDescriptor> lookup)
     {
-        var item = pluginDescriptor.ProjectDescriptor.Path;
-        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(item)), item);
-        var element = new XElement("div", anchor);
-        element.SetAttributeValue("class", "item");
-        return element;
-    }}
+        var list = new PluginEntryList(Id + "-entries");
+        list.Add(lookup);
+        return list;
+    }
+}
