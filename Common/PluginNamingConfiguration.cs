@@ -2,7 +2,7 @@ namespace ListVst;
 
 public class PluginNamingConfiguration
 {
-    public string? Main { get; set; }
+    public string? Name { get; set; }
     public string[] Aliases { get; set; }
     
     public PluginNamingConfiguration()

@@ -125,10 +125,10 @@ internal class Host
         section.Bind(configuration);
 
         var registry = new PluginAliasesRegistry();
-        var plugins = configuration.Plugins;
+        var plugins = configuration.PluginAliases;
         foreach (var plugin in plugins)
         {
-            var main = plugin.Main;
+            var main = plugin.Name;
             if (!string.IsNullOrWhiteSpace(main) && plugin.Aliases.Any())
             {
                 registry.Register(main, plugin.Aliases);
