@@ -17,7 +17,7 @@ public class EntryList<TEntry, TItem> : XElement, IEntryList
         SetAttributeValue("id", id);
     }
     
-    public virtual void Add(ILookup<TEntry, TItem> lookup)
+    public virtual void AddFromLookup(ILookup<TEntry, TItem> lookup)
     {
         foreach(var group in lookup)
         {
@@ -43,12 +43,12 @@ public class EntryList<TEntry, TItem> : XElement, IEntryList
                 "section index");
             entry.Add(linkToSection);
             
-            Add(group, entry);
+            AddItemsToEntry(group, entry);
             Add(entry);
         }
     }
 
-    public virtual void Add(IEnumerable<TItem> item, XElement entry)
+    public virtual void AddItemsToEntry(IEnumerable<TItem> item, XElement entry)
     { }
 
     protected virtual string GetKey(TEntry entry)

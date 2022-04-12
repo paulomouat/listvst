@@ -13,12 +13,12 @@ public class Document : XElement
         return container;
     }
 
-    public void Add(MainIndex mainIndex)
+    public void AddMainIndex(MainIndex mainIndex)
     {
         Body.Add(mainIndex);
     }
 
-    public void Add(ISection section)
+    public void AddSection(ISection section)
     {
         Body.Add(section);
     }

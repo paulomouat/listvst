@@ -8,10 +8,10 @@ public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
         : base(id, title, parentSection)
     { }
     
-    public override void Add(PluginDescriptor item, XElement entry)
+    public override void AddItemToEntry(PluginDescriptor item, XElement entry)
     {
         var itemName = item.Manufacturer + " " + item.Name;
-        base.Add(itemName, entry);
+        base.AddItemToEntry(itemName, entry);
     }
 
     protected override string GetKey(ProjectDescriptor entry)

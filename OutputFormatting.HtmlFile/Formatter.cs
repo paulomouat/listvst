@@ -29,9 +29,9 @@ public class Formatter : IOutputFormatter
         var mainIndex = new MainIndex("main-index", "Main index");
         mainIndex.Add(new ISection[] { projectSection, pluginSection });
        
-        document.Add(mainIndex);
-        document.Add(projectSection);
-        document.Add(pluginSection);
+        document.AddMainIndex(mainIndex);
+        document.AddSection(projectSection);
+        document.AddSection(pluginSection);
 
         document.Save(options.Path);
         await Task.CompletedTask;

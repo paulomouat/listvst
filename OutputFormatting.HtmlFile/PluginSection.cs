@@ -19,14 +19,14 @@ public class PluginSection : Section<PluginDescriptor, ProjectDescriptor>
     protected override IEntryIndex BuildEntryIndex(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
     {
         var index = new PluginEntryIndex(Id + "-index", "All entries", this);
-        index.Add(lookup);
+        index.AddFromLookup(lookup);
         return index;
     }
     
     protected override IEntryList BuildEntryList(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
     {
         var list = new PluginEntryList(Id + "-entries", this);
-        list.Add(lookup);
+        list.AddFromLookup(lookup);
         return list;
     }
 }

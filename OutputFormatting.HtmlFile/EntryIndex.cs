@@ -24,7 +24,7 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         Add(titleElement);
     }
     
-    public virtual void Add(ILookup<TEntry, TItem> lookup)
+    public virtual void AddFromLookup(ILookup<TEntry, TItem> lookup)
     {
         var linkToTop = new XElement("a",
             new XAttribute("class", "link-to-top"),
@@ -40,15 +40,15 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
             var itemName = GetKey(group.Key);
-            Add(itemName, entry);
+            AddItemToEntry(itemName, entry);
             Add(entry);
         }
     }
 
-    public virtual void Add(TItem item, XElement entry)
+    public virtual void AddItemToEntry(TItem item, XElement entry)
     { }
 
-    protected virtual void Add(string itemName, XElement entry)
+    protected virtual void AddItemToEntry(string itemName, XElement entry)
     {
         var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemName)), itemName);
         entry.Add(anchor);

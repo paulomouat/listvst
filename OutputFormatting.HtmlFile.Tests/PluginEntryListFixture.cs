@@ -21,7 +21,7 @@ public class PluginEntryListFixture
 
         var sut = GetSubject();
         var outputElement = new XElement("output");
-        sut.Add(descriptors, outputElement);
+        sut.AddItemsToEntry(descriptors, outputElement);
 
         outputElement.ToString().Should().Be(
 @"<output>
@@ -60,7 +60,7 @@ public class PluginEntryListFixture
         var lookup = mapping.ToLookup(p => p.PluginDescriptor, p => p.ProjectDescriptor);
 
         var sut = GetSubject();
-        sut.Add(lookup);
+        sut.AddFromLookup(lookup);
 
         sut.ToString().Should().Be(
 @"<div id=""mockId"">

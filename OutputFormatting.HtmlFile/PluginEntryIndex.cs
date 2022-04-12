@@ -8,10 +8,10 @@ public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
         : base(id, title, parentSection)
     { }
     
-    public override void Add(ProjectDescriptor item, XElement entry)
+    public override void AddItemToEntry(ProjectDescriptor item, XElement entry)
     {
         var itemName = item.Path;
-        base.Add(itemName, entry);
+        base.AddItemToEntry(itemName, entry);
     }
     
     protected override string GetKey(PluginDescriptor entry)
