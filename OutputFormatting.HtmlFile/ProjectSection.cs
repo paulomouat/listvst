@@ -10,7 +10,7 @@ public class ProjectSection : Section<ProjectDescriptor, PluginDescriptor>
     {
         var lookup = data
             .OrderBy(pair => pair.ProjectDescriptor.Path)
-            .ThenBy(pair => pair.PluginDescriptor.Name)
+            .ThenBy(pair => pair.PluginDescriptor.FullName)
             .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
 
         base.Add(lookup);

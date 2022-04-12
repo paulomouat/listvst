@@ -43,7 +43,7 @@ public abstract class ProcessorBase : IProcessor
         
     protected virtual async Task<IEnumerable<PluginRawData>> ProcessFile(string file)
     {
-        Logger.LogInformation("Processing " + ProjectType + "project {File}", file);
+        Logger.LogInformation("Processing " + ProjectType + " project {File}", file);
             
         var pf = GetProjectFile(file);
         await pf.Read();
