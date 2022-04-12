@@ -29,6 +29,16 @@ public readonly record struct ProjectDescriptor
         Subsegments = ExtractSubsegments(Segments, Name, SpecialFolder);
     }
 
+    public override int GetHashCode()
+    {
+        return EqualityComparer<string>.Default.GetHashCode(Path) * -1521134295;
+    }    
+
+    public bool Equals(ProjectDescriptor other)
+    {
+        return EqualityComparer<string>.Default.Equals(Path, other.Path);
+    }
+    
     private static string[] Segment(string path)
     {
         var segments = path.Split("/");

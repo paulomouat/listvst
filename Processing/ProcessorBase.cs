@@ -17,11 +17,11 @@ public abstract class ProcessorBase : IProcessor
         Logger = logger;
     }
         
-    public virtual async Task<IEnumerable<PluginProjectPair>> Process(string sourcePath)
+    public virtual async Task<IEnumerable<PluginRawData>> Process(string sourcePath)
     {
         SourcePath = sourcePath;
             
-        var results = new ConcurrentBag<PluginProjectPair>();
+        var results = new ConcurrentBag<PluginRawData>();
 
         var fl = new FileList(sourcePath);
         var files = fl.GetFiles(FileExtension, FileFilter);
@@ -41,7 +41,7 @@ public abstract class ProcessorBase : IProcessor
     protected abstract IProjectFile GetProjectFile(string file);
     protected abstract IParser GetParser(ILogger logger);
         
-    protected virtual async Task<IEnumerable<PluginProjectPair>> ProcessFile(string file)
+    protected virtual async Task<IEnumerable<PluginRawData>> ProcessFile(string file)
     {
         Logger.LogInformation("Processing " + ProjectType + "project {File}", file);
             
@@ -51,7 +51,7 @@ public abstract class ProcessorBase : IProcessor
 
         if (string.IsNullOrEmpty(c))
         {
-            return Array.Empty<PluginProjectPair>();
+            return Array.Empty<PluginRawData>();
         }
             
         var p = GetParser(Logger);
@@ -62,15 +62,8 @@ public abstract class ProcessorBase : IProcessor
         {
             rawPath = rawPath[SourcePath!.Length..];
         }
-            
-        var projectDescriptor = new ProjectDescriptor(rawPath);
-
-        var list = pluginNames.Select(fullName =>
-        {
-            var pluginDescriptor = new PluginDescriptor(string.Empty, string.Empty, fullName);
-            var pair = new PluginProjectPair(pluginDescriptor, projectDescriptor);
-            return pair;
-        }).ToList();
+        
+        var list = pluginNames.Select(fullName => new PluginRawData(fullName, rawPath)).ToList();
 
         return list;
     }

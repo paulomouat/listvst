@@ -38,7 +38,8 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         foreach (var group in lookup)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
-            Add(GetKey(group.Key), entry);
+            var itemName = GetKey(group.Key);
+            Add(itemName, entry);
             Add(entry);
         }
     }

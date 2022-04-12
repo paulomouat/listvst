@@ -64,24 +64,29 @@ internal class Program
                 Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
             }
                 
-            var allPairs = ProcessorRegistry.Processors
+            var rawData = ProcessorRegistry.Processors
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
                 
-            var withAliases = allPairs.Select(pair =>
+            var data = rawData.Select(rawData =>
             {
-                var current = pair.PluginDescriptor.FullName;
-                var proposed = PluginAliasesRegistry[current];
-                var resolved = !string.IsNullOrWhiteSpace(proposed) && proposed != current ? proposed : current;
+                var projectDescriptor = new ProjectDescriptor(rawData.ProjectPath);
+
+                var rawName = rawData.PluginFullName;
+                var proposed = PluginAliasesRegistry[rawName];
+                var resolved = !string.IsNullOrWhiteSpace(proposed) && proposed != rawName ? proposed : rawName;
                 var manufacturer = PluginManufacturersRegistry.GetManufacturer(resolved);
+                var fullName = resolved;
                 var name = resolved;
                 if (!string.IsNullOrEmpty(manufacturer))
-                {
-                    name = name[manufacturer.Length..];
+                { 
+                    name = name[manufacturer.Length..].Trim();
                 }
-                
-                var adjusted = pair with { PluginDescriptor = new PluginDescriptor(name, manufacturer, resolved) };
-                return adjusted;
+
+                var pluginDescriptor = new PluginDescriptor(name, manufacturer, fullName);
+
+                var pluginData = new PluginData(pluginDescriptor, projectDescriptor);
+                return pluginData;
             }).ToList();
 
             foreach (var mappedFormatter in mappedFormatters)
@@ -91,7 +96,7 @@ internal class Program
                     Path = mappedFormatter.File
                 };
 
-                await mappedFormatter.Formatter.Write(withAliases, formatterOptions);
+                await mappedFormatter.Formatter.Write(data, formatterOptions);
             }
         }
         catch (ArgumentException ae)

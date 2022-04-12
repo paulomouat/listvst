@@ -4,7 +4,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "txt";
 
-    protected virtual async Task Write(IEnumerable<PluginProjectPair> pairs, IFileOutputFormatterOptions options)
+    protected virtual async Task Write(IEnumerable<PluginData> data, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -18,14 +18,14 @@ public class Formatter : IOutputFormatter
         
         var lines = new List<string>();
         
-        var allByPath = pairs
+        var allByPath = data
             .OrderBy(pair => pair.ProjectDescriptor.Path)
             .ThenBy(pair => pair.PluginDescriptor.Name)
             .ToLookup(pair => pair.ProjectDescriptor.Path, pair => pair.PluginDescriptor.Name);
         
         lines.AddRange(ToLines(allByPath));
 
-        var allByVst = pairs
+        var allByVst = data
             .OrderBy(pair => pair.PluginDescriptor.Name)
             .ThenBy(pair => pair.ProjectDescriptor.Path)
             .ToLookup(pair => pair.PluginDescriptor.Name, e => e.ProjectDescriptor.Path);
@@ -53,13 +53,13 @@ public class Formatter : IOutputFormatter
         return lines;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<PluginProjectPair> pairs, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginData> data, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {
             throw new ArgumentException("This formatter requires an options type of IFileOutputFormatterOptions");
         }
 
-        return Write(pairs, formatterOptions);
+        return Write(data, formatterOptions);
     }
 }

@@ -4,7 +4,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "html";
 
-    protected virtual async Task Write(IEnumerable<PluginProjectPair> pairs, IFileOutputFormatterOptions options)
+    protected virtual async Task Write(IEnumerable<PluginData> data, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -18,7 +18,7 @@ public class Formatter : IOutputFormatter
 
         var document = Document.Create("List of VSTs");
 
-        var detailsList = pairs.ToList();
+        var detailsList = data.ToList();
         
         var projectSection = new ProjectSection();
         projectSection.Add(detailsList);
@@ -37,13 +37,13 @@ public class Formatter : IOutputFormatter
         await Task.CompletedTask;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<PluginProjectPair> pairs, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginData> data, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {
             throw new ArgumentException("This formatter requires an options type of IFileOutputFormatterOptions");
         }
 
-        return Write(pairs, formatterOptions);
+        return Write(data, formatterOptions);
     }
 }

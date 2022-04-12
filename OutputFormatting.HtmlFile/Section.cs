@@ -18,7 +18,7 @@ public abstract class Section<TEntry, TItem> : XElement, ISection
         Add(titleElement);
     }
 
-    public abstract void Add(IEnumerable<PluginProjectPair> pairs);
+    public abstract void Add(IEnumerable<PluginData> data);
 
     protected virtual void Add(ILookup<TEntry, TItem> lookup)
     {
