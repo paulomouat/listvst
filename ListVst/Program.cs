@@ -67,17 +67,27 @@ internal class Program
             var rawData = ProcessorRegistry.Processors
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
-                
-            var data = rawData.Select(rawData =>
-            {
-                var projectDescriptor = new ProjectDescriptor(rawData.ProjectPath);
 
-                var rawName = rawData.PluginFullName;
-                var proposed = PluginAliasesRegistry[rawName];
-                var resolved = !string.IsNullOrWhiteSpace(proposed) && proposed != rawName ? proposed : rawName;
-                var manufacturer = PluginManufacturersRegistry.GetManufacturer(resolved);
-                var fullName = resolved;
-                var name = resolved;
+            var withResolvedAliases = rawData.Select(rd =>
+            {
+                var current = rd.PluginFullName;
+                var proposed = PluginAliasesRegistry[current];
+                if (!string.IsNullOrWhiteSpace(proposed) && current != proposed)
+                {
+                    var adjusted = rd with { PluginFullName = proposed };
+                    return adjusted;
+                };
+
+                return rd;
+            });
+            
+            var data = withResolvedAliases.Select(rd =>
+            {
+                var projectDescriptor = new ProjectDescriptor(rd.ProjectPath);
+
+                var fullName = rd.PluginFullName;
+                var name = fullName;
+                var manufacturer = PluginManufacturersRegistry.GetManufacturer(fullName);
                 if (!string.IsNullOrEmpty(manufacturer))
                 { 
                     name = name[manufacturer.Length..].Trim();
@@ -87,7 +97,9 @@ internal class Program
 
                 var pluginData = new PluginData(pluginDescriptor, projectDescriptor);
                 return pluginData;
-            }).ToList();
+            })
+                .Distinct()
+                .ToList();
 
             foreach (var mappedFormatter in mappedFormatters)
             {
