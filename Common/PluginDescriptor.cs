@@ -1,3 +1,3 @@
 namespace ListVst;
 
-public readonly record struct PluginDescriptor(string Name);
+public readonly record struct PluginDescriptor(string Name, string Manufacturer, string FullName);

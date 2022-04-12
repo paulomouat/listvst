@@ -22,6 +22,6 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
 
     protected override string GetKey(PluginDescriptor entry)
     {
-        return entry.Name;
+        return entry.FullName;
     }
 }

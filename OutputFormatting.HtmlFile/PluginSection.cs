@@ -9,7 +9,7 @@ public class PluginSection : Section<PluginDescriptor, ProjectDescriptor>
     public override void Add(IEnumerable<PluginProjectPair> pairs)
     {
         var lookup = pairs
-            .OrderBy(pair => pair.PluginDescriptor.Name)
+            .OrderBy(pair => pair.PluginDescriptor.FullName)
             .ThenBy(pair => pair.ProjectDescriptor.Path)
             .ToLookup(pair => pair.PluginDescriptor, pair => pair.ProjectDescriptor);
 

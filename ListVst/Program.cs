@@ -14,15 +14,17 @@ internal class Program
     private IOutputFormatterRegistry OutputFormatterRegistry { get; }
     private IProcessorRegistry ProcessorRegistry { get; }
     private IPluginAliasesRegistry PluginAliasesRegistry { get; }
+    private IPluginManufacturersRegistry PluginManufacturersRegistry { get; }
     private ILogger Logger { get; }
         
     public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
-        IPluginAliasesRegistry pluginAliasesRegistry,
+        IPluginAliasesRegistry pluginAliasesRegistry, IPluginManufacturersRegistry pluginManufacturersRegistry,
         ILogger<Program> logger)
     {
         OutputFormatterRegistry = outputFormatterRegistry;
         ProcessorRegistry = processorRegistry;
         PluginAliasesRegistry = pluginAliasesRegistry;
+        PluginManufacturersRegistry = pluginManufacturersRegistry;
         Logger = logger;
     }
 
@@ -68,14 +70,18 @@ internal class Program
                 
             var withAliases = allPairs.Select(pair =>
             {
-                var alias = pair.PluginDescriptor.Name;
-                var name = PluginAliasesRegistry[alias];
-                if (!string.IsNullOrWhiteSpace(name) && name != alias)
+                var current = pair.PluginDescriptor.FullName;
+                var proposed = PluginAliasesRegistry[current];
+                var resolved = !string.IsNullOrWhiteSpace(proposed) && proposed != current ? proposed : current;
+                var manufacturer = PluginManufacturersRegistry.GetManufacturer(resolved);
+                var name = resolved;
+                if (!string.IsNullOrEmpty(manufacturer))
                 {
-                    var adjusted = pair with { PluginDescriptor = new PluginDescriptor(name) };
-                    return adjusted;
-                };
-                return pair;
+                    name = name[manufacturer.Length..];
+                }
+                
+                var adjusted = pair with { PluginDescriptor = new PluginDescriptor(name, manufacturer, resolved) };
+                return adjusted;
             }).ToList();
 
             foreach (var mappedFormatter in mappedFormatters)

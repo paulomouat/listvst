@@ -57,7 +57,7 @@ internal class Host
     {
         RegisterProcessors(services);
         RegisterOutputFormatters(services);
-        RegisterNamingAliases(services);
+        RegisterNamingServices(services);
     }
 
     private static void RegisterProcessors(IServiceCollection services)
@@ -118,23 +118,45 @@ internal class Host
         services.AddSingleton<IOutputFormatterRegistry, OutputFormatterRegistry>();
     }
 
-    private static void RegisterNamingAliases(IServiceCollection services)
+    private static void RegisterNamingServices(IServiceCollection services)
     {
         var configuration = new NamingConfiguration();
         var section = Configuration?.GetSection(NamingConfiguration.SectionName);
         section.Bind(configuration);
 
+        RegisterPluginAliases(configuration, services);
+        RegisterPluginManufacturers(configuration, services);
+    }
+    
+    private static void RegisterPluginAliases(NamingConfiguration configuration, IServiceCollection services)
+    {
         var registry = new PluginAliasesRegistry();
         var plugins = configuration.PluginAliases;
         foreach (var plugin in plugins)
         {
-            var main = plugin.Name;
-            if (!string.IsNullOrWhiteSpace(main) && plugin.Aliases.Any())
+            var name = plugin.Name;
+            if (!string.IsNullOrWhiteSpace(name) && plugin.Aliases.Any())
             {
-                registry.Register(main, plugin.Aliases);
+                registry.Register(name, plugin.Aliases);
             }
         }
 
         services.AddSingleton<IPluginAliasesRegistry>(registry);
+    }
+
+    private static void RegisterPluginManufacturers(NamingConfiguration configuration, IServiceCollection services)
+    {
+        var registry = new PluginManufacturersRegistry();
+        var manufacturers = configuration.PluginManufacturers;
+        foreach (var manufacturer in manufacturers)
+        {
+            var name = manufacturer.Name;
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                registry.Register(name);
+            }
+        }
+
+        services.AddSingleton<IPluginManufacturersRegistry>(registry);
     }
 }

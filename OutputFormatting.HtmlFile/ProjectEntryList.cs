@@ -10,10 +10,11 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
     
     public override void Add(PluginDescriptor pluginDescriptor, XElement entry)
     {
-        var item = pluginDescriptor.Name;
+        var fullName = pluginDescriptor.FullName;
+        var outputName = pluginDescriptor.Manufacturer + " " + pluginDescriptor.Name;
         var anchor = new XElement("a",
-            new XAttribute("href", "#" + new Id(item)),
-            item);
+            new XAttribute("href", "#" + new Id(fullName)),
+            outputName);
         var element = new XElement("div",
             new XAttribute("class", "item"),
             anchor);

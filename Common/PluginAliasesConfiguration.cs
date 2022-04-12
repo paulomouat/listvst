@@ -1,11 +1,11 @@
 namespace ListVst;
 
-public class PluginNamingConfiguration
+public class PluginAliasesConfiguration
 {
     public string? Name { get; set; }
     public string[] Aliases { get; set; }
     
-    public PluginNamingConfiguration()
+    public PluginAliasesConfiguration()
     {
         Aliases = Array.Empty<string>();
     }

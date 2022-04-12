@@ -43,7 +43,10 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         }
     }
 
-    public virtual void Add(string itemName, XElement entry)
+    public virtual void Add(TItem itemName, XElement entry)
+    { }
+
+    protected virtual void Add(string itemName, XElement entry)
     {
         var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemName)), itemName);
         entry.Add(anchor);

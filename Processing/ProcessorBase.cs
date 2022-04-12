@@ -65,9 +65,9 @@ public abstract class ProcessorBase : IProcessor
             
         var projectDescriptor = new ProjectDescriptor(rawPath);
 
-        var list = pluginNames.Select(pluginName =>
+        var list = pluginNames.Select(fullName =>
         {
-            var pluginDescriptor = new PluginDescriptor(pluginName);
+            var pluginDescriptor = new PluginDescriptor(string.Empty, string.Empty, fullName);
             var pair = new PluginProjectPair(pluginDescriptor, projectDescriptor);
             return pair;
         }).ToList();
