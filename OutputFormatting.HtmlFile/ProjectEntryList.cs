@@ -8,7 +8,20 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
         : base(id, parentSection)
     { }
     
-    public override void Add(PluginDescriptor pluginDescriptor, XElement entry)
+    public override void Add(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
+    {
+        foreach (var pluginDescriptor in pluginDescriptors)
+        {
+            Add(pluginDescriptor, entry);
+        }
+    }
+
+    protected override string GetKey(ProjectDescriptor entry)
+    {
+        return entry.Path;
+    }
+
+    private static void Add(PluginDescriptor pluginDescriptor, XElement entry)
     {
         var fullName = pluginDescriptor.FullName;
         var outputName = pluginDescriptor.Manufacturer + " " + pluginDescriptor.Name;
@@ -19,10 +32,5 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
             new XAttribute("class", "item"),
             anchor);
         entry.Add(element);
-    }
-
-    protected override string GetKey(ProjectDescriptor entry)
-    {
-        return entry.Path;
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
@@ -44,7 +45,7 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         }
     }
 
-    public virtual void Add(TItem itemName, XElement entry)
+    public virtual void Add(TItem item, XElement entry)
     { }
 
     protected virtual void Add(string itemName, XElement entry)

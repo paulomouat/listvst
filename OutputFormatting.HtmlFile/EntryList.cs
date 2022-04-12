@@ -43,16 +43,12 @@ public class EntryList<TEntry, TItem> : XElement, IEntryList
                 "section index");
             entry.Add(linkToSection);
             
-            foreach(var item in group)
-            {
-                Add(item, entry);
-            }
-            
+            Add(group, entry);
             Add(entry);
         }
     }
 
-    public virtual void Add(TItem item, XElement entry)
+    public virtual void Add(IEnumerable<TItem> item, XElement entry)
     { }
 
     protected virtual string GetKey(TEntry entry)
