@@ -10,26 +10,11 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
 
     public override void AddItemsToEntry(IEnumerable<ProjectDescriptor> projectDescriptors, XElement entry)
     {
-        foreach (var projectDescriptor in projectDescriptors)
-        {
-            AddItemToEntry(projectDescriptor, entry);
-        }
+        entry.Add(projectDescriptors.ToXElements());
     }
 
     protected override string GetKey(PluginDescriptor entry)
     {
         return entry.FullName;
-    }
-
-    private static void AddItemToEntry(ProjectDescriptor projectDescriptor, XElement entry)
-    {
-        var item = projectDescriptor.Path;
-        var anchor = new XElement("a",
-            new XAttribute("href", "#" + new Id(item)),
-            item);
-        var element = new XElement("div",
-            new XAttribute("class", "item"),
-            anchor);
-        entry.Add(element);
     }
 }

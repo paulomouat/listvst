@@ -11,7 +11,7 @@ public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
     public override void AddItemToEntry(ProjectDescriptor item, XElement entry)
     {
         var itemName = item.Path;
-        base.AddItemToEntry(itemName, entry);
+        base.AddItemToEntry(itemName, itemName, entry);
     }
     
     protected override string GetKey(PluginDescriptor entry)

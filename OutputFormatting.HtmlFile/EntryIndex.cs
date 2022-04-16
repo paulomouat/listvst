@@ -26,6 +26,15 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
     
     public virtual void AddFromLookup(ILookup<TEntry, TItem> lookup)
     {
+        AddHeadings(lookup);
+        AddItems(lookup);
+    }
+
+    public virtual void AddItemToEntry(TItem item, XElement entry)
+    { }
+
+    protected virtual void AddHeadings(ILookup<TEntry, TItem> lookup)
+    {
         var linkToTop = new XElement("a",
             new XAttribute("class", "link-to-top"),
             new XAttribute("href", "#document-title"),
@@ -35,22 +44,22 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         var statsElement = new XElement("div", "Number of entries: " + lookup.Count,
             new XAttribute("class", "stats"));
         Add(statsElement);
-        
+    }
+    
+    protected virtual void AddItems(ILookup<TEntry, TItem> lookup)
+    {
         foreach (var group in lookup)
         {
             var entry = new XElement("div", new XAttribute("class", "item"));
             var itemName = GetKey(group.Key);
-            AddItemToEntry(itemName, entry);
+            AddItemToEntry(itemName, itemName, entry);
             Add(entry);
         }
     }
 
-    public virtual void AddItemToEntry(TItem item, XElement entry)
-    { }
-
-    protected virtual void AddItemToEntry(string itemName, XElement entry)
+    protected virtual void AddItemToEntry(string itemKey, string itemName, XElement entry)
     {
-        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemName)), itemName);
+        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemKey)), itemName);
         entry.Add(anchor);
     }
 

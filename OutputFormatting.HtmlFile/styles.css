@@ -30,8 +30,14 @@ body {
 .key {
     font-size: 1.1em;
 }
+.item-category {
+    margin-left: 3ex;
+}
+.item-container {
+    margin-left: 3ex;
+}
 .item {
-    margin-left: 1ex;
+    margin-left: 3ex;
 }
 .stats {
     font-size: 0.8em;

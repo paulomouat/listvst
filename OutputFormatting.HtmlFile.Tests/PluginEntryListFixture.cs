@@ -25,11 +25,14 @@ public class PluginEntryListFixture
 
         outputElement.ToString().Should().Be(
 @"<output>
-  <div class=""item"">
-    <a href=""#root-sub1-file1-ext"">/root/sub1/file1.ext</a>
-  </div>
-  <div class=""item"">
-    <a href=""#root-sub1-file2-ext"">/root/sub1/file2.ext</a>
+  <div class=""item-container"">
+    <div>root</div>
+    <div class=""item"">
+      <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+    </div>
+    <div class=""item"">
+      <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
+    </div>
   </div>
 </output>"
         );
@@ -68,19 +71,25 @@ public class PluginEntryListFixture
     <div class=""key title"">manufacturer1 plugin11</div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
-    <div class=""item"">
-      <a href=""#root-sub1-file1-ext"">/root/sub1/file1.ext</a>
-    </div>
-    <div class=""item"">
-      <a href=""#root-sub1-file2-ext"">/root/sub1/file2.ext</a>
+    <div class=""item-container"">
+      <div>root</div>
+      <div class=""item"">
+        <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+      </div>
+      <div class=""item"">
+        <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
+      </div>
     </div>
   </div>
   <div id=""manufacturer1-plugin12"" class=""entry"">
     <div class=""key title"">manufacturer1 plugin12</div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
-    <div class=""item"">
-      <a href=""#root-sub1-file1-ext"">/root/sub1/file1.ext</a>
+    <div class=""item-container"">
+      <div>root</div>
+      <div class=""item"">
+        <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+      </div>
     </div>
   </div>
 </div>");
