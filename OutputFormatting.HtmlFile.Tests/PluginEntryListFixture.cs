@@ -26,7 +26,7 @@ public class PluginEntryListFixture
         outputElement.ToString().Should().Be(
 @"<output>
   <div class=""item-container"">
-    <div>root</div>
+    <div class=""item-container-title"">root</div>
     <div class=""item"">
       <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
     </div>
@@ -72,7 +72,7 @@ public class PluginEntryListFixture
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">
-      <div>root</div>
+      <div class=""item-container-title"">root</div>
       <div class=""item"">
         <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
       </div>
@@ -86,7 +86,7 @@ public class PluginEntryListFixture
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">
-      <div>root</div>
+      <div class=""item-container-title"">root</div>
       <div class=""item"">
         <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
       </div>

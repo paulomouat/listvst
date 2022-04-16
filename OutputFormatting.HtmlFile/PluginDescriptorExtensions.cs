@@ -14,8 +14,8 @@ public static class PluginDescriptorExtensions
         foreach (var category in categories)
         {
             var categoryElement = new XElement("div",
-                new XAttribute("class", "item-category"),
-                new XElement("div", category.Key));
+                new XAttribute("class", "item-container"),
+                new XElement("div", new XAttribute("class", "item-container-title"), category.Key));
             results.Add(categoryElement);
 
             foreach (var pd in category)

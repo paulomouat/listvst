@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Xml.Linq;
 using FluentAssertions;
 using ListVst;
 using ListVst.OutputFormatting.HtmlFile;
@@ -10,22 +9,6 @@ namespace OutputFormatting.HtmlFile.Tests;
 
 public class PluginEntryIndexFixture
 {
-    [Fact]
-    public void AddDescriptors_RendersAll()
-    {
-        var descriptor = new ProjectDescriptor("/root/sub1/file1.ext");
-
-        var sut = GetSubject();
-        var outputElement = new XElement("output");
-        sut.AddItemToEntry(descriptor, outputElement);
-
-        outputElement.ToString().Should().Be(
-@"<output>
-  <a href=""#root-sub1-file1-ext"">/root/sub1/file1.ext</a>
-</output>"
-        );
-    }
-
     [Fact]
     public void AddLookup_RendersAll()
     {
@@ -58,8 +41,8 @@ public class PluginEntryIndexFixture
   <div class=""index title"">mockTitle</div>
   <a class=""link-to-top"" href=""#document-title"">top</a>
   <div class=""stats"">Number of entries: 2</div>
-  <div class=""item-category"">
-    <div>manufacturer1</div>
+  <div class=""item-container"">
+    <div class=""item-container-title"">manufacturer1</div>
     <div class=""item"">
       <a href=""#manufacturer1-plugin11"">plugin11</a>
     </div>

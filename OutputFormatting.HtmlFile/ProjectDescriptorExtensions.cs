@@ -20,7 +20,7 @@ public static class ProjectDescriptorExtensions
             {
                 categoryElement = new XElement("div",
                     new XAttribute("class", "item-category"),
-                    new XElement("div", category.Key));
+                    new XElement("div", new XAttribute("class", "item-category-title"), category.Key));
                 results.Add(categoryElement);
             }
 
@@ -29,7 +29,7 @@ public static class ProjectDescriptorExtensions
                 foreach (var projectsInFolder in projectFoldersInCategory)
                 {
                     var projectsInFolderElement = new XElement("div", new XAttribute("class", "item-container"),
-                        new XElement("div", projectsInFolder.Key));
+                        new XElement("div", new XAttribute("class", "item-container-title"), projectsInFolder.Key));
 
                     if (categoryElement == null)
                     {

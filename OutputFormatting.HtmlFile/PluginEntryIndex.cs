@@ -1,5 +1,3 @@
-using System.Xml.Linq;
-
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
@@ -15,16 +13,5 @@ public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
             .ToList();
 
         Add(descriptors.ToXElements());
-    }
-    
-    public override void AddItemToEntry(ProjectDescriptor item, XElement entry)
-    {
-        var itemName = item.Path;
-        base.AddItemToEntry(itemName, itemName, entry);
-    }
-    
-    protected override string GetKey(PluginDescriptor entry)
-    {
-        return entry.FullName;
     }
 }

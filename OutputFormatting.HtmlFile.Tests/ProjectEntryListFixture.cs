@@ -25,14 +25,14 @@ public class ProjectEntryListFixture
 
         outputElement.ToString().Should().Be(
 @"<output>
-  <div class=""item-category"">
-    <div>manufacturer1</div>
+  <div class=""item-container"">
+    <div class=""item-container-title"">manufacturer1</div>
     <div class=""item"">
       <a href=""#manufacturer1-plugin11"">plugin11</a>
     </div>
   </div>
-  <div class=""item-category"">
-    <div>manufacturer2</div>
+  <div class=""item-container"">
+    <div class=""item-container-title"">manufacturer2</div>
     <div class=""item"">
       <a href=""#manufacturer2-plugin21"">plugin21</a>
     </div>
@@ -74,8 +74,8 @@ public class ProjectEntryListFixture
     <div class=""key title"">/root/sub1/file1.ext</div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
-    <div class=""item-category"">
-      <div>manufacturer1</div>
+    <div class=""item-container"">
+      <div class=""item-container-title"">manufacturer1</div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin11"">plugin11</a>
       </div>
@@ -88,8 +88,8 @@ public class ProjectEntryListFixture
     <div class=""key title"">/root/sub1/file2.ext</div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
-    <div class=""item-category"">
-      <div>manufacturer1</div>
+    <div class=""item-container"">
+      <div class=""item-container-title"">manufacturer1</div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin11"">plugin11</a>
       </div>

@@ -15,29 +15,45 @@ body {
 .main-index {
     font-size: 1.5em;
     margin-top: 2ex;
+    margin-bottom: 1ex;
 }
 .section {
     font-size: 1.5em;
     margin-top: 2ex;
+    margin-bottom: 1ex;
 }
 .index {
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-top: 1ex;
 }
 .entry {
-    margin-top: 1ex;
+    margin-top: 2ex;
+    margin-bottom: 2ex;
 }
 .key {
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 .item-category {
-    margin-left: 3ex;
+    margin-left: 5ex;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+.item-category-title {
+    font-weight: bold;
 }
 .item-container {
-    margin-left: 3ex;
+    margin-left: 5ex;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+.item-container-title {
+    font-weight: bold;
 }
 .item {
     margin-left: 3ex;
+}
+.item-title {
+    font-weight: bold;
 }
 .stats {
     font-size: 0.8em;

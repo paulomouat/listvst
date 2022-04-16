@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Xml.Linq;
 using FluentAssertions;
 using ListVst;
 using ListVst.OutputFormatting.HtmlFile;
@@ -43,7 +42,7 @@ public class ProjectEntryIndexFixture
   <a class=""link-to-top"" href=""#document-title"">top</a>
   <div class=""stats"">Number of entries: 2</div>
   <div class=""item-container"">
-    <div>root</div>
+    <div class=""item-container-title"">root</div>
     <div class=""item"">
       <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
     </div>

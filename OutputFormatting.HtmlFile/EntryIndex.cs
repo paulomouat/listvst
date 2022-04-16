@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
@@ -30,9 +29,6 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
         AddItems(lookup);
     }
 
-    public virtual void AddItemToEntry(TItem item, XElement entry)
-    { }
-
     protected virtual void AddHeadings(ILookup<TEntry, TItem> lookup)
     {
         var linkToTop = new XElement("a",
@@ -47,24 +43,5 @@ public class EntryIndex<TEntry, TItem> : XElement, IEntryIndex
     }
     
     protected virtual void AddItems(ILookup<TEntry, TItem> lookup)
-    {
-        foreach (var group in lookup)
-        {
-            var entry = new XElement("div", new XAttribute("class", "item"));
-            var itemName = GetKey(group.Key);
-            AddItemToEntry(itemName, itemName, entry);
-            Add(entry);
-        }
-    }
-
-    protected virtual void AddItemToEntry(string itemKey, string itemName, XElement entry)
-    {
-        var anchor = new XElement("a", new XAttribute("href", "#" + new Id(itemKey)), itemName);
-        entry.Add(anchor);
-    }
-
-    protected virtual string GetKey(TEntry entry)
-    {
-        return string.Empty;
-    }
+    { }
 }
