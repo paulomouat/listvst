@@ -6,11 +6,6 @@ public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
         : base(id, title, parentSection)
     { }
 
-    protected override string GetKey(ProjectDescriptor entry)
-    {
-        return entry.Path;
-    }
-
     protected override void AddItems(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         var descriptors = lookup

@@ -58,11 +58,14 @@ public class PluginEntryIndexFixture
   <div class=""index title"">mockTitle</div>
   <a class=""link-to-top"" href=""#document-title"">top</a>
   <div class=""stats"">Number of entries: 2</div>
-  <div class=""item"">
-    <a href=""#manufacturer1-plugin11"">manufacturer1 plugin11</a>
-  </div>
-  <div class=""item"">
-    <a href=""#manufacturer1-plugin12"">manufacturer1 plugin12</a>
+  <div class=""item-category"">
+    <div>manufacturer1</div>
+    <div class=""item"">
+      <a href=""#manufacturer1-plugin11"">plugin11</a>
+    </div>
+    <div class=""item"">
+      <a href=""#manufacturer1-plugin12"">plugin12</a>
+    </div>
   </div>
 </div>");
     }
