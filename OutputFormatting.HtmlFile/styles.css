@@ -37,6 +37,11 @@ body {
 .key {
     font-size: 1.2em;
 }
+.all-items {
+    border-left-style: solid;
+    border-left-width: thick;
+    border-color: #CCCCCC;
+}
 .item-category {
     margin-left: 2ex;
     margin-top: 1ex;
@@ -65,14 +70,12 @@ body {
 }
 .link-to-top {
     font-size: 0.8em;
-    margin-left2: 1ex;
 }
 .link-to-top::before {
     content: "\2191 ";
 }
 .link-to-section {
     font-size: 0.8em;
-    margin-left2: 1ex;
 }
 .link-to-section::before {
     content: "\2191 ";

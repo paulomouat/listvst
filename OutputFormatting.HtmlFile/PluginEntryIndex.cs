@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
@@ -12,6 +14,8 @@ public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
             .Select(g => g.Key)
             .ToList();
 
-        Add(descriptors.ToXElements());
+        var allItemsElement = new XElement("div", new XAttribute("class", "all-items"));
+        Add(allItemsElement);
+        allItemsElement.Add(descriptors.ToXElements());
     }
 }
