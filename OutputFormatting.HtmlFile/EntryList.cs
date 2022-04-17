@@ -22,7 +22,8 @@ public class EntryList<TEntry, TItem> : XElement, IEntryList
         foreach(var group in lookup)
         {
             var entry = BuildEntry(group);
-            AddHeadings(entry);
+            AddTitle(group, entry);
+            AddHeadings(group, entry);
             AddItemsToEntry(group, entry);
             Add(entry);
         }
@@ -37,14 +38,19 @@ public class EntryList<TEntry, TItem> : XElement, IEntryList
             new XAttribute("id", entryId),
             new XAttribute("class", "entry"));
             
+        return entry;
+    }
+
+    public virtual void AddTitle(IGrouping<TEntry, TItem> group, XElement entry)
+    {
+        var key = GetKey(group.Key);
         var entryTitle = new XElement("div",
             new XAttribute("class", "key title"),
             key);
         entry.Add(entryTitle);
-        return entry;
     }
     
-    public virtual void AddHeadings(XElement entry)
+    public virtual void AddHeadings(IGrouping<TEntry, TItem> group, XElement entry)
     {
         var linkToTop = new XElement("a",
             new XAttribute("class", "link-to-top"),

@@ -27,14 +27,18 @@ body {
     margin-top: 1ex;
 }
 .entry {
-    margin-top: 2ex;
-    margin-bottom: 2ex;
+    margin-top: 5ex;
+    margin-bottom: 5ex;
+    padding-left: 2ex;
+    border-left-style: solid;
+    border-left-width: thick;
+    border-color: #666666;
 }
 .key {
     font-size: 1.2em;
 }
 .item-category {
-    margin-left: 5ex;
+    margin-left: 2ex;
     margin-top: 1ex;
     margin-bottom: 1ex;
 }
@@ -42,7 +46,7 @@ body {
     font-weight: bold;
 }
 .item-container {
-    margin-left: 5ex;
+    margin-left: 2ex;
     margin-top: 1ex;
     margin-bottom: 1ex;
 }
@@ -61,14 +65,14 @@ body {
 }
 .link-to-top {
     font-size: 0.8em;
-    margin-left: 1ex;
+    margin-left2: 1ex;
 }
 .link-to-top::before {
     content: "\2191 ";
 }
 .link-to-section {
     font-size: 0.8em;
-    margin-left: 1ex;
+    margin-left2: 1ex;
 }
 .link-to-section::before {
     content: "\2191 ";

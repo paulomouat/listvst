@@ -71,7 +71,10 @@ public class ProjectEntryListFixture
         sut.ToString().Should().Be(
             @"<div id=""mockId"">
   <div id=""root-sub1-file1-ext"" class=""entry"">
-    <div class=""key title"">/root/sub1/file1.ext</div>
+    <div>
+      <div class=""key title"">root</div>
+      <div>sub1 / file1.ext</div>
+    </div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">
@@ -85,7 +88,10 @@ public class ProjectEntryListFixture
     </div>
   </div>
   <div id=""root-sub1-file2-ext"" class=""entry"">
-    <div class=""key title"">/root/sub1/file2.ext</div>
+    <div>
+      <div class=""key title"">root</div>
+      <div>sub1 / file2.ext</div>
+    </div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">

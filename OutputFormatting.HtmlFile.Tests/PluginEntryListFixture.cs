@@ -68,7 +68,10 @@ public class PluginEntryListFixture
         sut.ToString().Should().Be(
 @"<div id=""mockId"">
   <div id=""manufacturer1-plugin11"" class=""entry"">
-    <div class=""key title"">manufacturer1 plugin11</div>
+    <div>
+      <div>manufacturer1</div>
+      <div class=""key title"">plugin11</div>
+    </div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">
@@ -82,7 +85,10 @@ public class PluginEntryListFixture
     </div>
   </div>
   <div id=""manufacturer1-plugin12"" class=""entry"">
-    <div class=""key title"">manufacturer1 plugin12</div>
+    <div>
+      <div>manufacturer1</div>
+      <div class=""key title"">plugin12</div>
+    </div>
     <a class=""link-to-top"" href=""#document-title"">top</a>
     <a class=""link-to-section"" href=""#"">section index</a>
     <div class=""item-container"">
