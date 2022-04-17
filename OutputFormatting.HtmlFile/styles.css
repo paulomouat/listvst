@@ -37,12 +37,12 @@ body {
 .key {
     font-size: 1.2em;
 }
-.all-items {
+.index-items {
     border-left-style: solid;
     border-left-width: thick;
     border-color: #CCCCCC;
 }
-.item-category {
+.index-items .item-category {
     margin-left: 2ex;
     margin-top: 1ex;
     margin-bottom: 1ex;
@@ -50,8 +50,23 @@ body {
 .item-category-title {
     font-weight: bold;
 }
-.item-container {
+.index-items .item-category .item-container {
     margin-left: 2ex;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+
+.index-items .item-container {
+    margin-left: 2ex;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+.entry .item-category .item-container {
+    margin-left: 2ex;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+.entry .item-container {
     margin-top: 1ex;
     margin-bottom: 1ex;
 }

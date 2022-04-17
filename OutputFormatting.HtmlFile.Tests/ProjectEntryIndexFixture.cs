@@ -41,7 +41,7 @@ public class ProjectEntryIndexFixture
   <div class=""index title"">mockTitle</div>
   <a class=""link-to-top"" href=""#document-title"">top</a>
   <div class=""stats"">Number of entries: 2</div>
-  <div class=""all-items"">
+  <div class=""index-items"">
     <div class=""item-container"">
       <div class=""item-container-title"">root</div>
       <div class=""item"">

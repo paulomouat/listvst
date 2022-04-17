@@ -14,7 +14,7 @@ public class PluginEntryIndex : EntryIndex<PluginDescriptor, ProjectDescriptor>
             .Select(g => g.Key)
             .ToList();
 
-        var allItemsElement = new XElement("div", new XAttribute("class", "all-items"));
+        var allItemsElement = new XElement("div", new XAttribute("class", "index-items"));
         Add(allItemsElement);
         allItemsElement.Add(descriptors.ToXElements());
     }
