@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.AbletonLive;
@@ -13,75 +12,87 @@ public class Parser : IParser
         Logger = logger;
     }
         
-    public async Task<IEnumerable<string>> Parse(string xml)
+    public async Task<IEnumerable<PluginInfo>> Parse(string xml)
     {
         if (string.IsNullOrEmpty(xml))
         {
-            return Array.Empty<string>();
+            return Array.Empty<PluginInfo>();
         }
-            
-        // NOTE: Performance is substantially faster if we slice the xml into
-        // the chunks we are interested in via an XmlReader and then creating
-        // individual XElement instances for each, than it is if we create a
-        // single XDocument with the whole xml string
-        var pluginElements = await ExtractPluginElements(xml);
-        var xelements = pluginElements.Select(XElement.Parse);
-        var names = GetDeviceNames(xelements);
-        return names;
+
+        var pluginInfos = ExtractPluginData(xml);
+        return await Task.FromResult(pluginInfos);
     }
 
-    private static async Task<IEnumerable<string>> ExtractPluginElements(string xml)
+    private static IEnumerable<PluginInfo> ExtractPluginData(string xml)
     {
-        var elements = new List<string>();
+        var pluginInfos = new List<PluginInfo>();
             
         using var sr = new StringReader(xml);
         using var reader = XmlReader.Create(sr, new XmlReaderSettings{ Async = true });
-        while (await reader.ReadAsync())
+        while(reader.ReadToFollowing("PluginDesc"))
         {
-            if (reader.NodeType == XmlNodeType.Element && reader.Name == "PluginDesc")
-            {
-                var element = await reader.ReadOuterXmlAsync();
-                elements.Add(element);
-            }
+            var pluginInfoReader = reader.ReadSubtree();
+            var pluginInfo = ProcessPluginDesc(pluginInfoReader);
+            pluginInfos.Add(pluginInfo);
         }
 
-        return elements;
+        return pluginInfos;
     }
 
-    private static IEnumerable<string> GetDeviceNames(IEnumerable<XElement> pluginDescElements)
+    private static PluginInfo ProcessPluginDesc(XmlReader reader)
     {
-        var values = new HashSet<string>();
-
-        foreach(var pluginDescElement in pluginDescElements)
+        var manufacturer = string.Empty;
+        var name = string.Empty;
+        var pluginType = PluginType.Unknown;
+        
+        while (reader.Read())
         {
-            var manufacturerElements = pluginDescElement.Descendants("Manufacturer");
-            var manufacturerElement = manufacturerElements.FirstOrDefault();
-            if (manufacturerElement != null)
+            switch (reader.Name)
             {
-                var manufacturer = manufacturerElement.Attribute("Value")!.Value;
-                var nameElements = manufacturerElement.Parent!.Elements("Name");
-                var names = nameElements.Attributes("Value").Select(a => a.Value);
+                case "AuPluginInfo":
 
-                var pluginDetails = names.Select(n => $"{manufacturer} {n}").ToHashSet();
-                foreach (var pd in pluginDetails)
-                {
-                    values.Add(pd);
-                }
-                continue;
-            }
+                    pluginType = PluginType.AudioUnit;
+                    
+                    reader.Read();
+                    
+                    if (reader.ReadToNextSibling("Name"))
+                    {
+                        name = reader.GetAttribute("Value") ?? string.Empty;
+                    }
 
-            var plugNameElements = pluginDescElement.Descendants("PlugName");
-            var plugNameElement = plugNameElements.FirstOrDefault();
-            if (plugNameElement != null)
-            {
-                var name = plugNameElement.Attribute("Value")?.Value;
-                if (!string.IsNullOrWhiteSpace(name))
-                {
-                    values.Add(name);
-                }
+                    if (reader.ReadToNextSibling("Manufacturer"))
+                    {
+                        manufacturer = reader.GetAttribute("Value") ?? string.Empty;
+                    }
+
+                    break;
+                case "VstPluginInfo":
+                    
+                    pluginType = PluginType.Vst;
+
+                    reader.Read();
+
+                    if (reader.ReadToNextSibling("PlugName"))
+                    {
+                        name = reader.GetAttribute("Value") ?? string.Empty;
+                    }
+                    
+                    break;
+                case "Vst3PluginInfo":
+                    
+                    pluginType = PluginType.Vst3;
+                    
+                    reader.Read();
+
+                    if (reader.ReadToNextSibling("Name"))
+                    {
+                        name = reader.GetAttribute("Value") ?? string.Empty;
+                    }
+
+                    break;
             }
         }
 
-        return values;
+        return new PluginInfo(name, manufacturer, pluginType);
     }
 }

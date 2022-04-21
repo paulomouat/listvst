@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.StudioOne;
@@ -13,56 +12,69 @@ public class Parser : IParser
         Logger = logger;
     }
 
-    public async Task<IEnumerable<string>> Parse(string xml)
+    public async Task<IEnumerable<PluginInfo>> Parse(string xml)
     {
         if (string.IsNullOrEmpty(xml))
         {
-            return Array.Empty<string>();
+            return Array.Empty<PluginInfo>();
         }
             
-        // NOTE: Performance is substantially faster if we slice the xml into
-        // the chunks we are interested in via an XmlReader and then creating
-        // individual XElement instances for each, than it is if we create a
-        // single XDocument with the whole xml string
-        var pluginElements = await ExtractPluginElements(xml);
-        var xelements = pluginElements.Select(XElement.Parse);
-        var names = GetDeviceNames(xelements);
-        return names;
+        var pluginInfos = await ExtractPluginData(xml);
+        return pluginInfos;
     }
 
-    private static async Task<IEnumerable<string>> ExtractPluginElements(string xml)
+    private static async Task<IEnumerable<PluginInfo>> ExtractPluginData(string xml)
     {
-        var elements = new List<string>();
-            
+        var pluginInfos = new List<PluginInfo>();
+        
         using var sr = new StringReader(xml);
         using var reader = XmlReader.Create(sr, new XmlReaderSettings{ Async = true });
         while (await reader.ReadAsync())
         {
             if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" && reader.GetAttribute("_id") == "ghostData")
             {
-                var element = await reader.ReadOuterXmlAsync();
-                elements.Add(element);
+                var pluginInfoReader = reader.ReadSubtree();
+                var pluginInfo = ProcessPluginDesc(pluginInfoReader);
+                pluginInfos.Add(pluginInfo);
             }
         }
 
-        return elements;
+        return pluginInfos;
     }
-        
-    private static IEnumerable<string> GetDeviceNames(IEnumerable<XElement> pluginElements)
+
+    private static PluginInfo ProcessPluginDesc(XmlReader reader)
     {
-        var list = new HashSet<string>();
+        var manufacturer = string.Empty;
+        var name = string.Empty;
+        var pluginType = PluginType.Unknown;
 
-        foreach (var ghostData in pluginElements)
+        while (reader.Read())
         {
-            var classInfoAttributes = ghostData.Descendants("Attributes").Where(xe => xe.Attribute("_id")?.Value == "classInfo");
-            var withNameAttribute = classInfoAttributes.Attributes().Where(a => a.Name == "name");
-            var values = withNameAttribute.Select(a => a.Value).ToHashSet();
-            foreach (var value in values)
+            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
+                reader.GetAttribute("_id") == "classInfo")
             {
-                list.Add(value);
-            }
-        }            
+                name = reader.GetAttribute("name") ?? string.Empty;
+                var subCategory = reader.GetAttribute("subCategory") ?? string.Empty;
 
-        return list;
-    }        
+                switch (subCategory)
+                {
+                    case "AudioUnit":
+                        pluginType = PluginType.AudioUnit;
+                        break;
+                    case "VST2":
+                        pluginType = PluginType.Vst;
+                        break;
+                    default:
+                        if (subCategory.StartsWith("VST3"))
+                        {
+                            pluginType = PluginType.Vst3;
+                        }
+
+                        break;
+                }
+            }
+        }
+
+        return new PluginInfo(name, manufacturer, pluginType);
+    }
 }

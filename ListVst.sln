@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.AbletonLive", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.StudioOne", "Processing.StudioOne\Processing.StudioOne.csproj", "{D14E80B6-CF1D-4778-AD72-99EDBAC4167D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbletonLive.Tests", "AbletonLive.Tests\AbletonLive.Tests.csproj", "{2DE35E37-C924-47FE-B6A2-072CBE4C280F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.AbletonLive.Tests", "Processing.AbletonLive.Tests\Processing.AbletonLive.Tests.csproj", "{2DE35E37-C924-47FE-B6A2-072CBE4C280F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioOne.Tests", "StudioOne.Tests\StudioOne.Tests.csproj", "{712B5223-1C2C-4E95-8D39-D63CDD9110AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.StudioOne.Tests", "Processing.StudioOne.Tests\Processing.StudioOne.Tests.csproj", "{712B5223-1C2C-4E95-8D39-D63CDD9110AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputFormatting", "OutputFormatting\OutputFormatting.csproj", "{48D20FBD-64D7-4AD7-BABB-C3DB3770AD17}"
 EndProject

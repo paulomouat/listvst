@@ -2,5 +2,5 @@ namespace ListVst.Processing;
 
 public interface IParser
 {
-    Task<IEnumerable<string>> Parse(string xml);
+    Task<IEnumerable<PluginInfo>> Parse(string xml);
 }
