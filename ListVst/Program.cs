@@ -70,25 +70,7 @@ internal class Program
 
             var withResolvedAliases = rawData.ResolveAliases(PluginAliasesRegistry);
 
-            var data = withResolvedAliases.Select(rd =>
-            {
-                var projectDescriptor = new ProjectDescriptor(rd.ProjectPath);
-
-                var fullName = rd.PluginFullName;
-                var name = fullName;
-                var manufacturer = PluginManufacturersRegistry.GetManufacturer(fullName);
-                if (!string.IsNullOrEmpty(manufacturer))
-                { 
-                    name = name[manufacturer.Length..].Trim();
-                }
-
-                var pluginDescriptor = new PluginDescriptor(name, manufacturer, fullName);
-
-                var pluginData = new PluginData(pluginDescriptor, projectDescriptor);
-                return pluginData;
-            })
-                .Distinct()
-                .ToList();
+            var data = withResolvedAliases.ToPluginData(PluginManufacturersRegistry).Distinct().ToList();
 
             foreach (var mappedFormatter in mappedFormatters)
             {

@@ -71,4 +71,80 @@ public class PluginRawDataExtensionsFixture
             new PluginRawData("fn3", "pp3"),
         });
     }
+
+    [Fact]
+    public void PluginData_HasPluginDescriptor_WithTruncatedName_IfManufacturerFound()
+    {
+        var registry = Mock.Of<IPluginManufacturersRegistry>(m => m.GetManufacturer("abcdefg") == "ijk");
+        var sut = new PluginRawData("abcdefg", "pp");
+
+        var actual = sut.ToPluginData(registry);
+
+        actual.PluginDescriptor.Name.Should().Be("defg");
+    }
+    
+    [Fact]
+    public void PluginData_HasPluginDescriptor_WithSameName_IfManufacturerIsEmptyString()
+    {
+        var registry = Mock.Of<IPluginManufacturersRegistry>(m => m.GetManufacturer("abcdefg") == "");
+        var sut = new PluginRawData("abcdefg", "pp");
+
+        var actual = sut.ToPluginData(registry);
+
+        actual.PluginDescriptor.Name.Should().Be("abcdefg");
+    }    
+    
+    [Fact]
+    public void PluginData_HasExpectedPluginDescriptor()
+    {
+        var registry = Mock.Of<IPluginManufacturersRegistry>(m => m.GetManufacturer("abcdefg") == "ijk");
+        var sut = new PluginRawData("abcdefg", "pp");
+
+        var actual = sut.ToPluginData(registry);
+
+        actual.PluginDescriptor.Should().BeEquivalentTo(new
+        {
+            Name = "defg",
+            Manufacturer = "ijk",
+            FullName = "abcdefg"
+        });
+    }
+
+    [Fact]
+    public void PluginData_HasExpectedProjectDescriptor()
+    {
+        var registry = Mock.Of<IPluginManufacturersRegistry>(m => m.GetManufacturer("abcdefg") == "ijk");
+        var sut = new PluginRawData("abcdefg", "pp");
+
+        var actual = sut.ToPluginData(registry);
+
+        actual.ProjectDescriptor.Should().BeEquivalentTo(new
+        {
+            Path = "pp"
+        });
+    }
+
+    [Fact]
+    public void PluginRawDataElements_AreConverted_ToPluginDataElements()
+    {
+        var registry = Mock.Of<IPluginManufacturersRegistry>(m =>
+            m.GetManufacturer("abcdefg1") == "ijk1" &&
+            m.GetManufacturer("abcdefg2") == "ijk2" &&
+            m.GetManufacturer("abcdefg3") == "");
+        var sut = new[]
+        {
+            new PluginRawData("abcdefg1", "pp1"),
+            new PluginRawData("abcdefg2", "pp2"),
+            new PluginRawData("abcdefg3", "pp3"),
+        };
+
+        var actual = sut.ToPluginData(registry);
+
+        actual.Should().BeEquivalentTo(new[]
+        {
+            new PluginData(new PluginDescriptor("efg1", "ijk1", "abcdefg1"), new ProjectDescriptor("pp1")),
+            new PluginData(new PluginDescriptor("efg2", "ijk2", "abcdefg2"), new ProjectDescriptor("pp2")),
+            new PluginData(new PluginDescriptor("abcdefg3", "", "abcdefg3"), new ProjectDescriptor("pp3")),
+        });
+    }
 }
