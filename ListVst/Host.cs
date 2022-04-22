@@ -124,24 +124,25 @@ internal class Host
         var section = Configuration?.GetSection(NamingConfiguration.SectionName);
         section.Bind(configuration);
 
-        RegisterPluginAliases(configuration, services);
+        RegisterPlugins(configuration, services);
         RegisterPluginManufacturers(configuration, services);
     }
     
-    private static void RegisterPluginAliases(NamingConfiguration configuration, IServiceCollection services)
+    private static void RegisterPlugins(NamingConfiguration configuration, IServiceCollection services)
     {
-        var registry = new PluginAliasesRegistry();
-        var plugins = configuration.PluginAliases;
+        var registry = new PluginRegistry();
+        var plugins = configuration.Plugins;
         foreach (var plugin in plugins)
         {
             var name = plugin.Name;
-            if (!string.IsNullOrWhiteSpace(name) && plugin.Aliases.Any())
+            var manufacturer = plugin.Manufacturer;
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(manufacturer) && plugin.Aliases.Any())
             {
-                registry.Register(name, plugin.Aliases);
+                registry.Register(name, manufacturer, plugin.Aliases);
             }
         }
 
-        services.AddSingleton<IPluginAliasesRegistry>(registry);
+        services.AddSingleton<IPluginRegistry>(registry);
     }
 
     private static void RegisterPluginManufacturers(NamingConfiguration configuration, IServiceCollection services)

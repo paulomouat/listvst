@@ -4,12 +4,12 @@ public class NamingConfiguration
 {
     public const string SectionName = "Naming";
     
-    public PluginAliasesConfiguration[] PluginAliases { get; set; }
+    public PluginConfiguration[] Plugins { get; set; }
     public PluginManufacturersConfiguration[] PluginManufacturers { get; set; }
     
     public NamingConfiguration()
     {
-        PluginAliases = Array.Empty<PluginAliasesConfiguration>();
+        Plugins = Array.Empty<PluginConfiguration>();
         PluginManufacturers = Array.Empty<PluginManufacturersConfiguration>();
     }
 }

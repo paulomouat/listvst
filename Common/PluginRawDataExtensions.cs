@@ -2,21 +2,26 @@ namespace ListVst;
 
 public static class PluginRawDataExtensions
 {
-    public static PluginRawData ResolveAliases(this PluginRawData rawData, IPluginAliasesRegistry registry)
+    public static PluginRawData ResolveAliases(this PluginRawData rawData, IPluginRegistry registry)
     {
         var current = rawData.PluginFullName;
-        var proposed = registry[current];
-        if (!string.IsNullOrWhiteSpace(proposed) && current != proposed)
+        var registered = registry[current];
+        
+        if (registered != PluginInfo.NoPlugin)
         {
-            var adjusted = rawData with { PluginFullName = proposed };
-            return adjusted;
-        };
-
+            var proposed = registered.Manufacturer + " " + registered.Name;    
+            if (current != proposed)
+            {
+                var adjusted = rawData with { PluginFullName = proposed };
+                return adjusted;
+            };
+        }
+        
         return rawData;
     }
 
     public static IEnumerable<PluginRawData> ResolveAliases(this IEnumerable<PluginRawData> rawData,
-        IPluginAliasesRegistry registry)
+        IPluginRegistry registry)
     {
         return rawData.Select(rd => rd.ResolveAliases(registry));
     }

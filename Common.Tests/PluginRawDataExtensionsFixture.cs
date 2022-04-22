@@ -10,29 +10,8 @@ public class PluginRawDataExtensionsFixture
     [Fact]
     public void PluginFullName_IsSame_IfAliasNotRegistered()
     {
-        var registry = Mock.Of<IPluginAliasesRegistry>(m => m["dummy"] == "abc");
-        var sut = new PluginRawData("fn", "pp");
-
-        var actual = sut.ResolveAliases(registry);
-
-        actual.PluginFullName.Should().Be("fn");
-    }
-
-    [Fact]
-    public void PluginFullName_IsSame_IfAliasRegistryReturnsNull()
-    {
-        var registry = Mock.Of<IPluginAliasesRegistry>(m => m["fn"] == null);
-        var sut = new PluginRawData("fn", "pp");
-
-        var actual = sut.ResolveAliases(registry);
-
-        actual.PluginFullName.Should().Be("fn");
-    }
-
-    [Fact]
-    public void PluginFullName_IsSame_IfAliasRegistryReturnsEmptyString()
-    {
-        var registry = Mock.Of<IPluginAliasesRegistry>(m => m["fn"] == "");
+        var registryMock = new Mock<PluginRegistry> { CallBase = true };
+        var registry = registryMock.Object;
         var sut = new PluginRawData("fn", "pp");
 
         var actual = sut.ResolveAliases(registry);
@@ -43,18 +22,21 @@ public class PluginRawDataExtensionsFixture
     [Fact]
     public void PluginFullName_IsChanged_IfAliasIsRegistered()
     {
-        var registry = Mock.Of<IPluginAliasesRegistry>(m => m["fn"] == "abc");
+        var registry = Mock.Of<IPluginRegistry>(m => m["fn"] == new PluginInfo("abc", "def", PluginType.Unknown));
         var sut = new PluginRawData("fn", "pp");
 
         var actual = sut.ResolveAliases(registry);
 
-        actual.PluginFullName.Should().Be("abc");
+        actual.PluginFullName.Should().Be("def abc");
     }
     
     [Fact]
     public void PluginFullNames_AreChanged_IfAliasesAreRegistered()
     {
-        var registry = Mock.Of<IPluginAliasesRegistry>(m => m["fn1"] == "abc" && m["fn2"] == "def");
+        var registry = Mock.Of<IPluginRegistry>(m =>
+            m["fn1"] == new PluginInfo("abc", "def", PluginType.Unknown) &&
+            m["fn2"] == new PluginInfo("def", "def", PluginType.Unknown) &&
+            m["fn3"] == PluginInfo.NoPlugin);
         var sut = new[]
         {
             new PluginRawData("fn1", "pp1"),
@@ -66,8 +48,8 @@ public class PluginRawDataExtensionsFixture
 
         actual.Should().BeEquivalentTo(new[]
         {
-            new PluginRawData("abc", "pp1"),
-            new PluginRawData("def", "pp2"),
+            new PluginRawData("def abc", "pp1"),
+            new PluginRawData("def def", "pp2"),
             new PluginRawData("fn3", "pp3"),
         });
     }

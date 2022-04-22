@@ -13,17 +13,17 @@ internal class Program
 {
     private IOutputFormatterRegistry OutputFormatterRegistry { get; }
     private IProcessorRegistry ProcessorRegistry { get; }
-    private IPluginAliasesRegistry PluginAliasesRegistry { get; }
+    private IPluginRegistry PluginRegistry { get; }
     private IPluginManufacturersRegistry PluginManufacturersRegistry { get; }
     private ILogger Logger { get; }
         
     public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
-        IPluginAliasesRegistry pluginAliasesRegistry, IPluginManufacturersRegistry pluginManufacturersRegistry,
+        IPluginRegistry pluginRegistry, IPluginManufacturersRegistry pluginManufacturersRegistry,
         ILogger<Program> logger)
     {
         OutputFormatterRegistry = outputFormatterRegistry;
         ProcessorRegistry = processorRegistry;
-        PluginAliasesRegistry = pluginAliasesRegistry;
+        PluginRegistry = pluginRegistry;
         PluginManufacturersRegistry = pluginManufacturersRegistry;
         Logger = logger;
     }
@@ -68,7 +68,7 @@ internal class Program
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
 
-            var withResolvedAliases = rawData.ResolveAliases(PluginAliasesRegistry);
+            var withResolvedAliases = rawData.ResolveAliases(PluginRegistry);
 
             var data = withResolvedAliases.ToPluginData(PluginManufacturersRegistry).Distinct().ToList();
 
