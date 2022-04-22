@@ -5,6 +5,11 @@ namespace ListVst.Processing.StudioOne;
 
 public class Parser : IParser
 {
+    private static readonly IDictionary<string, string> XmlNamespaces = new Dictionary<string, string>
+    {
+        { "x", "urn:presonus.com/studioone" }
+    };
+
     private ILogger Logger { get; }
 
     public Parser(ILogger logger)
@@ -28,10 +33,11 @@ public class Parser : IParser
         var pluginInfos = new List<PluginInfo>();
         
         using var sr = new StringReader(xml);
-        using var reader = XmlReader.Create(sr, new XmlReaderSettings{ Async = true });
+        using var reader = CreateXmlReader(sr);
         while (await reader.ReadAsync())
         {
-            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" && reader.GetAttribute("_id") == "ghostData")
+            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
+                reader.GetAttribute("id", XmlNamespaces["x"]) == "ghostData")
             {
                 var pluginInfoReader = reader.ReadSubtree();
                 var pluginInfo = ProcessPluginDesc(pluginInfoReader);
@@ -51,7 +57,7 @@ public class Parser : IParser
         while (reader.Read())
         {
             if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
-                reader.GetAttribute("_id") == "classInfo")
+                reader.GetAttribute("id", XmlNamespaces["x"]) == "classInfo")
             {
                 name = reader.GetAttribute("name") ?? string.Empty;
                 var subCategory = reader.GetAttribute("subCategory") ?? string.Empty;
@@ -76,5 +82,19 @@ public class Parser : IParser
         }
 
         return new PluginInfo(name, manufacturer, pluginType);
+    }
+
+    private static XmlReader CreateXmlReader(TextReader textReader)
+    {
+        var settings = new XmlReaderSettings { NameTable = new NameTable(), Async = true };
+        var xmlns = new XmlNamespaceManager(settings.NameTable);
+        foreach (var nskvp in XmlNamespaces)
+        {
+            xmlns.AddNamespace(nskvp.Key, nskvp.Value);
+        }
+
+        var context = new XmlParserContext(null, xmlns, "", XmlSpace.Default);
+        var reader = XmlReader.Create(textReader, settings, context);
+        return reader;
     }
 }

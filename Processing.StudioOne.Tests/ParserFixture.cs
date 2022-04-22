@@ -1,5 +1,5 @@
+using System.IO;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using FluentAssertions;
 using ListVst;
 using ListVst.Processing.StudioOne;
@@ -18,7 +18,7 @@ namespace Processing.StudioOne.Tests
         {
             var sut = GetSubject();
 
-            var xml = GetTestXml().ToString();
+            var xml = GetTestXml();
             
             var parsed = await sut.Parse(xml);
 
@@ -37,10 +37,10 @@ namespace Processing.StudioOne.Tests
             return parser;
         }
         
-        private static XDocument GetTestXml()
+        private static string GetTestXml()
         {
-            var xdoc = XDocument.Load(TestFile);
-            return xdoc;
+            var xml = File.ReadAllText(TestFile);
+            return xml;
         }
     }
 }

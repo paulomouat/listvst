@@ -1,220 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AudioMixer>
-    <Attributes _id="channels" name="Channels" flags="1">
+    <Attributes x:id="channels" name="Channels" flags="1">
         <ChannelGroup name="AudioInput" flags="1">
             <AudioInputChannel gain="1" pan="0.5" name="Channel01" label="Input L+R" color="￹00000000">
-                <SpeakerSetup _id="speakerType" type="Stereo"/>
-                <UID _id="uniqueID" uid="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{80FECFBB-264E-804C-93EA-7A77FEA13F64}"/>
+                <SpeakerSetup x:id="speakerType" type="Stereo"/>
+                <UID x:id="uniqueID" uid="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{80FECFBB-264E-804C-93EA-7A77FEA13F64}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
             </AudioInputChannel>
             <AudioInputChannel gain="1" pan="0.5" name="Channel02" label="Input L" color="￹00000000">
-                <SpeakerSetup _id="speakerType" type="Mono"/>
-                <UID _id="uniqueID" uid="{71FCA18F-2DE6-844B-9A90-0DDB64E9C9B7}"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{62FF0B7F-981F-074E-AEB8-A7CAAE6BE2F9}"/>
+                <SpeakerSetup x:id="speakerType" type="Mono"/>
+                <UID x:id="uniqueID" uid="{71FCA18F-2DE6-844B-9A90-0DDB64E9C9B7}"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{62FF0B7F-981F-074E-AEB8-A7CAAE6BE2F9}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
             </AudioInputChannel>
             <AudioInputChannel gain="1" pan="0.5" name="Channel03" label="Input R" color="￹00000000">
-                <SpeakerSetup _id="speakerType" type="Mono"/>
-                <UID _id="uniqueID" uid="{30E58988-C0E8-8F41-809F-D38EC28ACB96}"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{B9561C17-7950-824D-8B1E-7300B1054E3E}"/>
+                <SpeakerSetup x:id="speakerType" type="Mono"/>
+                <UID x:id="uniqueID" uid="{30E58988-C0E8-8F41-809F-D38EC28ACB96}"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{B9561C17-7950-824D-8B1E-7300B1054E3E}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
             </AudioInputChannel>
         </ChannelGroup>
         <ChannelGroup name="AudioOutput" flags="1">
             <AudioOutputChannel gain="1" pan="0.5" name="Channel01" label="Main" mute="0" solo="0" soloSafe="0"
                                 color="￹00000000">
-                <SpeakerSetup _id="speakerType" type="Stereo"/>
-                <UID _id="uniqueID" uid="{0847B9D3-9358-D144-A4C7-630DB50F0762}"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{E1AA3B01-26E5-184D-A2C3-0FBB50D5B2F6}"/>
+                <SpeakerSetup x:id="speakerType" type="Stereo"/>
+                <UID x:id="uniqueID" uid="{0847B9D3-9358-D144-A4C7-630DB50F0762}"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{E1AA3B01-26E5-184D-A2C3-0FBB50D5B2F6}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="PostFaderInserts">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{0749A4E0-02C6-9649-80D9-8DDC1A7853D9}"/>
+                <Attributes x:id="PostFaderInserts">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{0749A4E0-02C6-9649-80D9-8DDC1A7853D9}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="AudioClick" on="1" gain="1"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
-                <Attributes _id="AudioBusMixFX" passThrough="1">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
+                <Attributes x:id="AudioClick" on="1" gain="1"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="AudioBusMixFX" passThrough="1">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
                 </Attributes>
             </AudioOutputChannel>
         </ChannelGroup>
         <ChannelGroup name="AudioTrack" flags="1">
             <AudioTrackChannel gain="1" pan="0.5" name="Channel03" label="AU" mute="0" solo="0" soloSafe="0" color="FFE9C400">
-                <SpeakerSetup _id="speakerType" type="Stereo"/>
-                <UID _id="uniqueID" uid="{276895A0-3D1F-6247-9C4E-B870B891C667}"/>
-                <Connection _id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
+                <SpeakerSetup x:id="speakerType" type="Stereo"/>
+                <UID x:id="uniqueID" uid="{276895A0-3D1F-6247-9C4E-B870B891C667}"/>
+                <Connection x:id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
                     <Attributes name="FX01">
-                        <UID _id="uniqueID" uid="{C1905408-9076-7749-A85D-8AC3FFFB26FA}"/>
-                        <UID _id="deviceClassID" uid="{61756678-5F31-4352-6E53-714C42414C4B}"/>
-                        <Attributes _id="deviceData" name="Cinematic Rooms">
-                            <UID _id="uniqueID" uid="{DBB9C1B7-BAA6-C640-AD70-9DA547103480}"/>
+                        <UID x:id="uniqueID" uid="{C1905408-9076-7749-A85D-8AC3FFFB26FA}"/>
+                        <UID x:id="deviceClassID" uid="{61756678-5F31-4352-6E53-714C42414C4B}"/>
+                        <Attributes x:id="deviceData" name="Cinematic Rooms">
+                            <UID x:id="uniqueID" uid="{DBB9C1B7-BAA6-C640-AD70-9DA547103480}"/>
                         </Attributes>
-                        <Attributes _id="ghostData" presetType="aupreset">
-                            <Attributes _id="classInfo" classID="{61756678-5F31-4352-6E53-714C42414C4B}" name="Cinematic Rooms"
+                        <Attributes x:id="ghostData" presetType="aupreset">
+                            <Attributes x:id="classInfo" classID="{61756678-5F31-4352-6E53-714C42414C4B}" name="Cinematic Rooms"
                                         category="AudioEffect" subCategory="AudioUnit"/>
-                            <Attributes _id="IO">
-                                <List _id="audioInputs">
+                            <Attributes x:id="IO">
+                                <List x:id="audioInputs">
                                     <PortDescription flags="3" subType="3" label="In 1"/>
                                 </List>
-                                <List _id="audioOutputs">
+                                <List x:id="audioOutputs">
                                     <PortDescription flags="3" subType="3" label="Out 1"/>
                                 </List>
                             </Attributes>
                         </Attributes>
-                        <Attributes _id="Automation" mode="0"/>
-                        <Attributes _id="Presets" pname="default" dirty="0"/>
-                        <Attributes _id="SlotRemoteFX" syncActive="0"/>
-                        <String _id="presetPath" text="Presets/Channels/AU/1 - Cinematic Rooms.aupreset"/>
+                        <Attributes x:id="Automation" mode="0"/>
+                        <Attributes x:id="Presets" pname="default" dirty="0"/>
+                        <Attributes x:id="SlotRemoteFX" syncActive="0"/>
+                        <String x:id="presetPath" text="Presets/Channels/AU/1 - Cinematic Rooms.aupreset"/>
                     </Attributes>
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{1591B0BD-E79D-DE46-9016-DD6538054160}"/>
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{1591B0BD-E79D-DE46-9016-DD6538054160}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="RecordUnit">
-                    <Connection _id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
-                        <Attributes _id="data" recordArmed="0" monitorActive="0"/>
+                <Attributes x:id="RecordUnit">
+                    <Connection x:id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
+                        <Attributes x:id="data" recordArmed="0" monitorActive="0"/>
                     </Connection>
                 </Attributes>
-                <Attributes _id="CueMix">
-                    <Attributes _id="slots" version="1"/>
+                <Attributes x:id="CueMix">
+                    <Attributes x:id="slots" version="1"/>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
-                <Attributes _id="Sends">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="Sends">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
                 </Attributes>
             </AudioTrackChannel>
             <AudioTrackChannel gain="1" pan="0.5" name="Channel05" label="VST" mute="0" solo="0" soloSafe="0"
                                color="FFE9C400">
-                <SpeakerSetup _id="speakerType" type="Stereo"/>
-                <UID _id="uniqueID" uid="{C4DA79F0-9B5C-864C-A057-72639AB244A0}"/>
-                <Connection _id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
+                <SpeakerSetup x:id="speakerType" type="Stereo"/>
+                <UID x:id="uniqueID" uid="{C4DA79F0-9B5C-864C-A057-72639AB244A0}"/>
+                <Connection x:id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
                     <Attributes name="FX01">
-                        <UID _id="uniqueID" uid="{C5C0C826-F652-0142-AED2-9E93F9F7E56E}"/>
-                        <UID _id="deviceClassID" uid="{56535432-4356-4332-632D-766563746F72}"/>
-                        <Attributes _id="deviceData" name="2C-Vector">
-                            <UID _id="uniqueID" uid="{3FB2FD7F-C332-CB45-A64D-4A580913B141}"/>
+                        <UID x:id="uniqueID" uid="{C5C0C826-F652-0142-AED2-9E93F9F7E56E}"/>
+                        <UID x:id="deviceClassID" uid="{56535432-4356-4332-632D-766563746F72}"/>
+                        <Attributes x:id="deviceData" name="2C-Vector">
+                            <UID x:id="uniqueID" uid="{3FB2FD7F-C332-CB45-A64D-4A580913B141}"/>
                         </Attributes>
-                        <Attributes _id="ghostData" presetType="fxb">
-                            <Attributes _id="classInfo" classID="{56535432-4356-4332-632D-766563746F72}" name="2C-Vector"
+                        <Attributes x:id="ghostData" presetType="fxb">
+                            <Attributes x:id="classInfo" classID="{56535432-4356-4332-632D-766563746F72}" name="2C-Vector"
                                         category="AudioEffect" subCategory="VST2"/>
-                            <Attributes _id="IO">
-                                <List _id="audioInputs">
+                            <Attributes x:id="IO">
+                                <List x:id="audioInputs">
                                     <PortDescription flags="3" subType="3" label="In1"/>
                                 </List>
-                                <List _id="audioOutputs">
+                                <List x:id="audioOutputs">
                                     <PortDescription flags="3" subType="3" label="Out1"/>
                                 </List>
                             </Attributes>
                         </Attributes>
-                        <Attributes _id="Automation" mode="0"/>
-                        <Attributes _id="Presets" pname="default" dirty="0"/>
-                        <Attributes _id="SlotRemoteFX" syncActive="0"/>
-                        <String _id="presetPath" text="Presets/Channels/VST/1 - 2C-Vector.fxb"/>
+                        <Attributes x:id="Automation" mode="0"/>
+                        <Attributes x:id="Presets" pname="default" dirty="0"/>
+                        <Attributes x:id="SlotRemoteFX" syncActive="0"/>
+                        <String x:id="presetPath" text="Presets/Channels/VST/1 - 2C-Vector.fxb"/>
                     </Attributes>
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{E17474DB-CA59-8541-98E9-D932BC1B4936}"/>
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{E17474DB-CA59-8541-98E9-D932BC1B4936}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="RecordUnit">
-                    <Connection _id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
-                        <Attributes _id="data" recordArmed="0" monitorActive="0"/>
+                <Attributes x:id="RecordUnit">
+                    <Connection x:id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
+                        <Attributes x:id="data" recordArmed="0" monitorActive="0"/>
                     </Connection>
                 </Attributes>
-                <Attributes _id="CueMix">
-                    <Attributes _id="slots" version="1"/>
+                <Attributes x:id="CueMix">
+                    <Attributes x:id="slots" version="1"/>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
-                <Attributes _id="Sends">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="Sends">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
                 </Attributes>
             </AudioTrackChannel>
             <AudioTrackChannel gain="1" pan="0.5" name="Channel06" label="VST3" mute="0" solo="0" soloSafe="0"
                                color="FFE9C400">
-                <SpeakerSetup _id="speakerType" type="Stereo"/>
-                <UID _id="uniqueID" uid="{449E1991-C04C-9245-8FE4-72EC412F4E7C}"/>
-                <Connection _id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
-                <Attributes _id="Automation" mode="0"/>
-                <Attributes _id="Inserts">
+                <SpeakerSetup x:id="speakerType" type="Stereo"/>
+                <UID x:id="uniqueID" uid="{449E1991-C04C-9245-8FE4-72EC412F4E7C}"/>
+                <Connection x:id="destination" objectID="{0847B9D3-9358-D144-A4C7-630DB50F0762}/Input" friendlyName="Main"/>
+                <Attributes x:id="Automation" mode="0"/>
+                <Attributes x:id="Inserts">
                     <Attributes name="FX01">
-                        <UID _id="uniqueID" uid="{FFDCE725-8178-C04A-A357-FD646865539B}"/>
-                        <UID _id="deviceClassID" uid="{56535443-525F-3163-696E-656D61746963}"/>
-                        <Attributes _id="deviceData" name="Cinematic Rooms">
-                            <UID _id="uniqueID" uid="{ACD79803-2672-1D41-88F6-A680C6D981AB}"/>
+                        <UID x:id="uniqueID" uid="{FFDCE725-8178-C04A-A357-FD646865539B}"/>
+                        <UID x:id="deviceClassID" uid="{56535443-525F-3163-696E-656D61746963}"/>
+                        <Attributes x:id="deviceData" name="Cinematic Rooms">
+                            <UID x:id="uniqueID" uid="{ACD79803-2672-1D41-88F6-A680C6D981AB}"/>
                         </Attributes>
-                        <Attributes _id="ghostData" presetType="vstpreset">
-                            <Attributes _id="classInfo" classID="{56535443-525F-3163-696E-656D61746963}" name="Cinematic Rooms"
+                        <Attributes x:id="ghostData" presetType="vstpreset">
+                            <Attributes x:id="classInfo" classID="{56535443-525F-3163-696E-656D61746963}" name="Cinematic Rooms"
                                         category="AudioEffect" subCategory="VST3/Reverb"/>
-                            <Attributes _id="IO">
-                                <List _id="audioInputs">
+                            <Attributes x:id="IO">
+                                <List x:id="audioInputs">
                                     <PortDescription flags="3" subType="3" label="Input"/>
                                 </List>
-                                <List _id="audioOutputs">
+                                <List x:id="audioOutputs">
                                     <PortDescription flags="3" subType="3" label="Output"/>
                                 </List>
                             </Attributes>
                         </Attributes>
-                        <Attributes _id="Automation" mode="0"/>
-                        <Attributes _id="Presets" pname="default" dirty="0"/>
-                        <Attributes _id="SlotRemoteFX" syncActive="0"/>
-                        <String _id="presetPath" text="Presets/Channels/VST3/1 - Cinematic Rooms.vstpreset"/>
+                        <Attributes x:id="Automation" mode="0"/>
+                        <Attributes x:id="Presets" pname="default" dirty="0"/>
+                        <Attributes x:id="SlotRemoteFX" syncActive="0"/>
+                        <String x:id="presetPath" text="Presets/Channels/VST3/1 - Cinematic Rooms.vstpreset"/>
                     </Attributes>
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
-                    <Attributes _id="Combinator" name="Combinator">
-                        <UID _id="uniqueID" uid="{B0309177-D5BB-C54C-A4BC-EF46F6E2B29F}"/>
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
+                    <Attributes x:id="Combinator" name="Combinator">
+                        <UID x:id="uniqueID" uid="{B0309177-D5BB-C54C-A4BC-EF46F6E2B29F}"/>
                     </Attributes>
                 </Attributes>
-                <Attributes _id="RecordUnit">
-                    <Connection _id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
-                        <Attributes _id="data" recordArmed="0" monitorActive="0"/>
+                <Attributes x:id="RecordUnit">
+                    <Connection x:id="recordPort" objectID="{72821A7B-72C0-9E4C-BF67-9A361D48C5F5}/Output" friendlyName="Input L+R">
+                        <Attributes x:id="data" recordArmed="0" monitorActive="0"/>
                     </Connection>
                 </Attributes>
-                <Attributes _id="CueMix">
-                    <Attributes _id="slots" version="1"/>
+                <Attributes x:id="CueMix">
+                    <Attributes x:id="slots" version="1"/>
                 </Attributes>
-                <Attributes _id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
-                <Attributes _id="MacroControls" showMacroPads="0"/>
-                <Attributes _id="Sends">
-                    <Attributes _id="Presets" pname="default" dirty="0"/>
+                <Attributes x:id="InputFX" gain="0" invertPhaseL="0" invertPhaseR="0"/>
+                <Attributes x:id="MacroControls" showMacroPads="0"/>
+                <Attributes x:id="Sends">
+                    <Attributes x:id="Presets" pname="default" dirty="0"/>
                 </Attributes>
             </AudioTrackChannel>
         </ChannelGroup>
     </Attributes>
-    <Attributes _id="ListenBusManager" useListenBus="0" soloThroughListenBus="0" prefaderListen="0"/>
+    <Attributes x:id="ListenBusManager" useListenBus="0" soloThroughListenBus="0" prefaderListen="0"/>
 </AudioMixer>

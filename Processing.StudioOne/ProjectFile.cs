@@ -46,8 +46,8 @@ public class ProjectFile : IProjectFile
                     contents.Append(' ');
                 }
                     
-                line = line.Replace("::", "_");
-                line = line.Replace("x:", "_");
+                //line = line.Replace("::", "_");
+                //line = line.Replace("x:", "_");
                 contents.Append(line);
             }
         }
