@@ -14,17 +14,17 @@ internal class Program
     private IOutputFormatterRegistry OutputFormatterRegistry { get; }
     private IProcessorRegistry ProcessorRegistry { get; }
     private IPluginRegistry PluginRegistry { get; }
-    private IPluginManufacturersRegistry PluginManufacturersRegistry { get; }
+    //private IPluginManufacturersRegistry PluginManufacturersRegistry { get; }
     private ILogger Logger { get; }
         
     public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
-        IPluginRegistry pluginRegistry, IPluginManufacturersRegistry pluginManufacturersRegistry,
+        IPluginRegistry pluginRegistry, /*IPluginManufacturersRegistry pluginManufacturersRegistry,*/
         ILogger<Program> logger)
     {
         OutputFormatterRegistry = outputFormatterRegistry;
         ProcessorRegistry = processorRegistry;
         PluginRegistry = pluginRegistry;
-        PluginManufacturersRegistry = pluginManufacturersRegistry;
+        //PluginManufacturersRegistry = pluginManufacturersRegistry;
         Logger = logger;
     }
 
@@ -70,7 +70,7 @@ internal class Program
 
             var withResolvedAliases = rawData.ResolveAliases(PluginRegistry);
 
-            var data = withResolvedAliases.ToPluginData(PluginManufacturersRegistry).Distinct().ToList();
+            var data = withResolvedAliases.ToPluginData().Distinct().ToList();
 
             foreach (var mappedFormatter in mappedFormatters)
             {

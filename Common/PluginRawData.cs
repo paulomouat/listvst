@@ -1,3 +1,3 @@
 namespace ListVst;
 
-public readonly record struct PluginRawData(string PluginFullName, string ProjectPath);
+public readonly record struct PluginRawData(PluginInfo PluginInfo, string ProjectPath);

@@ -125,7 +125,7 @@ internal class Host
         section.Bind(configuration);
 
         RegisterPlugins(configuration, services);
-        RegisterPluginManufacturers(configuration, services);
+        //RegisterPluginManufacturers(configuration, services);
     }
     
     private static void RegisterPlugins(NamingConfiguration configuration, IServiceCollection services)
@@ -136,16 +136,23 @@ internal class Host
         {
             var name = plugin.Name;
             var manufacturer = plugin.Manufacturer;
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(manufacturer) && plugin.Aliases.Any())
+            
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(manufacturer))
             {
-                registry.Register(name, manufacturer, plugin.Aliases);
+                var implicitAlias = manufacturer + " " + name;
+                registry.Register(name, manufacturer, implicitAlias);
+                
+                if (plugin.Aliases.Any())
+                {
+                    registry.Register(name, manufacturer, plugin.Aliases);
+                }
             }
         }
 
         services.AddSingleton<IPluginRegistry>(registry);
     }
 
-    private static void RegisterPluginManufacturers(NamingConfiguration configuration, IServiceCollection services)
+    /*private static void RegisterPluginManufacturers(NamingConfiguration configuration, IServiceCollection services)
     {
         var registry = new PluginManufacturersRegistry();
         var manufacturers = configuration.PluginManufacturers;
@@ -159,5 +166,5 @@ internal class Host
         }
 
         services.AddSingleton<IPluginManufacturersRegistry>(registry);
-    }
+    }*/
 }

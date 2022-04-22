@@ -63,7 +63,7 @@ public abstract class ProcessorBase : IProcessor
             rawPath = rawPath[SourcePath!.Length..];
         }
         
-        var list = pluginNames.Select(pi => new PluginRawData((pi.Manufacturer + " " + pi.Name).Trim(), rawPath)).ToList();
+        var list = pluginNames.Select(pi => new PluginRawData(pi, rawPath)).ToList();
 
         return list;
     }
