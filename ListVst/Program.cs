@@ -14,17 +14,14 @@ internal class Program
     private IOutputFormatterRegistry OutputFormatterRegistry { get; }
     private IProcessorRegistry ProcessorRegistry { get; }
     private IPluginRegistry PluginRegistry { get; }
-    //private IPluginManufacturersRegistry PluginManufacturersRegistry { get; }
     private ILogger Logger { get; }
         
     public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
-        IPluginRegistry pluginRegistry, /*IPluginManufacturersRegistry pluginManufacturersRegistry,*/
-        ILogger<Program> logger)
+        IPluginRegistry pluginRegistry, ILogger<Program> logger)
     {
         OutputFormatterRegistry = outputFormatterRegistry;
         ProcessorRegistry = processorRegistry;
         PluginRegistry = pluginRegistry;
-        //PluginManufacturersRegistry = pluginManufacturersRegistry;
         Logger = logger;
     }
 
