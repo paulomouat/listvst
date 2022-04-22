@@ -68,19 +68,8 @@ internal class Program
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
 
-            var withResolvedAliases = rawData.Select(rd =>
-            {
-                var current = rd.PluginFullName;
-                var proposed = PluginAliasesRegistry[current];
-                if (!string.IsNullOrWhiteSpace(proposed) && current != proposed)
-                {
-                    var adjusted = rd with { PluginFullName = proposed };
-                    return adjusted;
-                };
+            var withResolvedAliases = rawData.ResolveAliases(PluginAliasesRegistry);
 
-                return rd;
-            });
-            
             var data = withResolvedAliases.Select(rd =>
             {
                 var projectDescriptor = new ProjectDescriptor(rd.ProjectPath);
