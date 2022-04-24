@@ -17,11 +17,11 @@ public abstract class ProcessorBase : IProcessor
         Logger = logger;
     }
         
-    public virtual async Task<IEnumerable<PluginRawData>> Process(string sourcePath)
+    public virtual async Task<IEnumerable<ParsedRecord>> Process(string sourcePath)
     {
         SourcePath = sourcePath;
             
-        var results = new ConcurrentBag<PluginRawData>();
+        var results = new ConcurrentBag<ParsedRecord>();
 
         var fl = new FileList(sourcePath);
         var files = fl.GetFiles(FileExtension, FileFilter);
@@ -41,7 +41,7 @@ public abstract class ProcessorBase : IProcessor
     protected abstract IProjectFile GetProjectFile(string file);
     protected abstract IParser GetParser(ILogger logger);
         
-    protected virtual async Task<IEnumerable<PluginRawData>> ProcessFile(string file)
+    protected virtual async Task<IEnumerable<ParsedRecord>> ProcessFile(string file)
     {
         Logger.LogInformation("Processing " + ProjectType + " project {File}", file);
             
@@ -51,7 +51,7 @@ public abstract class ProcessorBase : IProcessor
 
         if (string.IsNullOrEmpty(c))
         {
-            return Array.Empty<PluginRawData>();
+            return Array.Empty<ParsedRecord>();
         }
             
         var p = GetParser(Logger);
@@ -63,7 +63,7 @@ public abstract class ProcessorBase : IProcessor
             rawPath = rawPath[SourcePath!.Length..];
         }
         
-        var list = pluginNames.Select(pi => new PluginRawData(pi, rawPath)).ToList();
+        var list = pluginNames.Select(pi => new ParsedRecord(pi, rawPath)).ToList();
 
         return list;
     }

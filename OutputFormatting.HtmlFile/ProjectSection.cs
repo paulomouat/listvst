@@ -6,7 +6,7 @@ public class ProjectSection : Section<ProjectDescriptor, PluginDescriptor>
         : base(id, title)
     { }
 
-    public override void Add(IEnumerable<PluginData> data)
+    public override void Add(IEnumerable<PluginRecord> data)
     {
         var lookup = data
             .OrderBy(pair => pair.ProjectDescriptor.Path)

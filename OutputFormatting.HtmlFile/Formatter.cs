@@ -4,7 +4,7 @@ public class Formatter : IOutputFormatter
 {
     public string Format => "html";
 
-    protected virtual async Task Write(IEnumerable<PluginData> data, IFileOutputFormatterOptions options)
+    protected virtual async Task Write(IEnumerable<PluginRecord> data, IFileOutputFormatterOptions options)
     {
         if (options is null)
         {
@@ -37,7 +37,7 @@ public class Formatter : IOutputFormatter
         await Task.CompletedTask;
     }
 
-    Task IOutputFormatter.Write(IEnumerable<PluginData> data, IOutputFormatterOptions options)
+    Task IOutputFormatter.Write(IEnumerable<PluginRecord> data, IOutputFormatterOptions options)
     {
         if (options is not IFileOutputFormatterOptions formatterOptions)
         {

@@ -19,11 +19,11 @@ public class Parser : IParser
             return Array.Empty<PluginInfo>();
         }
 
-        var pluginInfos = ExtractPluginData(xml);
+        var pluginInfos = ExtractPluginInfos(xml);
         return await Task.FromResult(pluginInfos);
     }
 
-    private static IEnumerable<PluginInfo> ExtractPluginData(string xml)
+    private static IEnumerable<PluginInfo> ExtractPluginInfos(string xml)
     {
         var pluginInfos = new List<PluginInfo>();
             

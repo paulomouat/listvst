@@ -61,13 +61,13 @@ internal class Program
                 Logger.LogInformation("  - Format '{OutputFormat}' in file '{OutputFile}'", mappedFormatter.Format, mappedFormatter.File);
             }
                 
-            var rawData = ProcessorRegistry.Processors
+            var parsedRecords = ProcessorRegistry.Processors
                 .SelectMany(p => p.Process(sourcePath).Result)
                 .ToList();
 
-            var withResolvedAliases = rawData.ResolveAliases(PluginRegistry);
+            var withResolvedAliases = parsedRecords.ResolveAliases(PluginRegistry);
 
-            var data = withResolvedAliases.ToPluginData().Distinct().ToList();
+            var pluginRecords = withResolvedAliases.ToPluginRecord().Distinct().ToList();
 
             foreach (var mappedFormatter in mappedFormatters)
             {
@@ -76,7 +76,7 @@ internal class Program
                     Path = mappedFormatter.File
                 };
 
-                await mappedFormatter.Formatter.Write(data, formatterOptions);
+                await mappedFormatter.Formatter.Write(pluginRecords, formatterOptions);
             }
         }
         catch (ArgumentException ae)
