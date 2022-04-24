@@ -20,8 +20,8 @@ public class ProjectEntryIndexFixture
 
         var plugins = new[]
         {
-            new PluginDescriptor("plugin11", "manufacturer1", "manufacturer1 plugin11"),
-            new PluginDescriptor("plugin12", "manufacturer1", "manufacturer1 plugin12"),
+            new PluginDescriptor("plugin11", "manufacturer1", PluginType.Unknown),
+            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Unknown),
         };
 
         var mapping = new[]

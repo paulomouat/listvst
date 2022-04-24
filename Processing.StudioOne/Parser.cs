@@ -17,20 +17,20 @@ public class Parser : IParser
         Logger = logger;
     }
 
-    public async Task<IEnumerable<PluginInfo>> Parse(string xml)
+    public async Task<IEnumerable<PluginDescriptor>> Parse(string xml)
     {
         if (string.IsNullOrEmpty(xml))
         {
-            return Array.Empty<PluginInfo>();
+            return Array.Empty<PluginDescriptor>();
         }
             
-        var pluginInfos = await ExtractPluginInfos(xml);
-        return pluginInfos;
+        var pluginDescriptors = await ExtractPluginDescriptors(xml);
+        return pluginDescriptors;
     }
 
-    private static async Task<IEnumerable<PluginInfo>> ExtractPluginInfos(string xml)
+    private static async Task<IEnumerable<PluginDescriptor>> ExtractPluginDescriptors(string xml)
     {
-        var pluginInfos = new List<PluginInfo>();
+        var pluginDescriptors = new List<PluginDescriptor>();
         
         using var sr = new StringReader(xml);
         using var reader = CreateXmlReader(sr);
@@ -39,16 +39,16 @@ public class Parser : IParser
             if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
                 reader.GetAttribute("id", XmlNamespaces["x"]) == "ghostData")
             {
-                var pluginInfoReader = reader.ReadSubtree();
-                var pluginInfo = ProcessPluginDesc(pluginInfoReader);
-                pluginInfos.Add(pluginInfo);
+                var pluginDescriptorReader = reader.ReadSubtree();
+                var pluginDescriptor = ProcessPluginDesc(pluginDescriptorReader);
+                pluginDescriptors.Add(pluginDescriptor);
             }
         }
 
-        return pluginInfos;
+        return pluginDescriptors;
     }
 
-    private static PluginInfo ProcessPluginDesc(XmlReader reader)
+    private static PluginDescriptor ProcessPluginDesc(XmlReader reader)
     {
         var manufacturer = string.Empty;
         var name = string.Empty;
@@ -81,7 +81,7 @@ public class Parser : IParser
             }
         }
 
-        return new PluginInfo(name, manufacturer, pluginType);
+        return new PluginDescriptor(name, manufacturer, pluginType);
     }
 
     private static XmlReader CreateXmlReader(TextReader textReader)

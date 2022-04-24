@@ -14,7 +14,7 @@ namespace Processing.AbletonLive.Tests
         private const string TestFile = "version-11-1-1.xml";
         
         [Fact]
-        public async Task PluginInfos_AreExtracted_FromWellFormedFile()
+        public async Task PluginDescriptors_AreExtracted_FromWellFormedFile()
         {
             var sut = GetSubject();
 
@@ -24,10 +24,10 @@ namespace Processing.AbletonLive.Tests
 
             parsed.Should().BeEquivalentTo(new[]
             {
-                new PluginInfo("Cinematic Rooms", "LiquidSonics", PluginType.AudioUnit),
-                new PluginInfo("Cinematic Rooms", "", PluginType.Vst),
-                new PluginInfo("Cinematic Rooms", "", PluginType.Vst3),
-                new PluginInfo("Satson Buss", "Sonimus", PluginType.AudioUnit)
+                new PluginDescriptor("Cinematic Rooms", "LiquidSonics", PluginType.AudioUnit),
+                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst),
+                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst3),
+                new PluginDescriptor("Satson Buss", "Sonimus", PluginType.AudioUnit)
             });
         }
 

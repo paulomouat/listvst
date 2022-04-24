@@ -14,7 +14,7 @@ namespace Processing.StudioOne.Tests
         private const string TestFile = "version-5-5.xml";
 
         [Fact]
-        public async Task PluginInfos_AreExtracted_FromWellFormedFile()
+        public async Task PluginDescriptors_AreExtracted_FromWellFormedFile()
         {
             var sut = GetSubject();
 
@@ -24,9 +24,9 @@ namespace Processing.StudioOne.Tests
 
             parsed.Should().BeEquivalentTo(new[]
             {
-                new PluginInfo("Cinematic Rooms", "", PluginType.AudioUnit),
-                new PluginInfo("2C-Vector", "", PluginType.Vst),
-                new PluginInfo("Cinematic Rooms", "", PluginType.Vst3),
+                new PluginDescriptor("Cinematic Rooms", "", PluginType.AudioUnit),
+                new PluginDescriptor("2C-Vector", "", PluginType.Vst),
+                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst3),
             });
         }
 

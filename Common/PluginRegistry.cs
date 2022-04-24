@@ -2,29 +2,29 @@ namespace ListVst;
 
 public class PluginRegistry : IPluginRegistry
 {
-    private Dictionary<string, PluginInfo> Registry { get; }
+    private Dictionary<string, PluginDescriptor> Registry { get; }
 
-    public PluginInfo this[string alias]
+    public PluginDescriptor this[string alias]
     {
         get
         {
-            if (!Registry.TryGetValue(alias, out var pluginInfo))
+            if (!Registry.TryGetValue(alias, out var pluginDescriptor))
             {
-                return PluginInfo.NoPlugin;
+                return PluginDescriptor.NoPlugin;
             }
             
-            return pluginInfo;
+            return pluginDescriptor;
         }
     }
 
     public PluginRegistry()
     {
-        Registry = new Dictionary<string, PluginInfo>();
+        Registry = new Dictionary<string, PluginDescriptor>();
     }
 
     public void Register(string name, string manufacturer, string alias)
     {
-        Registry[alias] = new PluginInfo(name, manufacturer, PluginType.Unknown);
+        Registry[alias] = new PluginDescriptor(name, manufacturer, PluginType.Unknown);
     }
     
     public void Register(string name, string manufacturer, string[] aliases)

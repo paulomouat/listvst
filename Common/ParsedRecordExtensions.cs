@@ -4,14 +4,14 @@ public static class ParsedRecordExtensions
 {
     public static ParsedRecord ResolveAliases(this ParsedRecord parsedRecord, IPluginRegistry registry)
     {
-        var current = parsedRecord.PluginInfo;
+        var current = parsedRecord.PluginDescriptor;
         var proposed = current.ResolveAliases(registry);
         
-        if (current != proposed && proposed != PluginInfo.NoPlugin)
+        if (current != proposed && proposed != PluginDescriptor.NoPlugin)
         {
             var adjusted = parsedRecord with
             {
-                PluginInfo = proposed
+                PluginDescriptor = proposed
             };
             return adjusted;
         };
@@ -29,13 +29,12 @@ public static class ParsedRecordExtensions
     {
         var projectDescriptor = new ProjectDescriptor(parsedRecord.ProjectPath);
 
-        var name = parsedRecord.PluginInfo.Name;
-        var manufacturer = parsedRecord.PluginInfo.Manufacturer;
-        var fullName = parsedRecord.PluginInfo.FullName;
-        
-        var pluginDescriptor = new PluginDescriptor(name, manufacturer, fullName);
+        //var name = parsedRecord.PluginDescriptor.Name;
+        //var manufacturer = parsedRecord.PluginDescriptor.Manufacturer;
+        //var fullName = parsedRecord.PluginDescriptor.FullName;
+        //var pluginDescriptor = new PluginDescriptor(name, manufacturer, fullName);
 
-        var pluginRecord = new PluginRecord(pluginDescriptor, projectDescriptor);
+        var pluginRecord = new PluginRecord(parsedRecord.PluginDescriptor, projectDescriptor);
         return pluginRecord;
     }
 

@@ -12,34 +12,34 @@ public class Parser : IParser
         Logger = logger;
     }
         
-    public async Task<IEnumerable<PluginInfo>> Parse(string xml)
+    public async Task<IEnumerable<PluginDescriptor>> Parse(string xml)
     {
         if (string.IsNullOrEmpty(xml))
         {
-            return Array.Empty<PluginInfo>();
+            return Array.Empty<PluginDescriptor>();
         }
 
-        var pluginInfos = ExtractPluginInfos(xml);
-        return await Task.FromResult(pluginInfos);
+        var pluginDescriptors = ExtractPluginDescriptors(xml);
+        return await Task.FromResult(pluginDescriptors);
     }
 
-    private static IEnumerable<PluginInfo> ExtractPluginInfos(string xml)
+    private static IEnumerable<PluginDescriptor> ExtractPluginDescriptors(string xml)
     {
-        var pluginInfos = new List<PluginInfo>();
+        var pluginDescriptors = new List<PluginDescriptor>();
             
         using var sr = new StringReader(xml);
         using var reader = XmlReader.Create(sr, new XmlReaderSettings{ Async = true });
         while(reader.ReadToFollowing("PluginDesc"))
         {
-            var pluginInfoReader = reader.ReadSubtree();
-            var pluginInfo = ProcessPluginDesc(pluginInfoReader);
-            pluginInfos.Add(pluginInfo);
+            var pluginDescriptorReader = reader.ReadSubtree();
+            var pluginDescriptor = ProcessPluginDesc(pluginDescriptorReader);
+            pluginDescriptors.Add(pluginDescriptor);
         }
 
-        return pluginInfos;
+        return pluginDescriptors;
     }
 
-    private static PluginInfo ProcessPluginDesc(XmlReader reader)
+    private static PluginDescriptor ProcessPluginDesc(XmlReader reader)
     {
         var manufacturer = string.Empty;
         var name = string.Empty;
@@ -93,6 +93,6 @@ public class Parser : IParser
             }
         }
 
-        return new PluginInfo(name, manufacturer, pluginType);
+        return new PluginDescriptor(name, manufacturer, pluginType);
     }
 }

@@ -15,8 +15,8 @@ public class ProjectEntryListFixture
     {
         var descriptors = new[]
         {
-            new PluginDescriptor("plugin11", "manufacturer1", "manufacturer1 plugin11"),
-            new PluginDescriptor("plugin21", "manufacturer2", "manufacturer2 plugin21"),
+            new PluginDescriptor("plugin11", "manufacturer1", PluginType.Unknown),
+            new PluginDescriptor("plugin21", "manufacturer2", PluginType.Unknown),
         };
 
         var sut = GetSubject();
@@ -52,8 +52,8 @@ public class ProjectEntryListFixture
 
         var plugins = new[]
         {
-            new PluginDescriptor("plugin11", "manufacturer1", "manufacturer1 plugin11"),
-            new PluginDescriptor("plugin12", "manufacturer1", "manufacturer1 plugin12"),
+            new PluginDescriptor("plugin11", "manufacturer1", PluginType.Unknown),
+            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Unknown),
         };
 
         var mapping = new[]
