@@ -46,9 +46,11 @@ public class PluginEntryIndexFixture
       <div class=""item-container-title"">manufacturer1</div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin11"">plugin11</a>
+        <span class=""plugintype"">?</span>
       </div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin12"">plugin12</a>
+        <span class=""plugintype"">?</span>
       </div>
     </div>
   </div>

@@ -55,7 +55,6 @@ body {
     margin-top: 1ex;
     margin-bottom: 1ex;
 }
-
 .index-items .item-container {
     margin-left: 2ex;
     margin-top: 1ex;
@@ -78,6 +77,15 @@ body {
 }
 .item-title {
     font-weight: bold;
+}
+.plugintype {
+    background-color: #EEE;
+    color: #666;
+    font-size: 0.5em;
+    margin-left: 0.5ex;
+    border-radius: 2px;
+    padding: 2px 3px 2px 2px;
+    vertical-align: middle;
 }
 .stats {
     font-size: 0.8em;

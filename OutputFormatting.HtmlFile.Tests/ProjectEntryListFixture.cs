@@ -29,12 +29,14 @@ public class ProjectEntryListFixture
     <div class=""item-container-title"">manufacturer1</div>
     <div class=""item"">
       <a href=""#manufacturer1-plugin11"">plugin11</a>
+      <span class=""plugintype"">?</span>
     </div>
   </div>
   <div class=""item-container"">
     <div class=""item-container-title"">manufacturer2</div>
     <div class=""item"">
       <a href=""#manufacturer2-plugin21"">plugin21</a>
+      <span class=""plugintype"">?</span>
     </div>
   </div>
 </output>"
@@ -81,9 +83,11 @@ public class ProjectEntryListFixture
       <div class=""item-container-title"">manufacturer1</div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin11"">plugin11</a>
+        <span class=""plugintype"">?</span>
       </div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin12"">plugin12</a>
+        <span class=""plugintype"">?</span>
       </div>
     </div>
   </div>
@@ -98,6 +102,7 @@ public class ProjectEntryListFixture
       <div class=""item-container-title"">manufacturer1</div>
       <div class=""item"">
         <a href=""#manufacturer1-plugin11"">plugin11</a>
+        <span class=""plugintype"">?</span>
       </div>
     </div>
   </div>
