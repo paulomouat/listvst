@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Cocona;
 using ListVst.OutputFormatting;
@@ -120,51 +122,36 @@ internal class Host
 
     private static void RegisterNamingServices(IServiceCollection services)
     {
-        var configuration = new NamingConfiguration();
-        var section = Configuration?.GetSection(NamingConfiguration.SectionName);
+        var configuration = new RegistryConfiguration();
+        var section = Configuration?.GetSection(RegistryConfiguration.SectionName);
         section.Bind(configuration);
 
         RegisterPlugins(configuration, services);
-        //RegisterPluginManufacturers(configuration, services);
     }
     
-    private static void RegisterPlugins(NamingConfiguration configuration, IServiceCollection services)
+    private static void RegisterPlugins(RegistryConfiguration configuration, IServiceCollection services)
     {
         var registry = new PluginRegistry();
         var plugins = configuration.Plugins;
         foreach (var plugin in plugins)
         {
-            var name = plugin.Name;
-            var manufacturer = plugin.Manufacturer;
-            
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(manufacturer))
+            var manufacturer = plugin.Manufacturer!;
+
+            var namesElement = plugin.Names;
+            foreach (var nameElement in namesElement)
             {
+                var name = nameElement.Name!;
+                
                 var implicitAlias = manufacturer + " " + name;
                 registry.Register(name, manufacturer, implicitAlias);
                 
-                if (plugin.Aliases.Any())
+                if (nameElement.Aliases.Any())
                 {
-                    registry.Register(name, manufacturer, plugin.Aliases);
+                    registry.Register(name, manufacturer, nameElement.Aliases);
                 }
             }
         }
 
         services.AddSingleton<IPluginRegistry>(registry);
     }
-
-    /*private static void RegisterPluginManufacturers(NamingConfiguration configuration, IServiceCollection services)
-    {
-        var registry = new PluginManufacturersRegistry();
-        var manufacturers = configuration.PluginManufacturers;
-        foreach (var manufacturer in manufacturers)
-        {
-            var name = manufacturer.Name;
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                registry.Register(name);
-            }
-        }
-
-        services.AddSingleton<IPluginManufacturersRegistry>(registry);
-    }*/
 }

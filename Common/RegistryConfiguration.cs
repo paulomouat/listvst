@@ -1,12 +1,12 @@
 namespace ListVst;
 
-public class NamingConfiguration
+public class RegistryConfiguration
 {
-    public const string SectionName = "Naming";
+    public const string SectionName = "Registry";
     
     public PluginConfiguration[] Plugins { get; set; }
     
-    public NamingConfiguration()
+    public RegistryConfiguration()
     {
         Plugins = Array.Empty<PluginConfiguration>();
     }
