@@ -74,8 +74,13 @@ public class Parser : IParser
                         if (subCategory.StartsWith("VST3"))
                         {
                             pluginType = PluginType.Vst3;
+                        } else if (subCategory.StartsWith("VST2"))
+                        {
+                            pluginType = PluginType.Vst;
+                        } else if (subCategory.StartsWith("(Native)"))
+                        {
+                            pluginType = PluginType.AudioUnit;
                         }
-
                         break;
                 }
             }
