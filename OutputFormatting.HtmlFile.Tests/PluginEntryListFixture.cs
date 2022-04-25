@@ -13,29 +13,42 @@ public class PluginEntryListFixture
     [Fact]
     public void AddDescriptors_RendersAll()
     {
-        var descriptors = new[]
+        var pairs = new[]
         {
-            new ProjectDescriptor("/root/sub1/file1.ext"),
-            new ProjectDescriptor("/root/sub1/file2.ext")
+            new
+            {
+              PluginDescriptor = new PluginDescriptor("n1", "m1", PluginType.Vst),
+              ProjectDescriptor = new ProjectDescriptor("/root/sub1/file1.ext")
+            },
+            new
+            {
+              PluginDescriptor = new PluginDescriptor("n1", "m1", PluginType.Vst),
+              ProjectDescriptor = new ProjectDescriptor("/root/sub1/file2.ext")
+            }
         };
 
+        var descriptors = pairs
+          .ToLookup(p => p.PluginDescriptor, p => p.ProjectDescriptor);
+        
         var sut = GetSubject();
         var outputElement = new XElement("output");
         sut.AddItemsToEntry(descriptors, outputElement);
 
-        outputElement.ToString().Should().Be(
+        outputElement.Should().BeEquivalentTo(XElement.Parse(
 @"<output>
   <div class=""item-container"">
     <div class=""item-container-title"">root</div>
     <div class=""item"">
       <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+      <span class=""plugintype"">VST</span>
     </div>
     <div class=""item"">
       <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
+      <span class=""plugintype"">VST</span>
     </div>
   </div>
 </output>"
-        );
+        ));
     }
 
     [Fact]
@@ -49,8 +62,8 @@ public class PluginEntryListFixture
 
         var plugins = new[]
         {
-            new PluginDescriptor("plugin11", "manufacturer1", PluginType.Unknown),
-            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Unknown),
+            new PluginDescriptor("plugin11", "manufacturer1", PluginType.AudioUnit),
+            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Vst),
         };
 
         var mapping = new[]
@@ -65,7 +78,7 @@ public class PluginEntryListFixture
         var sut = GetSubject();
         sut.AddFromLookup(lookup);
 
-        sut.ToString().Should().Be(
+        sut.Should().BeEquivalentTo(XElement.Parse(
 @"<div id=""mockId"">
   <div id=""manufacturer1-plugin11"" class=""entry"">
     <div>
@@ -78,9 +91,11 @@ public class PluginEntryListFixture
       <div class=""item-container-title"">root</div>
       <div class=""item"">
         <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+        <span class=""plugintype"">AU</span>
       </div>
       <div class=""item"">
         <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
+        <span class=""plugintype"">AU</span>
       </div>
     </div>
   </div>
@@ -95,10 +110,11 @@ public class PluginEntryListFixture
       <div class=""item-container-title"">root</div>
       <div class=""item"">
         <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+        <span class=""plugintype"">VST</span>
       </div>
     </div>
   </div>
-</div>");
+</div>"));
     }
 
     private PluginEntryList GetSubject()

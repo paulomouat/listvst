@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Xml.Linq;
 using FluentAssertions;
 using ListVst;
 using ListVst.OutputFormatting.HtmlFile;
@@ -20,8 +21,8 @@ public class ProjectEntryIndexFixture
 
         var plugins = new[]
         {
-            new PluginDescriptor("plugin11", "manufacturer1", PluginType.Unknown),
-            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Unknown),
+            new PluginDescriptor("plugin11", "manufacturer1", PluginType.AudioUnit),
+            new PluginDescriptor("plugin12", "manufacturer1", PluginType.Vst3),
         };
 
         var mapping = new[]
@@ -36,7 +37,7 @@ public class ProjectEntryIndexFixture
         var sut = GetSubject();
         sut.AddFromLookup(lookup);
 
-        sut.ToString().Should().Be(
+        sut.Should().Be(XElement.Parse(
             @"<div id=""mockId"">
   <div class=""index title"">mockTitle</div>
   <a class=""link-to-top"" href=""#document-title"">top</a>
@@ -46,13 +47,16 @@ public class ProjectEntryIndexFixture
       <div class=""item-container-title"">root</div>
       <div class=""item"">
         <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
+        <span class=""plugintype"">AU</span>
+        <span class=""plugintype"">VST3</span>
       </div>
       <div class=""item"">
         <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
+        <span class=""plugintype"">AU</span>
       </div>
     </div>
   </div>
-</div>");
+</div>"));
     }
     
     private ProjectEntryIndex GetSubject()

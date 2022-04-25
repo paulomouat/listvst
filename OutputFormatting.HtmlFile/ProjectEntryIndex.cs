@@ -16,6 +16,6 @@ public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
 
         var allItemsElement = new XElement("div", new XAttribute("class", "index-items"));
         Add(allItemsElement);
-        allItemsElement.Add(descriptors.ToXElements());
+        allItemsElement.Add(descriptors.ToXElements(lookup));
     }
 }
