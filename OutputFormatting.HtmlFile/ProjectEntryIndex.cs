@@ -8,6 +8,15 @@ public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
         : base(id, title, parentSection)
     { }
 
+    public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
+    {
+        var lookup = data
+            .OrderBy(pair => pair.ProjectDescriptor.Path)
+            .ThenBy(pair => pair.PluginDescriptor.FullName)
+            .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
+        AddItems(lookup);        
+    }
+    
     protected override void AddItems(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         var descriptors = lookup

@@ -8,6 +8,8 @@ public class PluginSection : Section<PluginDescriptor, ProjectDescriptor>
 
     public override void Add(IEnumerable<PluginRecord> data)
     {
+        base.Add(data);
+
         var lookup = data
             .OrderBy(pair => pair.PluginDescriptor.FullName)
             .ThenBy(pair => pair.ProjectDescriptor.Path)
@@ -16,10 +18,10 @@ public class PluginSection : Section<PluginDescriptor, ProjectDescriptor>
         base.Add(lookup);
     }
 
-    protected override IEntryIndex BuildEntryIndex(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
+    protected override IEntryIndex BuildEntryIndex(IEnumerable<PluginRecord> data)
     {
         var index = new PluginEntryIndex(Id + "-index", "All entries", this);
-        index.AddFromLookup(lookup);
+        index.AddPluginRecords(data);
         return index;
     }
     
