@@ -21,15 +21,11 @@ public abstract class Section<TEntry, TItem> : XElement, ISection
     public virtual void Add(IEnumerable<PluginRecord> data)
     {
         var index = BuildEntryIndex(data);
+        var list = BuildEntryList(data);
         Add(index);
-    }
-
-    protected virtual void Add(ILookup<TEntry, TItem> lookup)
-    {
-        var list = BuildEntryList(lookup);
         Add(list);
     }
 
     protected abstract IEntryIndex BuildEntryIndex(IEnumerable<PluginRecord> data);
-    protected abstract IEntryList BuildEntryList(ILookup<TEntry, TItem> lookup);
+    protected abstract IEntryList BuildEntryList(IEnumerable<PluginRecord> data);
 }

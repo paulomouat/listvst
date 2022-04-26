@@ -25,10 +25,10 @@ public class PluginSection : Section<PluginDescriptor, ProjectDescriptor>
         return index;
     }
     
-    protected override IEntryList BuildEntryList(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
+    protected override IEntryList BuildEntryList(IEnumerable<PluginRecord> data)
     {
         var list = new PluginEntryList(Id + "-entries", this);
-        list.AddFromLookup(lookup);
+        list.AddPluginRecords(data);
         return list;
     }
 }

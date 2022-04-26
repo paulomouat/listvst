@@ -7,8 +7,17 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
     public PluginEntryList(string id, ISection parentSection)
         : base(id, parentSection)
     { }
+
+    public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
+    {
+        var lookup = data
+            .OrderBy(pair => pair.PluginDescriptor.FullName)
+            .ThenBy(pair => pair.ProjectDescriptor.Path)
+            .ToLookup(pair => pair.PluginDescriptor, pair => pair.ProjectDescriptor);
+        AddFromLookup(lookup);
+    }
     
-    public override void AddFromLookup(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
+    public virtual void AddFromLookup(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
     {
         var regrouped = lookup.ToLookup(k => k.Key.FullName,
             g => g);

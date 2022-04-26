@@ -8,6 +8,27 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
         : base(id, parentSection)
     { }
 
+    public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
+    {
+        var lookup = data
+            .OrderBy(pair => pair.ProjectDescriptor.Path)
+            .ThenBy(pair => pair.PluginDescriptor.FullName)
+            .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
+        AddFromLookup(lookup);
+    }
+        
+    public virtual void AddFromLookup(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
+    {
+        foreach(var group in lookup)
+        {
+            var entry = BuildEntry(group);
+            AddTitle(group, entry);
+            AddHeadings(group, entry);
+            AddItemsToEntry(group, entry);
+            Add(entry);
+        }
+    }
+    
     public override void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
     {
         var pd = group.Key;
