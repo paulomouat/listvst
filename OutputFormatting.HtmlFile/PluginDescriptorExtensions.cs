@@ -6,23 +6,10 @@ public static class PluginDescriptorExtensions
 {
     public static PluginEntry ToEntry(this PluginDescriptor pluginDescriptor) => new(pluginDescriptor);
 
-    public static XElement ToEntryTitle(this PluginDescriptor pluginDescriptor)
-    {
-        var titleElement = new XElement("div");
-        
-        if (!string.IsNullOrWhiteSpace(pluginDescriptor.Manufacturer))
-        {
-            var manufacturerElement = new XElement("div", pluginDescriptor.Manufacturer);
-            titleElement.Add(manufacturerElement);
-        }
-        
-        var nameElement = new XElement("div",
-            new XAttribute("class", "key title"),
-            pluginDescriptor.Name);
-        titleElement.Add(nameElement);
-        
-        return titleElement;
-    }
+    public static XElement ToEntryTitle(this PluginDescriptor pluginDescriptor) =>
+        new PluginEntryTitle(pluginDescriptor)
+            .WithManufacturer()
+            .WithName();
     
     public static IEnumerable<XElement> ToXElements(this IEnumerable<PluginDescriptor> descriptors)
     {
