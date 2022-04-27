@@ -67,15 +67,9 @@ public class PluginEntryList : EntryList
     
     private void AddHeadings(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
     {
-        var linkToTop = new XElement("a",
-            new XAttribute("class", "link-to-top"),
-            new XAttribute("href", "#document-title"),
-            "top");
+        var linkToTop = new LinkToTop();
         entry.Add(linkToTop);
-        var linkToSection = new XElement("a",
-            new XAttribute("class", "link-to-section"),
-            new XAttribute("href", "#" + ParentSection.Id),
-            "section index");
+        var linkToSection = new LinkToSection(ParentSection.Id);
         entry.Add(linkToSection);
     }
 

@@ -20,10 +20,7 @@ public class ProjectEntryIndex : EntryIndex
     
     private void AddHeadings(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
-        var linkToTop = new XElement("a",
-            new XAttribute("class", "link-to-top"),
-            new XAttribute("href", "#document-title"),
-            "top");
+        var linkToTop = new LinkToTop();
         Add(linkToTop);
 
         var statsElement = new XElement("div", "Number of entries: " + lookup.Count,
