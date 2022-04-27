@@ -17,18 +17,6 @@ public class PluginEntryList : EntryList
         AddFromLookup(lookup);
     }
     
-    private static XElement BuildEntry(IGrouping<PluginDescriptor, ProjectDescriptor> group)
-    {
-        var key = GetKey(group.Key);
-        var entryId = new Id(key).Value;
-            
-        var entry = new XElement("div",
-            new XAttribute("id", entryId),
-            new XAttribute("class", "entry"));
-            
-        return entry;
-    }
-    
     public virtual void AddFromLookup(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
     {
         var regrouped = lookup.ToLookup(k => k.Key.FullName,
@@ -37,7 +25,7 @@ public class PluginEntryList : EntryList
         foreach(var groups in regrouped)
         {
             var first = groups.First();
-            var entry = BuildEntry(first);
+            var entry = new Entry(new Id(GetKey(first.Key)));
             AddTitle(first, entry);
             AddHeadings(first, entry);
             AddItemsToEntry(groups, entry);

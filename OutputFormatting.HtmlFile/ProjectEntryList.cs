@@ -16,24 +16,13 @@ public class ProjectEntryList : EntryList
             .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
         AddFromLookup(lookup);
     }
-    
-    private XElement BuildEntry(IGrouping<ProjectDescriptor, PluginDescriptor> group)
-    {
-        var key = GetKey(group.Key);
-        var entryId = new Id(key).Value;
-            
-        var entry = new XElement("div",
-            new XAttribute("id", entryId),
-            new XAttribute("class", "entry"));
-            
-        return entry;
-    }
 
     private void AddFromLookup(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         foreach(var group in lookup)
         {
-            var entry = BuildEntry(group);
+            var id = new Id(GetKey(group.Key));
+            var entry = new Entry(id);
             AddTitle(group, entry);
             AddHeadings(group, entry);
             AddItemsToEntry(group, entry);
