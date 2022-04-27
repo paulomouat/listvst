@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
+public class PluginEntryList : EntryList
 {
     public PluginEntryList(string id, ISection parentSection)
         : base(id, parentSection)
@@ -15,6 +15,18 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
             .ThenBy(pair => pair.ProjectDescriptor.Path)
             .ToLookup(pair => pair.PluginDescriptor, pair => pair.ProjectDescriptor);
         AddFromLookup(lookup);
+    }
+    
+    private XElement BuildEntry(IGrouping<PluginDescriptor, ProjectDescriptor> group)
+    {
+        var key = GetKey(group.Key);
+        var entryId = new Id(key).Value;
+            
+        var entry = new XElement("div",
+            new XAttribute("id", entryId),
+            new XAttribute("class", "entry"));
+            
+        return entry;
     }
     
     public virtual void AddFromLookup(ILookup<PluginDescriptor, ProjectDescriptor> lookup)
@@ -33,7 +45,7 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
         }
     }
     
-    public override void AddTitle(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
+    private void AddTitle(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
     {
         var pd = group.Key;
 
@@ -52,8 +64,22 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
         
         entry.Add(titleElement);
     }
+    
+    private void AddHeadings(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
+    {
+        var linkToTop = new XElement("a",
+            new XAttribute("class", "link-to-top"),
+            new XAttribute("href", "#document-title"),
+            "top");
+        entry.Add(linkToTop);
+        var linkToSection = new XElement("a",
+            new XAttribute("class", "link-to-section"),
+            new XAttribute("href", "#" + ParentSection.Id),
+            "section index");
+        entry.Add(linkToSection);
+    }
 
-    public virtual void AddItemsToEntry(IEnumerable<IGrouping<PluginDescriptor, ProjectDescriptor>> groups, XElement entry)
+    private void AddItemsToEntry(IEnumerable<IGrouping<PluginDescriptor, ProjectDescriptor>> groups, XElement entry)
     {
         var pairs = groups
             .SelectMany(g => g.Select(h => new { ProjectDescriptor = h, PluginDescriptor = g.Key }));
@@ -62,7 +88,7 @@ public class PluginEntryList : EntryList<PluginDescriptor, ProjectDescriptor>
         entry.Add(projectDescriptors.ToXElements(lookup));
     }
 
-    protected override string GetKey(PluginDescriptor entry)
+    private string GetKey(PluginDescriptor entry)
     {
         return entry.FullName;
     }

@@ -11,47 +11,6 @@ namespace OutputFormatting.HtmlFile.Tests;
 public class PluginEntryListFixture
 {
     [Fact]
-    public void AddDescriptors_RendersAll()
-    {
-        var pairs = new[]
-        {
-            new
-            {
-              PluginDescriptor = new PluginDescriptor("n1", "m1", PluginType.Vst),
-              ProjectDescriptor = new ProjectDescriptor("/root/sub1/file1.ext")
-            },
-            new
-            {
-              PluginDescriptor = new PluginDescriptor("n1", "m1", PluginType.Vst),
-              ProjectDescriptor = new ProjectDescriptor("/root/sub1/file2.ext")
-            }
-        };
-
-        var descriptors = pairs
-          .ToLookup(p => p.PluginDescriptor, p => p.ProjectDescriptor);
-        
-        var sut = GetSubject();
-        var outputElement = new XElement("output");
-        sut.AddItemsToEntry(descriptors, outputElement);
-
-        outputElement.Should().BeEquivalentTo(XElement.Parse(
-@"<output>
-  <div class=""item-container"">
-    <div class=""item-container-title"">root</div>
-    <div class=""item"">
-      <a href=""#root-sub1-file1-ext"">sub1 / file1.ext</a>
-      <span class=""plugintype"">VST</span>
-    </div>
-    <div class=""item"">
-      <a href=""#root-sub1-file2-ext"">sub1 / file2.ext</a>
-      <span class=""plugintype"">VST</span>
-    </div>
-  </div>
-</output>"
-        ));
-    }
-
-    [Fact]
     public void AddLookup_RendersAll()
     {
         var projects = new[]
@@ -66,17 +25,15 @@ public class PluginEntryListFixture
             new PluginDescriptor("plugin12", "manufacturer1", PluginType.Vst),
         };
 
-        var mapping = new[]
+        var records = new[]
         {
-            new { PluginDescriptor = plugins[0], ProjectDescriptor = projects[0] },
-            new { PluginDescriptor = plugins[1], ProjectDescriptor = projects[0] },
-            new { PluginDescriptor = plugins[0], ProjectDescriptor = projects[1] },
+            new PluginRecord(plugins[0], projects[0]),
+            new PluginRecord(plugins[1], projects[0]),
+            new PluginRecord(plugins[0], projects[1])
         };
         
-        var lookup = mapping.ToLookup(p => p.PluginDescriptor, p => p.ProjectDescriptor);
-
         var sut = GetSubject();
-        sut.AddFromLookup(lookup);
+        sut.AddPluginRecords(records);
 
         sut.Should().BeEquivalentTo(XElement.Parse(
 @"<div id=""mockId"">

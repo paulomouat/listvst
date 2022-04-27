@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
+public class ProjectEntryList : EntryList
 {
     public ProjectEntryList(string id, ISection parentSection)
         : base(id, parentSection)
@@ -16,8 +16,20 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
             .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
         AddFromLookup(lookup);
     }
-        
-    public virtual void AddFromLookup(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
+    
+    private XElement BuildEntry(IGrouping<ProjectDescriptor, PluginDescriptor> group)
+    {
+        var key = GetKey(group.Key);
+        var entryId = new Id(key).Value;
+            
+        var entry = new XElement("div",
+            new XAttribute("id", entryId),
+            new XAttribute("class", "entry"));
+            
+        return entry;
+    }
+
+    private void AddFromLookup(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         foreach(var group in lookup)
         {
@@ -29,7 +41,7 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
         }
     }
     
-    public override void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
+    private void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
     {
         var pd = group.Key;
 
@@ -52,12 +64,26 @@ public class ProjectEntryList : EntryList<ProjectDescriptor, PluginDescriptor>
         entry.Add(titleElement);
     }
     
-    public override void AddItemsToEntry(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
+    private void AddHeadings(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
+    {
+        var linkToTop = new XElement("a",
+            new XAttribute("class", "link-to-top"),
+            new XAttribute("href", "#document-title"),
+            "top");
+        entry.Add(linkToTop);
+        var linkToSection = new XElement("a",
+            new XAttribute("class", "link-to-section"),
+            new XAttribute("href", "#" + ParentSection.Id),
+            "section index");
+        entry.Add(linkToSection);
+    }
+    
+    private void AddItemsToEntry(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
     {
         entry.Add(pluginDescriptors.ToXElements());
     }
 
-    protected override string GetKey(ProjectDescriptor entry)
+    private string GetKey(ProjectDescriptor entry)
     {
         return entry.Path;
     }
