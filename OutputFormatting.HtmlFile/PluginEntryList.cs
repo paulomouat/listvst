@@ -17,7 +17,7 @@ public class PluginEntryList : EntryList
         AddFromLookup(lookup);
     }
     
-    private XElement BuildEntry(IGrouping<PluginDescriptor, ProjectDescriptor> group)
+    private static XElement BuildEntry(IGrouping<PluginDescriptor, ProjectDescriptor> group)
     {
         var key = GetKey(group.Key);
         var entryId = new Id(key).Value;
@@ -45,7 +45,7 @@ public class PluginEntryList : EntryList
         }
     }
     
-    private void AddTitle(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
+    private static void AddTitle(IGrouping<PluginDescriptor, ProjectDescriptor> group, XElement entry)
     {
         var pd = group.Key;
 
@@ -73,7 +73,7 @@ public class PluginEntryList : EntryList
         entry.Add(linkToSection);
     }
 
-    private void AddItemsToEntry(IEnumerable<IGrouping<PluginDescriptor, ProjectDescriptor>> groups, XElement entry)
+    private static void AddItemsToEntry(IEnumerable<IGrouping<PluginDescriptor, ProjectDescriptor>> groups, XElement entry)
     {
         var pairs = groups
             .SelectMany(g => g.Select(h => new { ProjectDescriptor = h, PluginDescriptor = g.Key }));
@@ -82,7 +82,7 @@ public class PluginEntryList : EntryList
         entry.Add(projectDescriptors.ToXElements(lookup));
     }
 
-    private string GetKey(PluginDescriptor entry)
+    private static string GetKey(PluginDescriptor entry)
     {
         return entry.FullName;
     }

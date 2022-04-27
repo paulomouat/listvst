@@ -1,5 +1,3 @@
-using System.Xml.Linq;
-
 namespace ListVst.OutputFormatting.HtmlFile;
 
 public class PluginEntryIndex : EntryIndex
@@ -32,8 +30,8 @@ public class PluginEntryIndex : EntryIndex
             .Select(g => g.Key)
             .ToList();
 
-        var allItemsElement = new XElement("div", new XAttribute("class", "index-items"));
-        Add(allItemsElement);
-        allItemsElement.Add(descriptors.ToXElements());
+        var indexListing = new IndexListing();
+        Add(indexListing);
+        indexListing.Add(descriptors.ToXElements());
     }
 }

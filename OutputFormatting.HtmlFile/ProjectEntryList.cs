@@ -41,7 +41,7 @@ public class ProjectEntryList : EntryList
         }
     }
     
-    private void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
+    private static void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
     {
         var pd = group.Key;
 
@@ -72,12 +72,12 @@ public class ProjectEntryList : EntryList
         entry.Add(linkToSection);
     }
     
-    private void AddItemsToEntry(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
+    private static void AddItemsToEntry(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
     {
         entry.Add(pluginDescriptors.ToXElements());
     }
 
-    private string GetKey(ProjectDescriptor entry)
+    private static string GetKey(ProjectDescriptor entry)
     {
         return entry.Path;
     }
