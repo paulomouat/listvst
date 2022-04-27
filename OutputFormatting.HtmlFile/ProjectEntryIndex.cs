@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
+public class ProjectEntryIndex : EntryIndex
 {
     public ProjectEntryIndex(string id, string title, ISection parentSection)
         : base(id, title, parentSection)
@@ -14,10 +14,24 @@ public class ProjectEntryIndex : EntryIndex<ProjectDescriptor, PluginDescriptor>
             .OrderBy(pair => pair.ProjectDescriptor.Path)
             .ThenBy(pair => pair.PluginDescriptor.FullName)
             .ToLookup(pair => pair.ProjectDescriptor, pair => pair.PluginDescriptor);
-        AddItems(lookup);        
+        AddHeadings(lookup);
+        AddItems(lookup);       
     }
     
-    protected override void AddItems(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
+    private void AddHeadings(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
+    {
+        var linkToTop = new XElement("a",
+            new XAttribute("class", "link-to-top"),
+            new XAttribute("href", "#document-title"),
+            "top");
+        Add(linkToTop);
+
+        var statsElement = new XElement("div", "Number of entries: " + lookup.Count,
+            new XAttribute("class", "stats"));
+        Add(statsElement);
+    }
+    
+    private void AddItems(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
         var descriptors = lookup
             .Select(g => g.Key)

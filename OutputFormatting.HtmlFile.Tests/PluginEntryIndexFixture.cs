@@ -24,17 +24,15 @@ public class PluginEntryIndexFixture
             new PluginDescriptor("plugin12", "manufacturer1", PluginType.Unknown),
         };
 
-        var mapping = new[]
+        var records = new[]
         {
-            new { PluginDescriptor = plugins[0], ProjectDescriptor = projects[0] },
-            new { PluginDescriptor = plugins[1], ProjectDescriptor = projects[0] },
-            new { PluginDescriptor = plugins[0], ProjectDescriptor = projects[1] },
+            new PluginRecord(plugins[0], projects[0]),
+            new PluginRecord(plugins[1], projects[0]),
+            new PluginRecord(plugins[0], projects[1])
         };
         
-        var lookup = mapping.ToLookup(p => p.PluginDescriptor, p => p.ProjectDescriptor);
-
         var sut = GetSubject();
-        sut.AddFromLookup(lookup);
+        sut.AddPluginRecords(records);
 
         sut.ToString().Should().Be(
 @"<div id=""mockId"">
