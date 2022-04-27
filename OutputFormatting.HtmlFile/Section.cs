@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public abstract class Section<TEntry, TItem> : XElement, ISection
+public abstract class Section : XElement, ISection
 {
     public string Id { get; }
     public string Title { get; }
