@@ -8,6 +8,7 @@ public class ProjectEntryList : EntryList
         : base(id, parentSection)
     { }
 
+    
     public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
     {
         var lookup = data
@@ -19,38 +20,18 @@ public class ProjectEntryList : EntryList
 
     private void AddFromLookup(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
     {
-        foreach(var group in lookup)
+        var entries = lookup.Select(group =>
         {
-            var id = new Id(GetKey(group.Key));
-            var entry = new Entry(id);
-            AddTitle(group, entry);
+            var pd = group.Key;
+            var entry = pd.ToEntry();
+            var title = pd.ToProjectEntryTitle();
+            entry.Add(title);
             AddHeadings(group, entry);
             AddItemsToEntry(group, entry);
-            Add(entry);
-        }
-    }
-    
-    private static void AddTitle(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
-    {
-        var pd = group.Key;
+            return entry;
+        });
 
-        var titleElement = new XElement("div");
-        
-        if (!string.IsNullOrWhiteSpace(pd.SpecialFolder))
-        {
-            var specialFolderElement = new XElement("div", pd.SpecialFolder);
-            titleElement.Add(specialFolderElement);
-        }
-        
-        var projectNameElement = new XElement("div",
-            new XAttribute("class", "key title"),
-            pd.Name);
-        titleElement.Add(projectNameElement);
-        
-        var pathElement = new XElement("div", string.Join(" / ", pd.Subsegments));
-        titleElement.Add(pathElement);
-        
-        entry.Add(titleElement);
+        Add(entries);
     }
     
     private void AddHeadings(IGrouping<ProjectDescriptor, PluginDescriptor> group, XElement entry)
@@ -64,10 +45,5 @@ public class ProjectEntryList : EntryList
     private static void AddItemsToEntry(IEnumerable<PluginDescriptor> pluginDescriptors, XElement entry)
     {
         entry.Add(pluginDescriptors.ToXElements());
-    }
-
-    private static string GetKey(ProjectDescriptor entry)
-    {
-        return entry.Path;
     }
 }

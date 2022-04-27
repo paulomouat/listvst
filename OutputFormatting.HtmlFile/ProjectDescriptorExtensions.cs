@@ -4,6 +4,34 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public static class ProjectDescriptorExtensions
 {
+    public static Entry ToEntry(this ProjectDescriptor projectDescriptor)
+    {
+        var id = new Id(projectDescriptor.Path);
+        var entry = new Entry(id);
+        return entry;
+    }
+    
+    public static XElement ToProjectEntryTitle(this ProjectDescriptor projectDescriptor)
+    {
+        var titleElement = new XElement("div");
+        
+        if (!string.IsNullOrWhiteSpace(projectDescriptor.SpecialFolder))
+        {
+            var specialFolderElement = new XElement("div", projectDescriptor.SpecialFolder);
+            titleElement.Add(specialFolderElement);
+        }
+        
+        var projectNameElement = new XElement("div",
+            new XAttribute("class", "key title"),
+            projectDescriptor.Name);
+        titleElement.Add(projectNameElement);
+        
+        var pathElement = new XElement("div", string.Join(" / ", projectDescriptor.Subsegments));
+        titleElement.Add(pathElement);
+
+        return titleElement;
+    }
+    
     public static IEnumerable<XElement> ToXElements(this IEnumerable<ProjectDescriptor> descriptors, ILookup<ProjectDescriptor, PluginDescriptor> pluginsByProject)
     {
         var results = new List<XElement>();

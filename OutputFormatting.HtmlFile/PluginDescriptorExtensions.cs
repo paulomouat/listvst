@@ -4,6 +4,31 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public static class PluginDescriptorExtensions
 {
+    public static Entry ToEntry(this PluginDescriptor pluginDescriptor)
+    {
+        var id = new Id(pluginDescriptor.FullName);
+        var entry = new Entry(id);
+        return entry;
+    }
+
+    public static XElement ToPluginEntryTitle(this PluginDescriptor pluginDescriptor)
+    {
+        var titleElement = new XElement("div");
+        
+        if (!string.IsNullOrWhiteSpace(pluginDescriptor.Manufacturer))
+        {
+            var manufacturerElement = new XElement("div", pluginDescriptor.Manufacturer);
+            titleElement.Add(manufacturerElement);
+        }
+        
+        var nameElement = new XElement("div",
+            new XAttribute("class", "key title"),
+            pluginDescriptor.Name);
+        titleElement.Add(nameElement);
+        
+        return titleElement;
+    }
+    
     public static IEnumerable<XElement> ToXElements(this IEnumerable<PluginDescriptor> descriptors)
     {
         var results = new List<XElement>();
