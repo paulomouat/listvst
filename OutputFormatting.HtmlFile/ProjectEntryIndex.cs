@@ -22,10 +22,8 @@ public class ProjectEntryIndex : EntryIndex
     {
         var linkToTop = new LinkToTop();
         Add(linkToTop);
-
-        var statsElement = new XElement("div", "Number of entries: " + lookup.Count,
-            new XAttribute("class", "stats"));
-        Add(statsElement);
+        var stats = new Stats(lookup.Count);
+        Add(stats);
     }
     
     private void AddItems(ILookup<ProjectDescriptor, PluginDescriptor> lookup)
