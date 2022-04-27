@@ -4,14 +4,9 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public static class PluginDescriptorExtensions
 {
-    public static Entry ToEntry(this PluginDescriptor pluginDescriptor)
-    {
-        var id = new Id(pluginDescriptor.FullName);
-        var entry = new Entry(id);
-        return entry;
-    }
+    public static PluginEntry ToEntry(this PluginDescriptor pluginDescriptor) => new(pluginDescriptor);
 
-    public static XElement ToPluginEntryTitle(this PluginDescriptor pluginDescriptor)
+    public static XElement ToEntryTitle(this PluginDescriptor pluginDescriptor)
     {
         var titleElement = new XElement("div");
         

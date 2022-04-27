@@ -4,14 +4,9 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public static class ProjectDescriptorExtensions
 {
-    public static Entry ToEntry(this ProjectDescriptor projectDescriptor)
-    {
-        var id = new Id(projectDescriptor.Path);
-        var entry = new Entry(id);
-        return entry;
-    }
+    public static ProjectEntry ToEntry(this ProjectDescriptor projectDescriptor) => new(projectDescriptor);
     
-    public static XElement ToProjectEntryTitle(this ProjectDescriptor projectDescriptor)
+    public static XElement ToEntryTitle(this ProjectDescriptor projectDescriptor)
     {
         var titleElement = new XElement("div");
         
