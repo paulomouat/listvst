@@ -68,7 +68,7 @@ internal class Host
 
         var configuration = new ProcessingConfiguration();
         var section = Configuration?.GetSection(ProcessingConfiguration.SectionName);
-        section.Bind(configuration);
+        section!.Bind(configuration);
         
         foreach (var processorTypeName in configuration.Processors)
         {
@@ -97,7 +97,7 @@ internal class Host
 
         var configuration = new OutputFormattingConfiguration();
         var section = Configuration?.GetSection(OutputFormattingConfiguration.SectionName);
-        section.Bind(configuration);
+        section!.Bind(configuration);
 
         foreach (var formatterTypeName in configuration.Formatters)
         {
@@ -124,7 +124,7 @@ internal class Host
     {
         var configuration = new RegistryConfiguration();
         var section = Configuration?.GetSection(RegistryConfiguration.SectionName);
-        section.Bind(configuration);
+        section!.Bind(configuration);
 
         RegisterPlugins(configuration, services);
     }

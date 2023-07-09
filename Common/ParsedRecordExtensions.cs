@@ -6,7 +6,7 @@ public static class ParsedRecordExtensions
     {
         var current = parsedRecord.PluginDescriptor;
         var proposed = current.ResolveAliases(registry);
-        
+
         if (current != proposed && proposed != PluginDescriptor.NoPlugin)
         {
             var adjusted = parsedRecord with
@@ -15,7 +15,7 @@ public static class ParsedRecordExtensions
             };
             return adjusted;
         };
-        
+
         return parsedRecord;
     }
 

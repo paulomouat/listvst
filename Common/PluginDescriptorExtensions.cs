@@ -29,7 +29,7 @@ public static class PluginDescriptorExtensions
                 return adjusted;
             };
         }
-        
+
         return pluginDescriptor;
     }
 

@@ -50,7 +50,7 @@ public class Parser : IParser
 
     private static PluginDescriptor ProcessPluginDesc(XmlReader reader)
     {
-        var manufacturer = string.Empty;
+        var manufacturer = IParser.NoManufacturer;
         var name = string.Empty;
         var pluginType = PluginType.Unknown;
 
