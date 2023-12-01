@@ -24,9 +24,9 @@ namespace Processing.StudioOne.Tests
 
             parsed.Should().BeEquivalentTo(new[]
             {
-                new PluginDescriptor("Cinematic Rooms", "", PluginType.AudioUnit),
-                new PluginDescriptor("2C-Vector", "", PluginType.Vst),
-                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst3),
+                new PluginDescriptor("Cinematic Rooms", "(n/a)", PluginType.AudioUnit),
+                new PluginDescriptor("2C-Vector", "(n/a)", PluginType.Vst),
+                new PluginDescriptor("Cinematic Rooms", "(n/a)", PluginType.Vst3),
             });
         }
 

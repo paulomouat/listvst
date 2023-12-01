@@ -25,8 +25,8 @@ namespace Processing.AbletonLive.Tests
             parsed.Should().BeEquivalentTo(new[]
             {
                 new PluginDescriptor("Cinematic Rooms", "LiquidSonics", PluginType.AudioUnit),
-                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst),
-                new PluginDescriptor("Cinematic Rooms", "", PluginType.Vst3),
+                new PluginDescriptor("Cinematic Rooms", "(n/a)", PluginType.Vst),
+                new PluginDescriptor("Cinematic Rooms", "(n/a)", PluginType.Vst3),
                 new PluginDescriptor("Satson Buss", "Sonimus", PluginType.AudioUnit)
             });
         }
