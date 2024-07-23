@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
+//using ILoggingBuilder = Microsoft.Extensions.Logging.Abstractions;
+
 namespace ListVst;
 
 internal class Host
