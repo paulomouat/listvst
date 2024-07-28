@@ -2,43 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cocona;
+using ConsoleAppFramework;
 using ListVst.OutputFormatting;
 using ListVst.Processing;
 using Microsoft.Extensions.Logging;
 
 namespace ListVst;
 
-internal class Program
+internal class Program(
+    IOutputFormatterRegistry outputFormatterRegistry,
+    IProcessorRegistry processorRegistry,
+    IPluginRegistry pluginRegistry,
+    ILogger<Program> logger)
 {
-    private IOutputFormatterRegistry OutputFormatterRegistry { get; }
-    private IProcessorRegistry ProcessorRegistry { get; }
-    private IPluginRegistry PluginRegistry { get; }
-    private ILogger Logger { get; }
-        
-    public Program(IOutputFormatterRegistry outputFormatterRegistry, IProcessorRegistry processorRegistry,
-        IPluginRegistry pluginRegistry, ILogger<Program> logger)
-    {
-        OutputFormatterRegistry = outputFormatterRegistry;
-        ProcessorRegistry = processorRegistry;
-        PluginRegistry = pluginRegistry;
-        Logger = logger;
-    }
-
+    private IOutputFormatterRegistry OutputFormatterRegistry { get; } = outputFormatterRegistry;
+    private IProcessorRegistry ProcessorRegistry { get; } = processorRegistry;
+    private IPluginRegistry PluginRegistry { get; } = pluginRegistry;
+    private ILogger Logger { get; } = logger;
+    
+    /// <summary>
+    /// List the VSTs in use in Ableton and Studio One projects.
+    /// </summary>
+    /// <param name="format">The format to use in the output file (e.g. txt, html).</param>
+    /// <param name="file">The output file with the saved list.</param>
+    /// <param name="sourcePath">The path to the projects to be inspected (note: will automatically search subfolders).</param>
     [Command("save")]
-    public async Task Save(
-        [Option("format",
-            Description = "The format to use in the output file (e.g. txt, html)",
-            StopParsingOptions = false,
-            ValueName = "value")]string[] format,
-        [Option("file",
-            Description = "The output file with the saved list",
-            StopParsingOptions = false,
-            ValueName = "value")]string[] file,
-        [Option("sourcePath",
-            Description = "The path to the projects to be inspected (note: will automatically search subfolders)",
-            StopParsingOptions = false,
-            ValueName = "value")]string sourcePath)
+    public async Task Save(string[] format, string[] file, string sourcePath)
     {
         Logger.LogInformation("List VSTs");
 

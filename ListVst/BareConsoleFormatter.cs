@@ -9,7 +9,7 @@ namespace ListVst;
 
 public class BareConsoleFormatter : ConsoleFormatter
 {
-    private readonly IDisposable _optionsReloadToken;
+    private readonly IDisposable? _optionsReloadToken;
     private ConsoleFormatterOptions _formatterOptions;
     
     public BareConsoleFormatter(IOptionsMonitor<ConsoleFormatterOptions> options)
@@ -20,7 +20,7 @@ public class BareConsoleFormatter : ConsoleFormatter
     private void ReloadLoggerOptions(ConsoleFormatterOptions options) =>
         _formatterOptions = options;
     
-    public override void Write<TState>(in LogEntry<TState> logEntry, IExternalScopeProvider scopeProvider, TextWriter textWriter)
+    public override void Write<TState>(in LogEntry<TState> logEntry, IExternalScopeProvider? scopeProvider, TextWriter textWriter)
     {
         var message = logEntry.Formatter?.Invoke(logEntry.State, logEntry.Exception);
         if (message is null)

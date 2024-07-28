@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Cocona;
+using ConsoleAppFramework;
 using ListVst.OutputFormatting;
 using ListVst.Processing;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-
-//using ILoggingBuilder = Microsoft.Extensions.Logging.Abstractions;
 
 namespace ListVst;
 
@@ -23,8 +19,8 @@ internal class Host
     
     static async Task Main(string[] args)
     {
-        var builder = CoconaApp
-            .CreateHostBuilder()
+        var hostBuilder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
+        hostBuilder
             .ConfigureLogging((ctx, builder) =>
             {
                 AddBareConsoleFormatterIfConfigured(ctx, builder);
@@ -34,13 +30,14 @@ internal class Host
                 Configuration = ctx.Configuration;
                 RegisterServices(services);
             });
-        
-        await builder.RunAsync<Program>(args, options =>
-            {
-                options.TreatPublicMethodsAsCommands = false;
-            });
 
-        await Task.CompletedTask;
+        var host = hostBuilder.Build();
+        using var scope = host.Services.CreateScope(); // create execution scope
+        ConsoleApp.ServiceProvider = scope.ServiceProvider;        
+        
+        var app = ConsoleApp.Create();
+        app.Add<Program>();
+        await app.RunAsync(args);        
     }
 
     private static void AddBareConsoleFormatterIfConfigured(HostBuilderContext ctx, ILoggingBuilder builder)
