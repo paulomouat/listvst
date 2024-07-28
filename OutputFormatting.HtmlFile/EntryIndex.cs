@@ -8,8 +8,8 @@ public class EntryIndex : XElement, IEntryIndex
     public string Title { get; }
 
     public ISection ParentSection { get; }
-    
-    public EntryIndex(string id, string title, ISection parentSection)
+
+    protected EntryIndex(string id, string title, ISection parentSection)
         : base("div")
     {
         Id = id;

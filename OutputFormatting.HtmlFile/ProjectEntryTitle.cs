@@ -2,15 +2,10 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntryTitle : EntryTitle
+public class ProjectEntryTitle(ProjectDescriptor projectDescriptor) : EntryTitle
 {
-    private ProjectDescriptor ProjectDescriptor { get; }
+    private ProjectDescriptor ProjectDescriptor { get; } = projectDescriptor;
 
-    public ProjectEntryTitle(ProjectDescriptor projectDescriptor)
-    {
-        ProjectDescriptor = projectDescriptor;
-    }
-    
     public ProjectEntryTitle WithSpecialFolder()
     {
         var specialFolder = ProjectDescriptor.SpecialFolder;

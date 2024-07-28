@@ -3,19 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.StudioOne;
 
-public class Parser : IParser
+public class Parser(ILogger logger) : IParser
 {
     private static readonly IDictionary<string, string> XmlNamespaces = new Dictionary<string, string>
     {
         { "x", "urn:presonus.com/studioone" }
     };
 
-    private ILogger Logger { get; }
-
-    public Parser(ILogger logger)
-    {
-        Logger = logger;
-    }
+    private ILogger Logger { get; } = logger;
 
     public async Task<IEnumerable<PluginDescriptor>> Parse(string xml)
     {

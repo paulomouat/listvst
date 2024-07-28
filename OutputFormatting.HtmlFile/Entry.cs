@@ -4,7 +4,7 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Entry : XElement
 {
-    public Entry(Id id)
+    protected Entry(Id id)
         : base("div")
     {
         Add(new XAttribute("id", id.Value),

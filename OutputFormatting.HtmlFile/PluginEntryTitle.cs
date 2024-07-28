@@ -2,14 +2,9 @@ using System.Xml.Linq;
 
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class PluginEntryTitle : EntryTitle
+public class PluginEntryTitle(PluginDescriptor pluginDescriptor) : EntryTitle
 {
-    private PluginDescriptor PluginDescriptor { get; }
-
-    public PluginEntryTitle(PluginDescriptor pluginDescriptor)
-    {
-        PluginDescriptor = pluginDescriptor;
-    }
+    private PluginDescriptor PluginDescriptor { get; } = pluginDescriptor;
 
     public PluginEntryTitle WithManufacturer()
     {

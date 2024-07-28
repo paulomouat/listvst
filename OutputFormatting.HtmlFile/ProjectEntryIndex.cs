@@ -1,11 +1,7 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntryIndex : EntryIndex
+public class ProjectEntryIndex(string id, string title, ISection parentSection) : EntryIndex(id, title, parentSection)
 {
-    public ProjectEntryIndex(string id, string title, ISection parentSection)
-        : base(id, title, parentSection)
-    { }
-
     public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
     {
         var lookup = data

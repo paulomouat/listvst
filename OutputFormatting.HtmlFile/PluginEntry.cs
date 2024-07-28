@@ -1,14 +1,8 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class PluginEntry : Entry
+public class PluginEntry(PluginDescriptor pluginDescriptor) : Entry(new Id(pluginDescriptor.FullName))
 {
-    private PluginDescriptor PluginDescriptor { get; }
-
-    public PluginEntry(PluginDescriptor pluginDescriptor)
-        : base(new Id(pluginDescriptor.FullName))
-    {
-        PluginDescriptor = pluginDescriptor;
-    }
+    private PluginDescriptor PluginDescriptor { get; } = pluginDescriptor;
 
     public PluginEntry WithTitle()
     {

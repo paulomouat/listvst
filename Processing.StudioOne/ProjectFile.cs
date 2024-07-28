@@ -2,17 +2,11 @@
 
 namespace ListVst.Processing.StudioOne;
 
-public class ProjectFile : IProjectFile
+public class ProjectFile(string path) : IProjectFile
 {
-    public string Name { get; }
-    public string Path { get; }
+    public string Name { get; } = System.IO.Path.GetFileNameWithoutExtension(path);
+    public string Path { get; } = path;
     public string? Contents { get; private set; }
-
-    public ProjectFile(string path)
-    {
-        Path = path;
-        Name = System.IO.Path.GetFileNameWithoutExtension(path);
-    }
 
     public async Task Read()
     {

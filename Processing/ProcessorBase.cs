@@ -3,20 +3,15 @@ using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing;
 
-public abstract class ProcessorBase : IProcessor
+public abstract class ProcessorBase(ILogger logger) : IProcessor
 {
-    public abstract string ProjectType { get; }
-    public abstract string FileExtension { get; }
-    public abstract Func<string, bool> FileFilter { get; }
+    protected abstract string ProjectType { get; }
+    protected abstract string FileExtension { get; }
+    protected abstract Func<string, bool> FileFilter { get; }
         
-    private ILogger Logger { get; }
+    private ILogger Logger { get; } = logger;
     private string? SourcePath { get; set; }
 
-    protected ProcessorBase(ILogger logger)
-    {
-        Logger = logger;
-    }
-        
     public virtual async Task<IEnumerable<ParsedRecord>> Process(string sourcePath)
     {
         SourcePath = sourcePath;
@@ -26,7 +21,7 @@ public abstract class ProcessorBase : IProcessor
         var fl = new FileList(sourcePath);
         var files = fl.GetFiles(FileExtension, FileFilter);
 
-        await Parallel.ForEachAsync(files, async (file, token) =>
+        await Parallel.ForEachAsync(files, async (file, _) =>
         {
             var batch = await ProcessFile(file);
             foreach (var pair in batch)

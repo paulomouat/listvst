@@ -1,14 +1,8 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectEntry : Entry
+public class ProjectEntry(ProjectDescriptor projectDescriptor) : Entry(new Id(projectDescriptor.Path))
 {
-    private ProjectDescriptor ProjectDescriptor { get; }
-
-    public ProjectEntry(ProjectDescriptor projectDescriptor)
-        : base(new Id(projectDescriptor.Path))
-    {
-        ProjectDescriptor = projectDescriptor;
-    }
+    private ProjectDescriptor ProjectDescriptor { get; } = projectDescriptor;
 
     public ProjectEntry WithTitle()
     {

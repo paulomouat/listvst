@@ -61,7 +61,7 @@ public static class ProjectDescriptorExtensions
         return results;
     }
 
-    public static XElement ToXElement(this ProjectDescriptor projectDescriptor, IEnumerable<PluginDescriptor> pluginDescriptors)
+    private static XElement ToXElement(this ProjectDescriptor projectDescriptor, IEnumerable<PluginDescriptor> pluginDescriptors)
     {
         var entry = new XElement("div", new XAttribute("class", "item"));
         var itemKey = projectDescriptor.Path;

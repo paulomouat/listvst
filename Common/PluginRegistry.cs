@@ -2,7 +2,7 @@ namespace ListVst;
 
 public class PluginRegistry : IPluginRegistry
 {
-    private Dictionary<string, PluginDescriptor> Registry { get; }
+    private Dictionary<string, PluginDescriptor> Registry { get; } = new();
 
     public PluginDescriptor this[string alias]
     {
@@ -15,11 +15,6 @@ public class PluginRegistry : IPluginRegistry
             
             return pluginDescriptor;
         }
-    }
-
-    public PluginRegistry()
-    {
-        Registry = new Dictionary<string, PluginDescriptor>();
     }
 
     public void Register(string name, string manufacturer, string alias)

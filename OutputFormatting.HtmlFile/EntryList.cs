@@ -6,9 +6,9 @@ public abstract class EntryList : XElement, IEntryList
 {
     public string Id { get; }
 
-    public ISection ParentSection { get; }
-    
-    public EntryList(string id, ISection parentSection)
+    protected ISection ParentSection { get; }
+
+    protected EntryList(string id, ISection parentSection)
         : base("div")
     {
         Id = id;

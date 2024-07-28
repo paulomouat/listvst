@@ -4,8 +4,8 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Document : XElement
 {
-    public string Title { get; }
-    public XElement Body { get; }
+    private string Title { get; }
+    private XElement Body { get; }
     
     public static Document Create(string title)
     {

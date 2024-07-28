@@ -2,15 +2,11 @@
 
 namespace ListVst.Processing.AbletonLive;
 
-public class Processor : ProcessorBase
+public class Processor(ILogger<Processor> logger) : ProcessorBase(logger)
 {
-    public override string ProjectType => "Ableton Live";
-    public override string FileExtension => "als";
-    public override Func<string, bool> FileFilter => f => !f.Contains("Backup");
-        
-    public Processor(ILogger<Processor> logger)
-        : base(logger)
-    { }
+    protected override string ProjectType => "Ableton Live";
+    protected override string FileExtension => "als";
+    protected override Func<string, bool> FileFilter => f => !f.Contains("Backup");
 
     protected override IProjectFile GetProjectFile(string file)
     {

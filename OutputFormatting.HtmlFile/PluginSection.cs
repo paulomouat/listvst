@@ -1,11 +1,8 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class PluginSection : Section
+public class PluginSection(string id = "listing-by-plugin", string title = "Listing by plugin")
+    : Section(id, title)
 {
-    public PluginSection(string id = "listing-by-plugin", string title = "Listing by plugin")
-        : base(id, title)
-    { }
-
     protected override IEntryIndex BuildEntryIndex(IEnumerable<PluginRecord> data)
     {
         var index = new PluginEntryIndex(Id + "-index", "All entries", this);

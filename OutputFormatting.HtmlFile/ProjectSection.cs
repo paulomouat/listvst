@@ -1,11 +1,8 @@
 namespace ListVst.OutputFormatting.HtmlFile;
 
-public class ProjectSection : Section
+public class ProjectSection(string id = "listing-by-path", string title = "Listing by project path")
+    : Section(id, title)
 {
-    public ProjectSection(string id = "listing-by-path", string title = "Listing by project path")
-        : base(id, title)
-    { }
-
     protected override IEntryIndex BuildEntryIndex(IEnumerable<PluginRecord> data)
     {
         var index = new ProjectEntryIndex(Id + "-index", "All entries", this);

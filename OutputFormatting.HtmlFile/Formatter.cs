@@ -6,10 +6,7 @@ public class Formatter : IOutputFormatter
 
     protected virtual async Task Write(IEnumerable<PluginRecord> data, IFileOutputFormatterOptions options)
     {
-        if (options is null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
         if (string.IsNullOrWhiteSpace(options.Path))
         {

@@ -27,7 +27,7 @@ public static class PluginDescriptorExtensions
                     Manufacturer = proposedManufacturer
                 };
                 return adjusted;
-            };
+            }
         }
 
         return pluginDescriptor;

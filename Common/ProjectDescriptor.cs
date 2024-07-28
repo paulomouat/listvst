@@ -17,7 +17,7 @@ public readonly record struct ProjectDescriptor
         Path = path;
         
         var sanitizedPath = Path;
-        if (sanitizedPath.StartsWith("/"))
+        if (sanitizedPath.StartsWith('/'))
         {
             sanitizedPath = sanitizedPath[1..];
         }

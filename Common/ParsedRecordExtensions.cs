@@ -14,7 +14,7 @@ public static class ParsedRecordExtensions
                 PluginDescriptor = proposed
             };
             return adjusted;
-        };
+        }
 
         return parsedRecord;
     }

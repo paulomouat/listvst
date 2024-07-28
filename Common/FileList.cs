@@ -1,13 +1,8 @@
 ﻿namespace ListVst;
 
-public class FileList
+public class FileList(string sourcePath)
 {
-    public string SourcePath { get; }
-
-    public FileList(string sourcePath)
-    {
-        SourcePath = sourcePath;
-    }
+    private string SourcePath { get; } = sourcePath;
 
     public IEnumerable<string> GetFiles(string extension, Func<string, bool> filter)
     {

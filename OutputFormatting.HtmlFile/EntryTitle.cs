@@ -4,7 +4,7 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class EntryTitle : XElement
 {
-    public EntryTitle()
+    protected EntryTitle()
         : base("div")
     { }
 }

@@ -2,16 +2,14 @@
 
 namespace ListVst.Processing.StudioOne;
 
-public class Processor : ProcessorBase
+public class Processor(ILogger<Processor> logger) : ProcessorBase(logger)
 {
-    public override string ProjectType => "Studio One";
-    public override string FileExtension => "song";
-    public override Func<string, bool> FileFilter => f => !f.Contains("(Autosaved)") &&
-                                                          !f.Contains("(Before Autosave)") &&
-                                                          !f.Contains("/History/");
-    public Processor(ILogger<Processor> logger)
-        : base(logger)
-    { }
+    protected override string ProjectType => "Studio One";
+    protected override string FileExtension => "song";
+
+    protected override Func<string, bool> FileFilter => f => !f.Contains("(Autosaved)") &&
+                                                             !f.Contains("(Before Autosave)") &&
+                                                             !f.Contains("/History/");
 
     protected override IProjectFile GetProjectFile(string file)
     {

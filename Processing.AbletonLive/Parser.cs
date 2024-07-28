@@ -3,15 +3,10 @@ using Microsoft.Extensions.Logging;
 
 namespace ListVst.Processing.AbletonLive;
 
-public class Parser : IParser
+public class Parser(ILogger logger) : IParser
 {
-    private ILogger Logger { get; }
+    private ILogger Logger { get; } = logger;
 
-    public Parser(ILogger logger)
-    {
-        Logger = logger;
-    }
-        
     public async Task<IEnumerable<PluginDescriptor>> Parse(string xml)
     {
         if (string.IsNullOrEmpty(xml))
@@ -23,7 +18,7 @@ public class Parser : IParser
         return await Task.FromResult(pluginDescriptors);
     }
 
-    private static IEnumerable<PluginDescriptor> ExtractPluginDescriptors(string xml)
+    private static List<PluginDescriptor> ExtractPluginDescriptors(string xml)
     {
         var pluginDescriptors = new List<PluginDescriptor>();
             
