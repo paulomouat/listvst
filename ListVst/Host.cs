@@ -141,8 +141,10 @@ internal class Host
             {
                 var name = nameElement.Name!;
                 
-                var implicitAlias = manufacturer + " " + name;
-                registry.Register(name, manufacturer, implicitAlias);
+                var implicitAliasWithManufacturer = manufacturer + " " + name;
+                registry.Register(name, manufacturer, implicitAliasWithManufacturer);
+
+                registry.Register(name, manufacturer, name);
                 
                 if (nameElement.Aliases.Any())
                 {
