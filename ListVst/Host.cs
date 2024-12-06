@@ -16,14 +16,16 @@ namespace ListVst;
 internal class Host
 {
     private static IConfiguration? Configuration { get; set; }
-    
-    static async Task Main(string[] args)
+
+    private static async Task Main(string[] args)
     {
         var hostBuilder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
         hostBuilder
             .ConfigureLogging((ctx, builder) =>
             {
+                // ReSharper disable ConvertClosureToMethodGroup
                 AddBareConsoleFormatterIfConfigured(ctx, builder);
+                // ReSharper restore ConvertClosureToMethodGroup
             })
             .ConfigureServices((ctx, services) =>
             {
