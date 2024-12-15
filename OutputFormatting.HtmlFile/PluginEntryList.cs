@@ -5,9 +5,9 @@ public class PluginEntryList(string id, ISection parentSection) : EntryList(id, 
     public virtual void AddPluginRecords(IEnumerable<PluginRecord> data)
     {
         var lookup = data
-            .OrderBy(pair => pair.PluginDescriptor.FullName)
-            .ThenBy(pair => pair.ProjectDescriptor.Path)
-            .ToLookup(pair => pair.PluginDescriptor, pair => pair.ProjectDescriptor);
+            .OrderBy(pr => pr.PluginDescriptor.FullName)
+            .ThenBy(pr => pr.ProjectDescriptor.Path)
+            .ToLookup(pr => pr.PluginDescriptor, pr => pr.ProjectDescriptor);
         
         AddFromLookup(lookup);
     }
@@ -16,7 +16,7 @@ public class PluginEntryList(string id, ISection parentSection) : EntryList(id, 
     {
         var regrouped = lookup.ToLookup(k => k.Key.FullName,
             g => g);
-
+        
         var entries = regrouped
             .Select(groups => (PluginDescriptor: groups.First().Key, ProjectsByPlugin: groups))
             .Select(e =>

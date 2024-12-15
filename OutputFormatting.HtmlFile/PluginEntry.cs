@@ -22,7 +22,8 @@ public class PluginEntry(PluginDescriptor pluginDescriptor) : Entry(new Id(plugi
     public PluginEntry WithItems(IEnumerable<IGrouping<PluginDescriptor, ProjectDescriptor>> groups)
     {
         var pairs = groups
-            .SelectMany(g => g.Select(h => new { ProjectDescriptor = h, PluginDescriptor = g.Key }));
+            .SelectMany(g => g.Select(h => new { ProjectDescriptor = h, PluginDescriptor = g.Key }))
+            .OrderBy(e => e.ProjectDescriptor.Name);
         var lookup = pairs.ToLookup(p => p.ProjectDescriptor, p => p.PluginDescriptor);
         var projectDescriptors = lookup.Select(g => g.Key);
         Add(projectDescriptors.ToXElements(lookup));
