@@ -17,6 +17,11 @@ body {
     margin-top: 2ex;
     margin-bottom: 1ex;
 }
+input[type="checkbox"] {
+    font-family: inherit;
+    font-size: inherit;
+    color: #666666;
+}
 .section {
     font-size: 1.5em;
     margin-top: 2ex;

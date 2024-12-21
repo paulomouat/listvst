@@ -36,6 +36,9 @@ public class Document : XElement
             new XAttribute("type", "text/css"),
             new XAttribute("href", "styles.css"));
         meta.Add(stylesheet);
+        var scripts = new XElement("script",
+            new XAttribute("src", "selections.js"));
+        meta.Add(scripts);
         Add(head);
         
         var body = new XElement("body");
@@ -46,6 +49,9 @@ public class Document : XElement
             new XAttribute("class", "list title"));
         Body.Add(titleElement);
 
+        var scriptElement = new XElement("script", "update();");
+        body.Add(scriptElement);
+        
         Add(Body);
     }
 }
