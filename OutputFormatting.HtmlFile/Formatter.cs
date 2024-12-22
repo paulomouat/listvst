@@ -24,12 +24,13 @@ public class Formatter : IOutputFormatter
         pluginSection.Add(detailsList);
 
         var mainIndex = new MainIndex("main-index", "Main index");
-        mainIndex.Add(new ISection[] { projectSection, pluginSection });
+        mainIndex.Add([projectSection, pluginSection]);
        
         document.AddMainIndex(mainIndex);
         document.AddSection(projectSection);
         document.AddSection(pluginSection);
-
+        document.AddScriptInvocations();
+        
         document.Save(options.Path);
         await Task.CompletedTask;
     }

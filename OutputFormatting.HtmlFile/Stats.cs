@@ -4,10 +4,13 @@ namespace ListVst.OutputFormatting.HtmlFile;
 
 public class Stats : XElement
 {
-    public Stats(int count)
+    public Stats(string section, int count)
         : base("div")
     {
         Add(new XAttribute("class", "stats"));
-        Value = "Number of entries: " + count;
+        Add("Number of entries: ");
+        var span = new XElement("span", string.Empty, new XAttribute("id", $"stats-{section}"));
+        Add(span);
+        Add(" out of " + count);
     }
 }

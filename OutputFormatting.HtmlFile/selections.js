@@ -1,5 +1,6 @@
 let formats = ["AU", "VST", "VST3"];
 let selectedFormats = [];
+
 function itemHasPluginType(item) {
     let pluginTypeElements = item.querySelectorAll("span.pluginType");
     for (var ptIdx = 0; ptIdx < pluginTypeElements.length; ptIdx++) {
@@ -10,6 +11,7 @@ function itemHasPluginType(item) {
     }
     return false;
 }
+
 function itemContainerHasPluginType(itemContainer) {
     let items = itemContainer.querySelectorAll("div.item");
     for (var itemIdx = 0; itemIdx < items.length; itemIdx++) {
@@ -21,6 +23,7 @@ function itemContainerHasPluginType(itemContainer) {
     }
     return false;
 }
+
 function updateListingByPathIndex() {
     let listingByPath = document.querySelector("#listing-by-path-index");
     let itemContainers = listingByPath.getElementsByClassName("item-container");
@@ -33,6 +36,7 @@ function updateListingByPathIndex() {
         //}            
     }
 }
+
 function updateListingByPathEntries() {
     let listingByPath = document.querySelector("#listing-by-path-entries");
     let entries = listingByPath.getElementsByClassName("entry");
@@ -54,6 +58,7 @@ function updateListingByPathEntries() {
         //}            
     }
 }
+
 function updateListingByPluginIndex() {
     let listingByPlugin = document.querySelector("#listing-by-plugin-index");
     let itemContainers = listingByPlugin.getElementsByClassName("item-container");
@@ -80,6 +85,7 @@ function updateListingByPluginIndex() {
         //}            
     }
 }
+
 function updateListingByPluginEntries() {
     let listingByPlugin = document.querySelector("#listing-by-plugin-entries");
     let entries = listingByPlugin.getElementsByClassName("entry");
@@ -106,12 +112,44 @@ function updateListingByPluginEntries() {
         //}            
     }
 }
+
+function updatePathTotals() {
+    let listingIndex = document.querySelector("#listing-by-path-index");
+    let stats = listingIndex.querySelector("#stats-project");
+    let listingEntries = document.querySelector("#listing-by-path-entries");
+    let entries = listingEntries.getElementsByClassName("entry");
+    let count = 0;
+    for (var entryIdx = 0; entryIdx < entries.length; entryIdx++) {
+        if (entries[entryIdx].style.display !== 'none') {
+            count++;
+        }
+    }
+    stats.innerHTML = count;
+}
+
+function updatePluginTotals() {
+    let listingIndex = document.querySelector("#listing-by-plugin-index");
+    let stats = listingIndex.querySelector("#stats-plugin");
+    let listingEntries = document.querySelector("#listing-by-plugin-entries");
+    let entries = listingEntries.getElementsByClassName("entry");
+    let count = 0;
+    for (var entryIdx = 0; entryIdx < entries.length; entryIdx++) {
+        if (entries[entryIdx].style.display !== 'none') {
+            count++;
+        }
+    }
+    stats.innerHTML = count;
+}
+
 function update() {
     updateListingByPathIndex();
     updateListingByPathEntries();
     updateListingByPluginIndex();
     updateListingByPluginEntries();
+    updatePathTotals();
+    updatePluginTotals();
 }
+
 function updateSelection() {
     selectedFormats = [];
     let checkboxes = document.querySelectorAll("#selected-formats input");

@@ -31,15 +31,6 @@ public class MainIndex : XElement
             Add(entry);
         }
         
-        /*
-        <p class="item">
-        </p>
-        <div id="selected-formats" class="item">
-            <input id="format-au" type="checkbox" onclick="updateSelection();">AU</input>
-            <input id="format-vst" type="checkbox" onclick="updateSelection();">VST</input>
-            <input id="format-vst3" type="checkbox" onclick="updateSelection();">VST3</input>
-        </div>
-        */
         var separator = new XElement("p", new XAttribute("class", "item"));
         Add(separator);
         
@@ -50,7 +41,7 @@ public class MainIndex : XElement
         Add(selectedFormats);
     }
 
-    private IEnumerable<XElement> GetCheckboxes(IEnumerable<string> formats)
+    private static IEnumerable<XElement> GetCheckboxes(IEnumerable<string> formats)
     {
         var checkboxes = formats.Select(format =>
             new XElement("input", format.ToUpperInvariant(),

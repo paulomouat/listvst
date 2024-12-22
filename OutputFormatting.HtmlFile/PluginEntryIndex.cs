@@ -16,7 +16,9 @@ public class PluginEntryIndex(string id, string title, ISection parentSection) :
     {
         var linkToTop = new LinkToTop();
         Add(linkToTop);
-        var stats = new Stats(lookup.Count);
+        var count = lookup.DistinctBy(g => g.Key.FullName).Count();
+        //var stats = new Stats("plugin", lookup.Count);
+        var stats = new Stats("plugin", count);
         Add(stats);
     }
 

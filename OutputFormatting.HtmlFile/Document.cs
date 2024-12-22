@@ -23,22 +23,26 @@ public class Document : XElement
         Body.Add(section);
     }
 
+    public void AddScriptInvocations()
+    {
+        var scriptElement = new XElement("script", "updateSelection();");
+        Body.Add(scriptElement);
+    }
+
     private Document(string title)
         : base("html")
     {
         Title = title;
 
         var head = new XElement("head", new XElement("title", Title));
-        var meta = new XElement("meta", new XAttribute("charset", "UTF-8"));
-        head.Add(meta);
-        var stylesheet = new XElement("link",
+        var meta = new XElement("meta", string.Empty, new XAttribute("charset", "UTF-8"));
+        var stylesheet = new XElement("link", string.Empty,
             new XAttribute("rel", "stylesheet"),
             new XAttribute("type", "text/css"),
             new XAttribute("href", "styles.css"));
-        meta.Add(stylesheet);
-        var scripts = new XElement("script",
+        var scripts = new XElement("script", string.Empty,
             new XAttribute("src", "selections.js"));
-        meta.Add(scripts);
+        head.Add([meta, stylesheet, scripts]);
         Add(head);
         
         var body = new XElement("body");
@@ -48,9 +52,6 @@ public class Document : XElement
             new XAttribute("id", "document-title"),
             new XAttribute("class", "list title"));
         Body.Add(titleElement);
-
-        var scriptElement = new XElement("script", "update();");
-        body.Add(scriptElement);
         
         Add(Body);
     }

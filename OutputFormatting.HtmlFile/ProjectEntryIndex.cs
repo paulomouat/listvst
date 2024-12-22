@@ -16,7 +16,7 @@ public class ProjectEntryIndex(string id, string title, ISection parentSection) 
     {
         var linkToTop = new LinkToTop();
         Add(linkToTop);
-        var stats = new Stats(lookup.Count);
+        var stats = new Stats("project", lookup.Count);
         Add(stats);
     }
     
