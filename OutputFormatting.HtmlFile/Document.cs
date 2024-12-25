@@ -25,7 +25,7 @@ public class Document : XElement
 
     public void AddScriptInvocations()
     {
-        var scriptElement = new XElement("script", "updateSelection();");
+        var scriptElement = new XElement("script", "load(); updateSelection();");
         Body.Add(scriptElement);
     }
 

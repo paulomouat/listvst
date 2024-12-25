@@ -1,6 +1,57 @@
 let formats = ["AU", "VST", "VST3"];
 let selectedFormats = [];
 
+function load() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.has('au')) {
+        let au = urlParams.get('au');
+        if (au === "1") {
+            selectedFormats.push("AU");
+        }
+    }
+
+    if (urlParams.has('vst')) {
+        let vst = urlParams.get('vst');
+        if (vst === "1") {
+            selectedFormats.push("VST");
+        }
+    }
+
+    if (urlParams.has('vst3')) {
+        let vst3 = urlParams.get('vst3');
+        if (vst3 === "1") {
+            selectedFormats.push("VST3");
+        }
+    }
+
+    if (!urlParams.has('au') && !urlParams.has('vst') && !urlParams.has('vst3')) {
+        selectedFormats.push("AU");
+        selectedFormats.push("VST");
+        selectedFormats.push("VST3");
+    }
+
+    updateCheckboxes();
+    update();
+}
+
+function updateCheckboxes() {
+    let checkboxes = document.querySelectorAll("#selected-formats input");
+    for (var cbIdx = 0; cbIdx < checkboxes.length; cbIdx++) {
+        let currentCb = checkboxes[cbIdx];
+        if (currentCb.id === "format-au") {
+            currentCb.checked = selectedFormats.includes("AU");
+        }
+        if (currentCb.id === "format-vst") {
+            currentCb.checked = selectedFormats.includes("VST");
+        }
+        if (currentCb.id === "format-vst3") {
+            currentCb.checked = selectedFormats.includes("VST3");
+        }
+    }
+}
+
 function itemHasPluginType(item) {
     let pluginTypeElements = item.querySelectorAll("span.pluginType");
     for (var ptIdx = 0; ptIdx < pluginTypeElements.length; ptIdx++) {
@@ -157,19 +208,19 @@ function updateSelection() {
         let currentCb = checkboxes[cbIdx];
         if (currentCb.id === "format-au" && currentCb.checked) {
             selectedFormats.push("AU");
-            console.log("AU checked");
+            //console.log("AU checked");
         }
         if (currentCb.id === "format-vst" && currentCb.checked) {
             selectedFormats.push("VST");
-            console.log("VST checked");
+            //console.log("VST checked");
         }
         if (currentCb.id === "format-vst3" && currentCb.checked) {
             selectedFormats.push("VST3");
-            console.log("VST3 checked");
+            //console.log("VST3 checked");
         }
     }
-    for (var idx = 0; idx < selectedFormats.length; idx++) {
+    /*for (var idx = 0; idx < selectedFormats.length; idx++) {
         console.log(selectedFormats[idx]);
-    }
+    }*/
     update();
 }

@@ -47,8 +47,8 @@ public class MainIndex : XElement
             new XElement("input", format.ToUpperInvariant(),
                 new XAttribute("id", $"format-{format.ToLowerInvariant()}"),
                 new XAttribute("type", "checkbox"),
-                new XAttribute("onclick", "updateSelection();"),
-                new XAttribute("checked", "checked")
+                new XAttribute("onclick", "updateSelection();")//,
+                //new XAttribute("checked", "checked")
                 ));
         return checkboxes;
     }
