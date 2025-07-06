@@ -8,6 +8,7 @@ public readonly record struct ProjectDescriptor
     public string File { get; }
     public string SpecialFolder { get; }
     public string Path { get; }
+    public ProjectType ProjectType { get; }
     
     public string[] Segments { get; }
     public string[] Subsegments { get; }
@@ -26,6 +27,7 @@ public readonly record struct ProjectDescriptor
 
         (Name, SpecialFolder) = ExtractProjectFolder(Segments);
         File = ExtractProjectFile(Segments);
+        ProjectType = ExtractProjectType(File);
         Subsegments = ExtractSubsegments(Segments, Name, SpecialFolder);
     }
 
@@ -78,5 +80,24 @@ public readonly record struct ProjectDescriptor
         }
 
         return segments.Skip(skip).ToArray();
+    }
+
+    private static ProjectType ExtractProjectType(string projectFile)
+    {
+        var projectType = ProjectType.Unknown;
+        if (projectFile.EndsWith(".song", StringComparison.OrdinalIgnoreCase))
+        {
+            projectType = ProjectType.StudioOneSong;
+        }
+        else if (projectFile.EndsWith(".project", StringComparison.OrdinalIgnoreCase))
+        {
+            projectType = ProjectType.StudioOneProject;
+        }
+        else if (projectFile.EndsWith(".als", StringComparison.OrdinalIgnoreCase))
+        {
+            projectType = ProjectType.AbletonLive;
+        }
+        
+        return projectType;
     }
 }

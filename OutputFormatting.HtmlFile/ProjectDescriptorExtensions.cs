@@ -67,8 +67,9 @@ public static class ProjectDescriptorExtensions
         var itemKey = projectDescriptor.Path;
         var itemName = string.Join(" / ", projectDescriptor.Subsegments);
         AddItemToEntry(itemKey, itemName, entry);
-        var itemTypes = pluginDescriptors.Select(i => i.PluginType).OrderBy(i => i).Distinct();
-        AddTypesToEntry(itemTypes, entry);
+        AddProjectTypeToEntry(projectDescriptor.ProjectType, entry);
+        var itemPluginTypes = pluginDescriptors.Select(i => i.PluginType).OrderBy(i => i).Distinct();
+        AddPluginTypesToEntry(itemPluginTypes, entry);
         return entry;
     }
     
@@ -78,15 +79,15 @@ public static class ProjectDescriptorExtensions
         entry.Add(anchor);
     }
 
-    private static void AddTypesToEntry(IEnumerable<PluginType> itemTypes, XElement entry)
+    private static void AddPluginTypesToEntry(IEnumerable<PluginType> itemTypes, XElement entry)
     {
         foreach (var itemType in itemTypes)
         {
-            AddTypeToEntry(itemType, entry);
+            AddPluginTypeToEntry(itemType, entry);
         }
     }
     
-    private static void AddTypeToEntry(PluginType itemType, XElement entry)
+    private static void AddPluginTypeToEntry(PluginType itemType, XElement entry)
     {
         var typeAbbreviation = "?";
         var typeClass = itemType.ToString().ToLower();
@@ -104,4 +105,25 @@ public static class ProjectDescriptorExtensions
         }
         var span = new XElement("span", new XAttribute("class", "plugintype"), typeAbbreviation);
         entry.Add(span);
-    }}
+    }
+    
+    private static void AddProjectTypeToEntry(ProjectType itemType, XElement entry)
+    {
+        var typeAbbreviation = "?";
+        var typeClass = itemType.ToString().ToLower();
+        switch (typeClass)
+        {
+            case "studioonesong":
+                typeAbbreviation = "Studio One Song";
+                break;
+            case "studiooneproject":
+                typeAbbreviation = "Studio One Project";
+                break;
+            case "abletonlive":
+                typeAbbreviation = "Ableton Live";
+                break;
+        }
+        var span = new XElement("span", new XAttribute("class", "projecttype"), typeAbbreviation);
+        entry.Add(span);
+    }    
+}

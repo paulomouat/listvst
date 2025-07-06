@@ -16,7 +16,7 @@ public class Parser(ILogger logger) : IParser
     {
         if (string.IsNullOrEmpty(xml))
         {
-            return Array.Empty<PluginDescriptor>();
+            return [];
         }
             
         var pluginDescriptors = await ExtractPluginDescriptors(xml);
@@ -31,7 +31,7 @@ public class Parser(ILogger logger) : IParser
         using var reader = CreateXmlReader(sr);
         while (await reader.ReadAsync())
         {
-            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
+            if (reader is {NodeType: XmlNodeType.Element, Name: "Attributes"} &&
                 reader.GetAttribute("id", XmlNamespaces["x"]) == "ghostData")
             {
                 var pluginDescriptorReader = reader.ReadSubtree();
@@ -51,7 +51,7 @@ public class Parser(ILogger logger) : IParser
 
         while (reader.Read())
         {
-            if (reader.NodeType == XmlNodeType.Element && reader.Name == "Attributes" &&
+            if (reader is {NodeType: XmlNodeType.Element, Name: "Attributes"} &&
                 reader.GetAttribute("id", XmlNamespaces["x"]) == "classInfo")
             {
                 name = reader.GetAttribute("name") ?? string.Empty;

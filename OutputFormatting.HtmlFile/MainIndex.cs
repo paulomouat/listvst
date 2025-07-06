@@ -35,13 +35,21 @@ public class MainIndex : XElement
         Add(separator);
         
         var selectedFormats = new XElement("div",
-            GetCheckboxes(["au", "vst", "vst3"]),
+            GetFormatCheckboxes(["au", "vst", "vst3"]),
             new XAttribute("id", "selected-formats"),
             new XAttribute("class", "item"));
         Add(selectedFormats);
+        
+        Add(separator);
+        
+        var selectedTypes = new XElement("div",
+            GetTypeCheckboxes(["als", "song", "project"]),
+            new XAttribute("id", "selected-types"),
+            new XAttribute("class", "item"));
+        Add(selectedTypes);
     }
 
-    private static IEnumerable<XElement> GetCheckboxes(IEnumerable<string> formats)
+    private static IEnumerable<XElement> GetFormatCheckboxes(IEnumerable<string> formats)
     {
         var checkboxes = formats.Select(format =>
             new XElement("input", format.ToUpperInvariant(),
@@ -50,6 +58,25 @@ public class MainIndex : XElement
                 new XAttribute("onclick", "updateSelection();")//,
                 //new XAttribute("checked", "checked")
                 ));
+        return checkboxes;
+    }
+
+    private static IEnumerable<XElement> GetTypeCheckboxes(IEnumerable<string> types)
+    {
+        var typeMap = new Dictionary<string, string>
+        {
+            ["als"] = "Ableton Live",
+            ["song"] = "Studio One Song",
+            ["project"] = "Studio One Project",
+        };
+
+        var checkboxes = types.Select(type =>
+            new XElement("input", typeMap[type],
+                new XAttribute("id", $"type-{type.ToLowerInvariant()}"),
+                new XAttribute("type", "checkbox"),
+                new XAttribute("onclick", "updateSelection();")//,
+                //new XAttribute("checked", "checked")
+            ));
         return checkboxes;
     }
 }

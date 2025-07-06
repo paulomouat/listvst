@@ -35,6 +35,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing", "Processing\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Processing.Tests", "Processing.Tests\Processing.Tests.csproj", "{CB45169A-64A5-491D-AD2B-FB831CF82F12}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Output", "Output", "{D1A184AF-435A-48C9-81EC-031913FD17EA}"
+	ProjectSection(SolutionItems) = preProject
+		ListVst\bin\Debug\net9.0\o.html = ListVst\bin\Debug\net9.0\o.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

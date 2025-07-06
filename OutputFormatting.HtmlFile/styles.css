@@ -92,6 +92,15 @@ input[type="checkbox"] {
     padding: 2px 3px 2px 2px;
     vertical-align: middle;
 }
+.projecttype {
+    background-color: #EEE;
+    color: #666;
+    font-size: 0.8em;
+    margin-left: 1ex;
+    border-radius: 3px;
+    padding: 2px 5px 2px 5px;
+    vertical-align: middle;
+}
 .stats {
     font-size: 0.8em;
     margin-left: 1ex;
