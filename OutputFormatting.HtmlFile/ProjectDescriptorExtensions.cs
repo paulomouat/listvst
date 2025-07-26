@@ -89,41 +89,13 @@ public static class ProjectDescriptorExtensions
     
     private static void AddPluginTypeToEntry(PluginType itemType, XElement entry)
     {
-        var typeAbbreviation = "?";
-        var typeClass = itemType.ToString().ToLower();
-        switch (typeClass)
-        {
-            case "audiounit":
-                typeAbbreviation = "AU";
-                break;
-            case "vst":
-                typeAbbreviation = "VST";
-                break;
-            case "vst3":
-                typeAbbreviation = "VST3";
-                break;
-        }
-        var span = new XElement("span", new XAttribute("class", "plugintype"), typeAbbreviation);
+        var span = new XElement("span", new XAttribute("class", "plugintype"), itemType.Designation);
         entry.Add(span);
     }
     
     private static void AddProjectTypeToEntry(ProjectType itemType, XElement entry)
     {
-        var typeAbbreviation = "?";
-        var typeClass = itemType.ToString().ToLower();
-        switch (typeClass)
-        {
-            case "studioonesong":
-                typeAbbreviation = "Studio One Song";
-                break;
-            case "studiooneproject":
-                typeAbbreviation = "Studio One Project";
-                break;
-            case "abletonlive":
-                typeAbbreviation = "Ableton Live";
-                break;
-        }
-        var span = new XElement("span", new XAttribute("class", "projecttype"), typeAbbreviation);
+        var span = new XElement("span", new XAttribute("class", "projecttype"), itemType.Designation);
         entry.Add(span);
     }    
 }

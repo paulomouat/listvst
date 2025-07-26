@@ -59,21 +59,7 @@ public static class PluginDescriptorExtensions
     
     private static void AddTypeToEntry(PluginType itemType, XElement entry)
     {
-        var typeAbbreviation = "?";
-        var typeClass = itemType.ToString().ToLower();
-        switch (typeClass)
-        {
-            case "audiounit":
-                typeAbbreviation = "AU";
-                break;
-            case "vst":
-                typeAbbreviation = "VST";
-                break;
-            case "vst3":
-                typeAbbreviation = "VST3";
-                break;
-        }
-        var span = new XElement("span", new XAttribute("class", "plugintype"), typeAbbreviation);
+        var span = new XElement("span", new XAttribute("class", "plugintype"), itemType.Designation);
         entry.Add(span);
     }
 }

@@ -91,7 +91,7 @@ public readonly record struct ProjectDescriptor
         }
         else if (projectFile.EndsWith(".project", StringComparison.OrdinalIgnoreCase))
         {
-            projectType = ProjectType.StudioOneProject;
+            projectType = ProjectType.StudioOneMasteringProject;
         }
         else if (projectFile.EndsWith(".als", StringComparison.OrdinalIgnoreCase))
         {

@@ -5,7 +5,7 @@ namespace ListVst.Processing;
 
 public abstract class ProcessorBase(ILogger logger) : IProcessor
 {
-    protected abstract string ProjectType { get; }
+    protected abstract ProjectType ProjectType { get; }
     protected abstract string FileExtension { get; }
     protected abstract Func<string, bool> FileFilter { get; }
         
@@ -38,7 +38,7 @@ public abstract class ProcessorBase(ILogger logger) : IProcessor
         
     protected virtual async Task<IEnumerable<ParsedRecord>> ProcessFile(string file)
     {
-        Logger.LogInformation("Processing " + ProjectType + " project {File}", file);
+        Logger.LogInformation("Processing " + ProjectType.Designation + " file {File}", file);
             
         var pf = GetProjectFile(file);
         await pf.Read();
@@ -46,7 +46,7 @@ public abstract class ProcessorBase(ILogger logger) : IProcessor
 
         if (string.IsNullOrEmpty(c))
         {
-            return Array.Empty<ParsedRecord>();
+            return [];
         }
             
         var p = GetParser(Logger);

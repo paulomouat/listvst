@@ -4,7 +4,7 @@ namespace ListVst.Processing.StudioOne;
 
 public class Processor(ILogger<Processor> logger) : ProcessorBase(logger)
 {
-    protected override string ProjectType => "Studio One";
+    protected override ProjectType ProjectType => ProjectType.StudioOneSong;
     protected override string FileExtension => "song";
 
     protected override Func<string, bool> FileFilter => f => !f.Contains("(Autosaved)") &&

@@ -37,21 +37,7 @@ public class ProjectEntryTitle(ProjectDescriptor projectDescriptor) : EntryTitle
     
     private static void AddProjectTypeToPath(ProjectType itemType, XElement pathElement)
     {
-        var typeAbbreviation = "?";
-        var typeClass = itemType.ToString().ToLower();
-        switch (typeClass)
-        {
-            case "studioonesong":
-                typeAbbreviation = "Studio One Song";
-                break;
-            case "studiooneproject":
-                typeAbbreviation = "Studio One Project";
-                break;
-            case "abletonlive":
-                typeAbbreviation = "Ableton Live";
-                break;
-        }
-        var span = new XElement("span", new XAttribute("class", "projecttype"), typeAbbreviation);
+        var span = new XElement("span", new XAttribute("class", "projecttype"), itemType.Designation);
         pathElement.Add(span);
     }    
 }
